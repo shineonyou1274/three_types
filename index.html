@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>에니어그램 중심 진단표</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:      #0e0d0b;
+      --surface: #171512;
+      --card:    #1e1b17;
+      --card-hi: #252118;
+      --border:  rgba(255 245 220 / 0.07);
+      --border-hi: rgba(255 245 220 / 0.18);
+      --text:    #f0ebe1;
+      --muted:   #7a7268;
+      --faint:   #3a3630;
+
+      --gut:     #e0784a;
+      --gut-dim: rgba(224 120 74 / 0.18);
+      --heart:   #c4738e;
+      --heart-dim: rgba(196 115 142 / 0.18);
+      --head:    #5f97be;
+      --head-dim: rgba(95 151 190 / 0.18);
+      --accent:  #b8a98c;
+
+      --r: 18px;
+      --shadow: 0 24px 60px rgba(0 0 0 / 0.55);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Noto Sans KR", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.7;
+      background-image:
+        radial-gradient(ellipse 60% 40% at 20% 10%, rgba(224,120,74,.05) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 80% 5%,  rgba(95,151,190,.06) 0%, transparent 60%);
+    }
+
+    /* ───── LAYOUT ───── */
+    .wrap {
+      width: min(1040px, 100% - 32px);
+      margin: 0 auto;
+      padding: 44px 0 80px;
+    }
+
+    /* ───── HEADER ───── */
+    header {
+      position: relative;
+      padding: 48px 48px 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(95,151,190,.08) 0%, transparent 50%),
+        radial-gradient(circle at 0% 100%, rgba(196,115,142,.06) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .header-eyebrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 15px;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .header-sub {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 500px;
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    .centers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .center-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255 255 255 / 0.03);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .pip {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .g { background: var(--gut); }
+    .h { background: var(--heart); }
+    .d { background: var(--head); }
+
+    /* ───── SCORE PANEL ───── */
+    .score-panel {
+      position: sticky;
+      top: 12px;
+      z-index: 10;
+      margin: 20px 0;
+      padding: 20px 24px;
+      background: rgba(20 18 15 / 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(0 0 0 / 0.5);
+    }
+
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .progress-label {
+      font-size: 14px;
+      color: var(--muted);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .progress-num {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      font-family: "Noto Sans KR", sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      transition: opacity .15s, transform .15s;
+    }
+    button:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-primary { background: var(--text); color: var(--bg); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--border-hi); color: var(--text); }
+
+    /* ── arc scores ── */
+    .arcs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .arc-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255 255 255 / 0.025);
+      transition: border-color .2s, background .2s;
+    }
+
+    .arc-card.leading { border-color: var(--border-hi); background: rgba(255 255 255 / 0.05); }
+
+    .arc-wrap {
+      position: relative;
+      width: 44px; height: 44px;
+      flex-shrink: 0;
+    }
+
+    .arc-wrap svg { transform: rotate(-90deg); }
+
+    .arc-bg { stroke: rgba(255 255 255 / 0.08); }
+    .arc-fg { stroke-linecap: round; transition: stroke-dashoffset .35s cubic-bezier(.4,0,.2,1); }
+
+    .arc-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .arc-info { min-width: 0; }
+    .arc-name { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: .04em; }
+    .arc-desc { font-size: 11px; color: var(--faint); margin-top: 2px; }
+
+    /* ───── RESULT BOX ───── */
+    .result-wrap {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height .5s cubic-bezier(.4,0,.2,1), opacity .4s;
+      opacity: 0;
+    }
+
+    .result-wrap.open {
+      max-height: 300px;
+      opacity: 1;
+    }
+
+    .result-box {
+      margin-top: 16px;
+      padding: 20px 22px;
+      border-radius: 16px;
+      border: 1px solid rgba(184, 169, 140, 0.25);
+      background: rgba(184, 169, 140, 0.07);
+    }
+
+    .result-title {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .result-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    .result-note { margin-top: 10px; font-size: 12px; color: var(--faint); }
+
+    /* ───── SECTIONS ───── */
+    main { display: grid; gap: 24px; margin-top: 4px; }
+
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0 0 0 / 0.35);
+    }
+
+    .section-head {
+      padding: 28px 36px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+
+    .section-letter {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 56px;
+      font-weight: 700;
+      line-height: .9;
+      color: rgba(255 255 255 / 0.06);
+      letter-spacing: -0.04em;
+      user-select: none;
+    }
+
+    .section-meta {}
+
+    .section-title {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .section-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .questions-body { padding: 0 36px 28px; }
+
+    /* ───── QUESTION ───── */
+    .question {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      animation: fadeUp .4s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .question:last-child { border-bottom: 0; }
+
+    .q-num {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 13px;
+      font-style: italic;
+      color: var(--faint);
+      letter-spacing: .08em;
+      margin-bottom: 8px;
+    }
+
+    .q-text {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .options { display: grid; gap: 8px; }
+
+    label.opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 13px 16px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: var(--card);
+      cursor: pointer;
+      transition: border-color .15s, background .15s, transform .15s;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    label.opt:hover {
+      border-color: var(--border-hi);
+      background: var(--card-hi);
+      transform: translateX(3px);
+    }
+
+    /* 인풋은 레이아웃에서 제거하되 접근성 유지 */
+    input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+    }
+
+    .opt-key {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--faint);
+      transition: color .15s;
+      flex-shrink: 0;
+      width: 20px;
+    }
+
+    .opt-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    label.opt-gut   { --hi: var(--gut);   --hi-dim: var(--gut-dim); }
+    label.opt-heart { --hi: var(--heart); --hi-dim: var(--heart-dim); }
+    label.opt-head  { --hi: var(--head);  --hi-dim: var(--head-dim); }
+
+    label.opt:has(input:checked) {
+      border-color: var(--hi);
+      background: var(--hi-dim);
+      transform: translateX(3px);
+    }
+
+    label.opt:has(input:checked) .opt-key { color: var(--hi); }
+
+    /* ───── GUIDE TABLE ───── */
+    .guide-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 32px 36px;
+      box-shadow: 0 12px 40px rgba(0 0 0 / 0.35);
+    }
+
+    .guide-title {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 11px 14px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody td {
+      padding: 14px;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.65;
+    }
+
+    tbody tr:last-child td { border-bottom: 0; }
+
+    tbody tr:hover td { background: rgba(255 255 255 / 0.015); }
+
+    td:first-child {
+      white-space: nowrap;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--accent);
+      width: 180px;
+    }
+
+    td:last-child { color: var(--muted); }
+
+    /* ───── FOOTER ───── */
+    footer {
+      text-align: center;
+      padding: 36px 0 0;
+      font-size: 12px;
+      color: var(--faint);
+      font-style: italic;
+      letter-spacing: .05em;
+    }
+
+    /* ───── RESPONSIVE ───── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      background: var(--text);
+      color: var(--bg);
+      padding: 11px 20px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 8px 28px rgba(0,0,0,.45);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s, transform .2s;
+      white-space: nowrap;
+      z-index: 999;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+      header, .section-head, .questions-body, .guide-card { padding-inline: 22px; }
+      h1 { font-size: 32px; }
+      .section-head { gap: 8px; padding: 22px 22px 18px; }
+      .section-letter { font-size: 40px; }
+      .arcs { grid-template-columns: 1fr; }
+      .score-panel { position: static; }
+      .result-wrap.open { max-height: 500px; }
+      td:first-child { width: auto; white-space: normal; }
+    }
+
+    @media print {
+      body { background: white; color: #111; }
+      .score-panel, footer { display: none; }
+      .section-card, .guide-card { box-shadow: none; border: 1px solid #ddd; background: white; }
+      label.opt { background: #f8f8f8; border-color: #ddd; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header>
+    <span class="header-eyebrow">Enneagram · Centers of Intelligence</span>
+    <h1>에니어그램<br>중심 진단표</h1>
+    <p class="header-sub">각 문항에서 지금의 나에게 가장 가까운 보기 하나를 고르세요. 빠른 직감으로 답할수록 결과가 정확해집니다.</p>
+    <div class="centers">
+      <span class="center-tag"><span class="pip g"></span>ㄱ 장형 · 본능 중심 (8·9·1)</span>
+      <span class="center-tag"><span class="pip h"></span>ㄴ 가슴형 · 감정 중심 (2·3·4)</span>
+      <span class="center-tag"><span class="pip d"></span>ㄷ 사고형 · 머리 중심 (5·6·7)</span>
+    </div>
+  </header>
+
+  <!-- SCORE PANEL -->
+  <aside class="score-panel" aria-live="polite" aria-label="현재 점수">
+    <div class="score-row">
+      <div class="progress-label">
+        <span class="progress-num" id="answeredCount">0</span>
+        <span>/ 18 문항 완료</span>
+      </div>
+      <div class="btn-group">
+        <button class="btn-primary" type="button" onclick="showResult()">결과 보기</button>
+        <button class="btn-ghost"   type="button" onclick="resetAll()">초기화</button>
+
+      </div>
+    </div>
+
+    <div class="arcs" id="arcsGrid">
+      <!-- rendered by JS -->
+    </div>
+
+    <div class="result-wrap" id="resultWrap">
+      <div class="result-box">
+        <div class="result-title" id="resultTitle"></div>
+        <div class="result-desc"  id="resultDesc"></div>
+        <div class="result-note">※ 이 진단표는 자기이해를 위한 참고용입니다. 실제 유형은 반복 관찰과 추가 분기 문항을 통해 확인하세요.</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- QUESTIONS -->
+  <main id="mainContent">
+    <!-- rendered by JS -->
+  </main>
+
+  <!-- GUIDE TABLE -->
+  <div class="guide-card" style="margin-top:24px;">
+    <div class="guide-title">채점 해석 기준</div>
+    <table>
+      <thead>
+        <tr>
+          <th>결과 패턴</th>
+          <th>해석 및 다음 단계</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ㄱ 압도적 (10개 이상)</td>
+          <td>장형 가능성이 높습니다. 다음 단계는 <strong>8·9·1</strong> 중 분기입니다.</td>
+        </tr>
+        <tr>
+          <td>ㄴ 압도적 (10개 이상)</td>
+          <td>가슴형 가능성이 높습니다. 다음 단계는 <strong>2·3·4</strong> 중 분기입니다.</td>
+        </tr>
+        <tr>
+          <td>ㄷ 압도적 (10개 이상)</td>
+          <td>사고형 가능성이 높습니다. 다음 단계는 <strong>5·6·7</strong> 중 분기입니다.</td>
+        </tr>
+        <tr>
+          <td>두 영역 비슷 (각 7~9개)</td>
+          <td>2중심 혼합형입니다. 날개나 통합 방향이 강하게 발달했을 가능성이 있습니다.</td>
+        </tr>
+        <tr>
+          <td>세 영역 비슷 (각 5~7개)</td>
+          <td>자기 관찰이 충분치 않거나 사회적으로 학습된 모습이 본래의 자신을 가리고 있을 가능성이 큽니다. 일주일 관찰 일지 작성 후 재시도를 권합니다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>© Enneagram Centers Diagnostic · for Teacher Study Group</footer>
+</div>
+
+<script>
+  /* ─────────────── DATA ─────────────── */
+  const TOTAL = 18;
+
+  const CENTERS = [
+    { key: "a", label: "ㄱ", name: "장형",  color: "var(--gut)",   cls: "opt-gut" },
+    { key: "b", label: "ㄴ", name: "가슴형", color: "var(--heart)", cls: "opt-heart" },
+    { key: "c", label: "ㄷ", name: "사고형", color: "var(--head)",  cls: "opt-head" },
+  ];
+
+  const SECTIONS = [
+    { id: "A", title: "위협 상황 반응", count: 8 },
+    { id: "B", title: "의사결정 패턴",  count: 5 },
+    { id: "C", title: "에너지 회복 방식", count: 5 },
+  ];
+
+  const QS = [
+    // A
+    {
+      s: "A", n: 1,
+      q: "누군가 내 영역을 침범했다고 느낄 때 가장 먼저 일어나는 반응은",
+      a: "몸이 먼저 굳거나 반사적으로 대응한다",
+      b: "상대방의 표정·태도가 먼저 신경 쓰인다",
+      c: "머릿속에서 상황 분석이 먼저 시작된다"
+    },
+    {
+      s: "A", n: 2,
+      q: "갈등이 발생했을 때 나의 첫 반응은",
+      a: "정면으로 맞서거나 물러서지 않는다",
+      b: "관계가 깨질까 봐 마음이 가장 먼저 아프다",
+      c: "한 발 물러서서 상황을 객관적으로 보려 한다"
+    },
+    {
+      s: "A", n: 3,
+      q: "부당한 일을 당했을 때",
+      a: "즉시 반응하지 않으면 분이 풀리지 않는다",
+      b: "\"왜 나를 이렇게 대하지?\"라는 감정적 상처가 먼저 온다",
+      c: "\"이 상황의 메커니즘이 뭐지?\"부터 따진다"
+    },
+    {
+      s: "A", n: 4,
+      q: "처음 만난 사람과 마주쳤을 때 자동으로 평가하는 것은",
+      a: "이 사람이 강한가 약한가, 위협이 되는가",
+      b: "이 사람이 나를 좋아하는가, 어떤 인상으로 보고 있는가",
+      c: "이 사람이 신뢰할 만한가, 무엇을 알고 있는가"
+    },
+    {
+      s: "A", n: 5,
+      q: "회의나 토론에서 의견이 부딪힐 때",
+      a: "내 입장을 굽히지 않고 끝까지 밀어붙인다",
+      b: "분위기가 어색해지지 않게 조율하려 한다",
+      c: "양쪽 논리를 분석하고 더 합리적인 쪽을 따진다"
+    },
+    {
+      s: "A", n: 6,
+      q: "스트레스가 극에 달했을 때 신체 증상은",
+      a: "허리·어깨가 뭉치거나 위장이 답답하다",
+      b: "가슴이 답답하거나 눈물이 쉽게 난다",
+      c: "머리가 무거워지고 잠이 안 온다"
+    },
+    {
+      s: "A", n: 7,
+      q: "\"나는 ~한 사람이다\"를 한 단어로 표현한다면",
+      a: "강한·곧은·독립적인",
+      b: "따뜻한·진정성 있는·특별한",
+      c: "똑똑한·합리적인·신중한"
+    },
+    {
+      s: "A", n: 8,
+      q: "화가 났을 때 가장 흔한 반응은",
+      a: "표정·말투·행동에 즉시 드러난다",
+      b: "상대와의 관계가 먼저 떠오르고 상처받는다",
+      c: "일단 자리를 떠나서 머릿속을 정리한다"
+    },
+    // B
+    {
+      s: "B", n: 9,
+      q: "결정을 내릴 때 가장 신뢰하는 신호는",
+      a: "직감, 뱃속의 느낌",
+      b: "마음이 가는 쪽, 관계에 미칠 영향",
+      c: "데이터·논리·검증된 정보"
+    },
+    {
+      s: "B", n: 10,
+      q: "빠른 결정과 느린 결정 중",
+      a: "빨리 결정하고 행동한다",
+      b: "마음이 정해지면 결정한다 (정해지는 데 시간이 걸린다)",
+      c: "충분히 분석한 뒤 결정한다"
+    },
+    {
+      s: "B", n: 11,
+      q: "내 결정에 누군가 반대하면",
+      a: "화가 나거나 짜증이 난다",
+      b: "그 사람과의 관계가 먼저 걱정된다",
+      c: "그 사람의 논리가 더 타당한지 검증한다"
+    },
+    {
+      s: "B", n: 12,
+      q: "결정 후에 내가 가장 후회하는 패턴은",
+      a: "\"왜 그때 가만있지 못했을까\" — 행동 후 후회",
+      b: "\"왜 더 살펴보지 못했을까\" — 관계 살핌 후회",
+      c: "\"왜 결정을 미뤘을까\" — 분석 마비 후회"
+    },
+    {
+      s: "B", n: 13,
+      q: "큰 결정을 앞두고",
+      a: "일단 부딪혀 보면서 알아간다",
+      b: "가까운 사람들과 이야기하며 마음을 정한다",
+      c: "자료를 모으고 시뮬레이션을 한다"
+    },
+    // C
+    {
+      s: "C", n: 14,
+      q: "너무 지친 날 가장 회복되는 활동은",
+      a: "몸을 움직이거나 푹 자거나 잘 먹는다",
+      b: "좋아하는 사람과 이야기를 하거나 같이 시간을 보낸다",
+      c: "혼자 조용한 곳에서 책을 읽거나 정보를 흡수한다"
+    },
+    {
+      s: "C", n: 15,
+      q: "휴가나 주말에 가장 끌리는 것은",
+      a: "활동적인 야외·운동·여행",
+      b: "의미 있는 사람들과의 만남·감정 교류",
+      c: "혼자만의 시간·새로운 지식·취미 탐구"
+    },
+    {
+      s: "C", n: 16,
+      q: "사람들과 오래 같이 있은 후",
+      a: "별 변화 없거나 오히려 더 활기차다",
+      b: "관계의 여운이 오래 남는다",
+      c: "빨리 혼자가 되어 회복해야 한다"
+    },
+    {
+      s: "C", n: 17,
+      q: "내 에너지가 낮을 때 가장 견디기 힘든 것은",
+      a: "누가 내 시간을 빼앗는 것",
+      b: "누가 나에게 무관심한 것",
+      c: "누가 내 공간을 침범하는 것"
+    },
+    {
+      s: "C", n: 18,
+      q: "내가 더 자주 쓰는 말은",
+      a: "\"그냥 해\" / \"됐어\" / \"내가 알아서 할게\"",
+      b: "\"그래서 어떻게 됐어?\" / \"괜찮아?\" / \"마음이 어땠어?\"",
+      c: "\"왜?\" / \"근거가 뭐야?\" / \"잠깐, 정리 좀 하자\""
+    },
+  ];
+
+  /* ─────────────── ARC SVG ─────────────── */
+  const R = 18, C_XY = 22, CIRC = 2 * Math.PI * R;
+
+  function arcCard(center, score) {
+    const pct = score / TOTAL;
+    const offset = CIRC * (1 - pct);
+    return `
+      <div class="arc-card" id="arc-${center.key}">
+        <div class="arc-wrap">
+          <svg viewBox="0 0 44 44" width="44" height="44">
+            <circle class="arc-bg" cx="${C_XY}" cy="${C_XY}" r="${R}" fill="none" stroke-width="4"/>
+            <circle class="arc-fg" id="arc-fg-${center.key}"
+              cx="${C_XY}" cy="${C_XY}" r="${R}" fill="none"
+              stroke="${center.color}" stroke-width="4"
+              stroke-dasharray="${CIRC}"
+              stroke-dashoffset="${CIRC}"/>
+          </svg>
+          <div class="arc-inner" id="arc-num-${center.key}" style="color:${center.color}">0</div>
+        </div>
+        <div class="arc-info">
+          <div class="arc-name">${center.label} ${center.name}</div>
+          <div class="arc-desc" id="arc-desc-${center.key}">0점</div>
+        </div>
+      </div>`;
+  }
+
+  /* ─────────────── RENDER ─────────────── */
+  function render() {
+    // arcs
+    document.getElementById("arcsGrid").innerHTML =
+      CENTERS.map(c => arcCard(c, 0)).join("");
+
+    // sections
+    const main = document.getElementById("mainContent");
+    main.innerHTML = "";
+
+    SECTIONS.forEach(sec => {
+      const qs = QS.filter(q => q.s === sec.id);
+      const card = document.createElement("div");
+      card.className = "section-card";
+
+      const qHTML = qs.map((item, localIdx) => {
+        const globalIdx = QS.indexOf(item);
+        return `
+          <div class="question" style="animation-delay:${localIdx * 40}ms">
+            <div class="q-num">Question ${item.n}</div>
+            <div class="q-text">${item.q}</div>
+            <div class="options">
+              ${CENTERS.map(c => `
+                <label class="opt ${c.cls}">
+                  <input type="radio" name="q${globalIdx}" value="${c.key}" onchange="onAnswer()"/>
+                  <span class="opt-key">${c.label}.</span>
+                  <span class="opt-text">${item[c.key]}</span>
+                </label>`).join("")}
+            </div>
+          </div>`;
+      }).join("");
+
+      card.innerHTML = `
+        <div class="section-head">
+          <div class="section-letter">${sec.id}</div>
+          <div class="section-meta">
+            <div class="section-title">${sec.title}</div>
+            <div class="section-sub">${sec.count}개 문항</div>
+          </div>
+        </div>
+        <div class="questions-body">${qHTML}</div>`;
+
+      main.appendChild(card);
+    });
+  }
+
+  /* ─────────────── SCORE ─────────────── */
+  function calcScores() {
+    const scores = { a: 0, b: 0, c: 0 };
+    let answered = 0;
+    for (let i = 0; i < TOTAL; i++) {
+      const el = document.querySelector(`input[name="q${i}"]:checked`);
+      if (el) { scores[el.value]++; answered++; }
+    }
+    return { scores, answered };
+  }
+
+  function updateUI() {
+    const { scores, answered } = calcScores();
+    document.getElementById("answeredCount").textContent = answered;
+
+    const max = Math.max(scores.a, scores.b, scores.c);
+
+    CENTERS.forEach(c => {
+      const s = scores[c.key];
+      const offset = CIRC * (1 - s / TOTAL);
+      document.getElementById(`arc-fg-${c.key}`).style.strokeDashoffset = offset;
+      document.getElementById(`arc-num-${c.key}`).textContent = s;
+      document.getElementById(`arc-desc-${c.key}`).textContent = `${s}점`;
+      document.getElementById(`arc-${c.key}`).classList.toggle("leading", s === max && s > 0);
+    });
+  }
+
+  function onAnswer() { updateUI(); }
+
+  /* ─────────────── RESULT ─────────────── */
+  function getResult(scores) {
+    const ranked = [...CENTERS]
+      .map(c => ({ ...c, score: scores[c.key] }))
+      .sort((x, y) => y.score - x.score);
+
+    const [top, second, third] = ranked;
+    const allScores = ranked.map(r => r.score);
+    const evenThree = allScores.filter(s => s >= 5 && s <= 7).length;
+
+    /* ── 압도적 기준: 10개 이상 (격차 조건 없음) ── */
+    if (top.score >= 10) {
+      return {
+        title: `${top.label} ${top.name} 가능성이 높습니다`,
+        desc: `현재 점수 — ${ranked.map(r => `${r.label} ${r.name}: ${r.score}개`).join("  /  ")}.
+${top.name} 유형(${top.name === "장형" ? "8·9·1" : top.name === "가슴형" ? "2·3·4" : "5·6·7"}) 중 세부 분기 문항을 통해 번호를 좁혀가세요.`
+      };
+    }
+
+    /* ── 2중심 혼합형 ── */
+    if (top.score - third.score >= 3 && top.score >= 7) {
+      return {
+        title: "2중심 혼합형 가능성이 있습니다",
+        desc: `상위 두 영역은 ${top.label} ${top.name} ${top.score}개, ${second.label} ${second.name} ${second.score}개입니다.
+날개나 통합 방향이 강하게 발달했을 가능성이 있습니다.`
+      };
+    }
+
+    /* ── 세 영역 비슷 ── */
+    if (evenThree === 3 || (top.score - third.score <= 2 && top.score <= 8)) {
+      return {
+        title: "세 영역이 비슷합니다",
+        desc: "자기 관찰이 충분치 않거나 사회적으로 학습된 모습이 본래의 자신을 가리고 있을 가능성이 큽니다. 일주일 관찰 일지 작성 후 재시도하시길 권합니다."
+      };
+    }
+
+    /* ── 기본: 경향 우세 ── */
+    return {
+      title: `${top.label} ${top.name} 경향이 가장 높습니다`,
+      desc: `압도적 기준(10개)에는 도달하지 않았습니다. 현재 점수 — ${ranked.map(r => `${r.label}: ${r.score}개`).join("  /  ")}.`
+    };
+  }
+
+  function showResult() {
+    const { scores, answered } = calcScores();
+    updateUI();
+
+    const wrap  = document.getElementById("resultWrap");
+    const title = document.getElementById("resultTitle");
+    const desc  = document.getElementById("resultDesc");
+
+    if (answered < TOTAL) {
+      title.textContent = `아직 ${TOTAL - answered}개 문항이 남아있습니다`;
+      desc.textContent  = `모든 문항에 응답하면 더 정확한 결과를 얻을 수 있습니다. (현재 ${answered} / ${TOTAL})`;
+    } else {
+      const r = getResult(scores);
+      title.textContent = r.title;
+      desc.textContent  = r.desc;
+    }
+
+    wrap.classList.add("open");
+    wrap.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function resetAll() {
+    document.querySelectorAll("input[type='radio']").forEach(el => el.checked = false);
+    document.getElementById("resultWrap").classList.remove("open");
+    updateUI();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  /* ─────────────── INIT ─────────────── */
+  render();
+  updateUI();
+
+  /* toast */
+  const toastEl = document.createElement("div");
+  toastEl.className = "toast";
+  toastEl.textContent = "브라우저에서 Ctrl+P (Mac: ⌘P) 를 누르세요";
+  document.body.appendChild(toastEl);
+
+  let toastTimer;
+  function showPrintTip() {
+    if (window.self === window.top) { window.print(); return; }
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove("show"), 3000);
+  }
+</script>
+</body>
+</html>
