@@ -1827,8 +1827,7 @@
   <canvas class="page-fireworks" id="pageFireworks"></canvas>
 
   <footer>
-    © Teacher's Day Flower MBTI · with care<br>
-    <a href="./index.html" style="display:inline-block; margin-top:10px; padding:8px 16px; border:1px solid var(--line-hi); border-radius:999px; color:var(--ink-soft); font-size:13px;">← 에니어그램 진단표로</a>
+    © G-Deal · Teacher's Day with care
   </footer>
 </div>
 
@@ -2953,13 +2952,14 @@ function _buildLotteryAssignment() {
 const LT_ASSIGNMENT = _buildLotteryAssignment();
 const LT_REST_COUNT = LT_NAMES.length - LT_TIERS.reduce((s, t) => s + t.count, 0);
 
-/* 한글 초성 추출 */
+/* 한글 초성 추출 (유니코드 19개 → 표시용 14개 매핑, 된소리는 평음으로 묶음) */
+const _LT_CHO_MAP = ["ㄱ","ㄱ","ㄴ","ㄷ","ㄷ","ㄹ","ㅁ","ㅂ","ㅂ","ㅅ","ㅅ","ㅇ","ㅈ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 const LT_CHO_LIST = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 function _firstCho(name) {
   const c = name.charCodeAt(0);
   if (c < 0xAC00 || c > 0xD7A3) return name[0];
   const idx = Math.floor((c - 0xAC00) / 588);
-  return LT_CHO_LIST[idx] || name[0];
+  return _LT_CHO_MAP[idx] || name[0];
 }
 
 /* UI state */

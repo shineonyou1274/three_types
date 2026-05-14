@@ -1010,9 +1010,7 @@
   </section>
 
   <footer>
-    © G-Deal Event Lottery &nbsp;·&nbsp;
-    <a href="./teachers-day.html">꽃 선생님 MBTI</a>
-    <a href="./index.html">에니어그램</a>
+    © G-Deal Event Lottery
   </footer>
 </div>
 
@@ -1208,13 +1206,14 @@ const ASSIGNMENT = buildAssignment();
 const REMAINING_COUNT = NAMES.length - TIERS.reduce((s, t) => s + t.count, 0);
 
 /* ─────────────── 한글 초성 검색 보조 ─────────────── */
+/* 유니코드 초성 19개 인덱스 → 표시용 14개 자음 (된소리는 평음으로 매핑) */
+const CHO_MAP = ["ㄱ","ㄱ","ㄴ","ㄷ","ㄷ","ㄹ","ㅁ","ㅂ","ㅂ","ㅅ","ㅅ","ㅇ","ㅈ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 const CHO = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
-const CHO_INDEX = { "ㄱ":0,"ㄲ":0,"ㄴ":2,"ㄷ":3,"ㄸ":3,"ㄹ":5,"ㅁ":6,"ㅂ":7,"ㅃ":7,"ㅅ":9,"ㅆ":9,"ㅇ":11,"ㅈ":12,"ㅉ":12,"ㅊ":14,"ㅋ":15,"ㅌ":16,"ㅍ":17,"ㅎ":18 };
 function firstCho(name) {
   const c = name.charCodeAt(0);
   if (c < 0xAC00 || c > 0xD7A3) return name[0];
   const idx = Math.floor((c - 0xAC00) / 588);
-  return CHO[idx] || name[0];
+  return CHO_MAP[idx] || name[0];
 }
 
 /* ─────────────── LOOKUP UI ─────────────── */
