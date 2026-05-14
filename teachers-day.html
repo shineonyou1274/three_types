@@ -1827,8 +1827,7 @@
   <canvas class="page-fireworks" id="pageFireworks"></canvas>
 
   <footer>
-    © Teacher's Day Flower MBTI · with care<br>
-    <a href="./index.html" style="display:inline-block; margin-top:10px; padding:8px 16px; border:1px solid var(--line-hi); border-radius:999px; color:var(--ink-soft); font-size:13px;">← 에니어그램 진단표로</a>
+    © G-Deal · Teacher's Day with care
   </footer>
 </div>
 
@@ -2889,7 +2888,8 @@ const LT_ROSTER = [
   ["이대송","김해 김해은혜학교"],["이동주","진주 경상사대부고"],["이상민","합천 합천여자중학교"],
   ["이상우","고성 철성중학교"],["이성근","경산 하주초등학교"],["이슬민","거제 거제양정초등학교"],
   ["이승준","창녕 부곡초등학교"],["이연주","의령 의령고등학교"],["이예진","MSECM"],
-  ["이운희","창원 진해신항초등학교"],["이지희","진영금병초등학교"],["전혜진","김해 장유초등학교"],
+  ["이운희","창원 진해신항초등학교"],["이지희","진영금병초등학교"],["이충효","진주봉래초등학교"],
+  ["전혜진","김해 장유초등학교"],
   ["정동원","부산 부민초등학교"],["정윤아","부산 동일중앙초등학교"],["정주연","양산 신명초등학교"],
   ["정진아","부산 거학초등학교"],["정한길","김해 김해삼문고등학교"],["정혜원","하동 화개초등학교"],
   ["조아람","양산 증산초등학교"],["진창환","함안 칠서초등학교"],["최광일","양산 양산중앙중학교"],
@@ -2952,13 +2952,14 @@ function _buildLotteryAssignment() {
 const LT_ASSIGNMENT = _buildLotteryAssignment();
 const LT_REST_COUNT = LT_NAMES.length - LT_TIERS.reduce((s, t) => s + t.count, 0);
 
-/* 한글 초성 추출 */
+/* 한글 초성 추출 (유니코드 19개 → 표시용 14개 매핑, 된소리는 평음으로 묶음) */
+const _LT_CHO_MAP = ["ㄱ","ㄱ","ㄴ","ㄷ","ㄷ","ㄹ","ㅁ","ㅂ","ㅂ","ㅅ","ㅅ","ㅇ","ㅈ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 const LT_CHO_LIST = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 function _firstCho(name) {
   const c = name.charCodeAt(0);
   if (c < 0xAC00 || c > 0xD7A3) return name[0];
   const idx = Math.floor((c - 0xAC00) / 588);
-  return LT_CHO_LIST[idx] || name[0];
+  return _LT_CHO_MAP[idx] || name[0];
 }
 
 /* UI state */
