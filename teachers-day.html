@@ -2802,15 +2802,13 @@ function makeFireworks(canvas, opts = {}) {
       burstAt(W() * (0.15 + Math.random() * 0.7), H() * (0.12 + Math.random() * 0.42));
     }
 
-    ctx.globalCompositeOperation = "destination-out";
-    ctx.fillStyle = "rgba(0,0,0,0.18)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.globalCompositeOperation = "source-over";
+    /* 매 프레임 완전 클리어 (페이지 깜박임/어두워짐 방지) */
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
       p.trail.push({ x: p.x, y: p.y });
-      if (p.trail.length > 6) p.trail.shift();
+      if (p.trail.length > 12) p.trail.shift();
       p.x += p.vx;
       p.y += p.vy;
       p.vy += 0.08 * dpr;
@@ -2820,7 +2818,7 @@ function makeFireworks(canvas, opts = {}) {
       if (p.life <= 0) { particles.splice(i, 1); continue; }
 
       p.trail.forEach((t, ti) => {
-        ctx.globalAlpha = (ti / p.trail.length) * p.life * 0.45;
+        ctx.globalAlpha = (ti / p.trail.length) * p.life * 0.55;
         ctx.fillStyle = p.color;
         ctx.beginPath();
         ctx.arc(t.x, t.y, p.size * (ti / p.trail.length), 0, Math.PI * 2);
@@ -3175,21 +3173,19 @@ function _makePageFW() {
   function loop() {
     if (!running) return;
     raf = requestAnimationFrame(loop);
-    ctx.globalCompositeOperation = "destination-out";
-    ctx.fillStyle = "rgba(0,0,0,0.18)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.globalCompositeOperation = "source-over";
+    /* 매 프레임 클리어 (페이지 깜박임/어두워짐 방지) */
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
       p.trail.push({ x: p.x, y: p.y });
-      if (p.trail.length > 6) p.trail.shift();
+      if (p.trail.length > 12) p.trail.shift();
       p.x += p.vx; p.y += p.vy;
       p.vy += 0.08 * dpr;
       p.vx *= 0.992; p.vy *= 0.992;
       p.life -= p.decay;
       if (p.life <= 0) { particles.splice(i, 1); continue; }
       p.trail.forEach((t, ti) => {
-        ctx.globalAlpha = (ti / p.trail.length) * p.life * 0.45;
+        ctx.globalAlpha = (ti / p.trail.length) * p.life * 0.55;
         ctx.fillStyle = p.color;
         ctx.beginPath(); ctx.arc(t.x, t.y, p.size * (ti / p.trail.length), 0, Math.PI * 2); ctx.fill();
       });

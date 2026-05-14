@@ -1475,6 +1475,7 @@ function makeFireworks(canvas, opts = {}) {
   const duration = opts.duration ?? 5500;
   const auto = opts.auto !== false;
   let dpr = _resizeCanvas(canvas);
+  /* 모바일 URL바 등으로 인한 resize 시 캔버스만 다시 잡음 (입자는 유지) */
   const onResize = () => { dpr = _resizeCanvas(canvas); };
   window.addEventListener("resize", onResize);
 
@@ -1539,23 +1540,22 @@ function makeFireworks(canvas, opts = {}) {
       lastBurst = now;
       burstAt(W() * (0.15 + Math.random() * 0.7), H() * (0.12 + Math.random() * 0.42));
     }
-    /* destination-out: 캔버스 픽셀만 페이드 (배경 페이지는 안 어두워짐) */
-    ctx.globalCompositeOperation = "destination-out";
-    ctx.fillStyle = "rgba(0,0,0,0.18)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.globalCompositeOperation = "source-over";
+
+    /* 매 프레임 완전 클리어 → 입자 trail 배열로 시각적 잔상 표현
+       (페이지가 점점 어두워지거나 깜박이는 현상 없음) */
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
       p.trail.push({ x: p.x, y: p.y });
-      if (p.trail.length > 6) p.trail.shift();
+      if (p.trail.length > 12) p.trail.shift();
       p.x += p.vx; p.y += p.vy;
       p.vy += 0.08 * dpr;
       p.vx *= 0.992; p.vy *= 0.992;
       p.life -= p.decay;
       if (p.life <= 0) { particles.splice(i, 1); continue; }
       p.trail.forEach((t, ti) => {
-        ctx.globalAlpha = (ti / p.trail.length) * p.life * 0.45;
+        ctx.globalAlpha = (ti / p.trail.length) * p.life * 0.55;
         ctx.fillStyle = p.color;
         ctx.beginPath(); ctx.arc(t.x, t.y, p.size * (ti / p.trail.length), 0, Math.PI * 2); ctx.fill();
       });
@@ -1564,7 +1564,7 @@ function makeFireworks(canvas, opts = {}) {
       ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
     }
     ctx.globalAlpha = 1;
-    /* 입자가 다 사라지고 (자동 모드는 중지 신호가 있을 때만) → 루프 멈추고 캔버스 클리어 */
+
     if (particles.length === 0 && (!auto || stopFlag)) {
       stopLoop();
       window.removeEventListener("resize", onResize);
