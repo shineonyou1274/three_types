@@ -468,6 +468,163 @@
       font-weight: 600;
     }
 
+    /* ───── PAST LIFE BONUS ───── */
+    .pastlife {
+      margin: 36px auto 8px;
+      max-width: 540px;
+      padding: 28px 26px;
+      border-radius: var(--r-md);
+      background:
+        linear-gradient(180deg, rgba(60, 50, 90, 0.06), rgba(60, 50, 90, 0.02)),
+        rgba(255, 253, 248, 0.6);
+      border: 1px dashed rgba(108, 90, 145, 0.35);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pastlife::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 0%,  rgba(156, 130, 200, 0.10) 0%, transparent 55%),
+        radial-gradient(circle at 80% 100%, rgba(216, 143, 138, 0.08) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .pastlife > * { position: relative; }
+
+    .pl-eyebrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      color: #8d6fb6;
+      margin-bottom: 4px;
+    }
+
+    .pl-title {
+      font-family: "Gowun Batang", serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+    .pl-title-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height: 1.7;
+    }
+
+    .pl-reveal-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 28px;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #6c5a91, #9c5a8a);
+      color: #fff;
+      font-family: "Noto Sans KR", sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .2s, opacity .15s;
+      box-shadow: 0 8px 22px rgba(108, 90, 145, 0.32);
+    }
+    .pl-reveal-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(108, 90, 145, 0.4);
+    }
+    .pl-reveal-btn .pl-spark {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      letter-spacing: 0.1em;
+    }
+
+    .pl-card {
+      animation: fadeIn .5s ease;
+    }
+
+    .pl-mark {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 36px;
+      font-weight: 600;
+      color: #9c82c8;
+      letter-spacing: 0.3em;
+      margin-bottom: 6px;
+      user-select: none;
+    }
+
+    .pl-name-wrap {
+      font-family: "Gowun Batang", serif;
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      letter-spacing: 0.02em;
+    }
+    .pl-name {
+      font-family: "Gowun Batang", serif;
+      font-size: clamp(24px, 5vw, 30px);
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+      word-break: keep-all;
+    }
+    .pl-name span {
+      color: #8d6fb6;
+    }
+
+    .pl-story {
+      font-family: "Gowun Batang", serif;
+      font-size: 15px;
+      line-height: 2;
+      color: var(--ink-soft);
+      max-width: 460px;
+      margin: 0 auto 22px;
+      text-align: left;
+      word-break: keep-all;
+      padding: 18px 22px;
+      background: rgba(255, 255, 255, 0.55);
+      border-radius: var(--r-sm);
+      border-left: 3px solid #9c82c8;
+    }
+    .pl-story p { margin-bottom: 10px; }
+    .pl-story p:last-child { margin-bottom: 0; }
+    .pl-story p.now {
+      color: #6e5a93;
+      font-weight: 700;
+    }
+
+    .pl-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .pl-mini-btn {
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid rgba(108, 90, 145, 0.4);
+      background: transparent;
+      color: #6e5a93;
+      transition: background .15s, color .15s, transform .15s;
+    }
+    .pl-mini-btn:hover {
+      background: #6e5a93;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
     footer {
       text-align: center;
       padding: 36px 0 0;
@@ -583,6 +740,30 @@
         <button class="action-btn action-primary" type="button" onclick="copyShare()">결과 링크 복사</button>
         <button class="action-btn action-ghost"   type="button" onclick="restart()">다시 해보기</button>
       </div>
+
+      <!-- ───── PAST LIFE BONUS ───── -->
+      <div class="pastlife" id="pastlifeBox">
+        <div id="plIntro">
+          <div class="pl-eyebrow">Bonus · Past Life</div>
+          <div class="pl-title">한 가지 더 — 당신의 전생은?</div>
+          <div class="pl-title-sub">스승의 날 보너스. 가벼운 마음으로 한번 뽑아보세요.<br>(혹시 모를 진실이 숨어 있을지도 몰라요)</div>
+          <button class="pl-reveal-btn" type="button" onclick="revealPastLife()">
+            <span class="pl-spark">✦</span> 전생 알아보기
+          </button>
+        </div>
+
+        <div id="plCard" class="pl-card hidden">
+          <div class="pl-mark">✦</div>
+          <div class="pl-name-wrap">당신은 전생에…</div>
+          <div class="pl-name" id="plName"></div>
+          <div class="pl-story" id="plStory"></div>
+          <div class="pl-actions">
+            <button class="pl-mini-btn" type="button" onclick="rerollPastLife()">다시 뽑기</button>
+            <button class="pl-mini-btn" type="button" onclick="copyPastLife()">전생 결과 공유</button>
+          </div>
+        </div>
+      </div>
+
       <div class="closing">
         <strong>오늘 하루는 누군가를 키운 당신을 키워주는 날이 되기를.</strong><br>
         선생님, 그동안 고생 많으셨어요.
@@ -895,6 +1076,210 @@ const RESULTS = {
   },
 };
 
+/* ─────────────── PAST LIFE POOL ─────────────── */
+const PAST_LIVES = [
+  {
+    name: "단세포 아메바",
+    story: [
+      "특별한 일도, 큰 고민도 없었어요. 그냥 흘러가는 대로 둥둥 살았습니다.",
+      "분열할 때 빼곤 외로움도 몰랐어요.",
+      "그래서 지금도 가끔 \"이게 다 무슨 의미인가\" 싶을 때가 있는 거예요. 괜찮아요, 그게 전생부터의 자연스러운 마음입니다."
+    ]
+  },
+  {
+    name: "마을의 행운 돼지",
+    story: [
+      "마을 사람들이 한 번씩 쓰다듬으면 운이 좋아진다고 믿었던 행운 돼지였어요.",
+      "잠만 잤는데도 모두가 고마워했습니다.",
+      "지금도 누군가 옆에 있으면 마음이 편해진다고 느낀다면, 그건 전생의 잔향이에요."
+    ]
+  },
+  {
+    name: "시계탑 옆 거북이",
+    story: [
+      "마을 시계탑 옆에서 100년을 산 거북이였어요.",
+      "지나가는 사람들이 다 늙어가는 동안 당신은 그대로였습니다.",
+      "지금도 시간 약속을 칼같이 지키시는 건, 시간이 친구였기 때문이에요."
+    ]
+  },
+  {
+    name: "도시 광장의 비둘기",
+    story: [
+      "사람들이 던져주는 빵 부스러기로 살았는데도 표정은 늘 당당했어요.",
+      "정장 입은 직장인이든, 길 잃은 아이든, 누가 던져주든 똑같이 받아먹었습니다.",
+      "그래서 지금도 누구한테나 평등하신 거예요. 사실 멋진 능력입니다."
+    ]
+  },
+  {
+    name: "심해의 시 쓰는 해마",
+    story: [
+      "바다 깊은 곳에서 시를 쓰는 해마였어요.",
+      "아무도 읽어주지 않았지만 매일 한 편씩, 조용히 썼습니다.",
+      "지금도 누가 알아주지 않는 일을 묵묵히 하시는 건, 전생부터의 습관이에요."
+    ]
+  },
+  {
+    name: "빵집 앞 강아지",
+    story: [
+      "동네 빵집 앞에 매일 앉아 있던 강아지였어요. 빵 냄새가 너무 좋았거든요.",
+      "단골손님들이 다 당신을 알았고, 가끔 빵 부스러기를 주고 갔습니다.",
+      "지금도 빵집 앞을 지날 때 발걸음이 느려진다면, 그게 이유예요."
+    ]
+  },
+  {
+    name: "산속 천 년 부엉이",
+    story: [
+      "천 년을 산 부엉이였어요. 사람들의 거짓말을 다 들었습니다.",
+      "그런데도 한 번도, 누구에게도 그걸 말한 적이 없어요.",
+      "지금도 입이 무거우신 건, 그때부터의 약속을 지키시는 거예요."
+    ]
+  },
+  {
+    name: "자판기 비밀번호 아는 너구리",
+    story: [
+      "도시 뒷골목의 너구리였어요. 자판기 비밀번호를 다 외웠습니다.",
+      "그런데 누구한테도 안 알려줬어요. 입이 무거웠거든요.",
+      "지금도 알면서 모르는 척하시는 일이 종종 있죠? 그게 전생의 미덕이에요."
+    ]
+  },
+  {
+    name: "8가지 가설을 잊은 문어",
+    story: [
+      "심해의 문어였어요. 8개의 다리로 8가지 가설을 동시에 검증했습니다.",
+      "그런데 결론을 내리려는 순간, 어느 다리의 결과였는지 잊어버렸어요.",
+      "지금도 머릿속이 복잡하시다면, 그건 머리가 나쁜 게 아니라 다리가 8개였던 시절의 잔재입니다."
+    ]
+  },
+  {
+    name: "묻은 도토리 다 까먹은 다람쥐",
+    story: [
+      "도토리 모으기 챔피언급 다람쥐였어요.",
+      "겨울이 되면 묻어둔 위치를 절대 못 찾았습니다. 그게 인생 최대 미스터리였어요.",
+      "지금도 어딘가 둔 물건을 못 찾으신다면, 그건 당신 잘못이 아니에요. 전생의 저주입니다."
+    ]
+  },
+  {
+    name: "1만 마리 이름을 외운 일꾼 꿀벌",
+    story: [
+      "벌집의 핵심 인사부 꿀벌이었어요. 1만 마리 동료의 이름을 다 외우셨습니다.",
+      "이름을 부르는 순간 다들 당신을 사랑하게 됐어요.",
+      "지금도 누군가의 이름을 정확히 기억해주는 일이 자연스러우시다면, 그게 전생부터의 재능이에요."
+    ]
+  },
+  {
+    name: "마지막까지 도망친 공룡",
+    story: [
+      "운석이 떨어진 그날, 가장 늦게 도망친 공룡이었어요.",
+      "왜냐하면 어린 공룡들을 먼저 보내야 했거든요.",
+      "그래서 지금도 누군가를 끝까지 챙기시는 거예요. 그 마음, 6500만 년이 지나도 안 변했습니다."
+    ]
+  },
+  {
+    name: "우물 안 행복한 개구리",
+    story: [
+      "우물 안 개구리였어요. 하늘이 동그란 줄 알았습니다.",
+      "그래도 그 동그란 하늘을 누구보다 사랑했어요.",
+      "지금도 작은 세계 안에서 큰 행복을 찾으시는 능력이 있잖아요. 그건 진짜 재능입니다."
+    ]
+  },
+  {
+    name: "겨울잠 4개월짜리 곰",
+    story: [
+      "깊은 산속의 곰이었어요. 겨울잠을 4개월씩 잤습니다.",
+      "그래서 지금도 주말이면 침대에서 못 일어나시는 거예요. 그게 본능이에요.",
+      "괜찮습니다. 전생의 곰도 그렇게 살았어요. 푹 주무세요."
+    ]
+  },
+  {
+    name: "옆으로만 걷는 해변의 게",
+    story: [
+      "해변의 게였어요. 옆으로만 걸었습니다.",
+      "다른 게들이 \"왜 똑바로 안 가?\" 물어도 당신은 \"이게 제 길이에요\" 했어요.",
+      "지금도 남들과 다른 방식으로 가시지만, 결국 늘 도착하시잖아요. 전생부터 그러셨어요."
+    ]
+  },
+  {
+    name: "노을 보는 언덕 위 양",
+    story: [
+      "언덕 위에 살던 양이었어요. 매일 같은 시간에 노을을 봤습니다.",
+      "다른 양들은 풀만 봤지만, 당신은 가끔 고개를 들었어요.",
+      "지금도 노을이 유난히 슬프게 느껴진다면, 그게 그 시절의 마음이에요."
+    ]
+  },
+  {
+    name: "단골 등불에 부딪히던 풍뎅이",
+    story: [
+      "누군가의 부엌에 살던 풍뎅이였어요. 매일 같은 등불에 부딪혔습니다.",
+      "왜 자꾸 부딪혔는지는 본인도 몰랐지만 그래도 매일 부딪혔어요.",
+      "지금도 같은 실수를 반복하신다면, 그건 학습 능력 문제가 아니라 풍뎅이 영혼이 남아 있어서 그래요. 너무 자책 마세요."
+    ]
+  },
+  {
+    name: "정원의 달팽이",
+    story: [
+      "누군가의 정원에 살던 달팽이였어요. 하루에 1미터 가는 게 인생 목표였습니다.",
+      "그래도 그 1미터는 매일 갔어요.",
+      "지금도 천천히 가지만 멈춘 적은 없으시잖아요. 그게 진짜 멋진 거예요."
+    ]
+  },
+  {
+    name: "왼쪽 오른쪽만 고민한 짚신벌레",
+    story: [
+      "짚신벌레였어요. 인생 최대 고민이 \"왼쪽으로 갈까, 오른쪽으로 갈까\"였습니다.",
+      "그 외엔 별 걱정이 없었어요.",
+      "지금도 사소한 결정에서 한참 멈추신다면, 그건 신중한 게 아니라 짚신벌레의 영혼이 남아 있는 거예요. 귀엽게 봐주세요."
+    ]
+  },
+  {
+    name: "마녀의 검은 고양이",
+    story: [
+      "마녀의 검은 고양이였어요. 사실 마녀의 모든 계획은 당신의 결재 사항이었습니다.",
+      "마녀가 사실 부하였어요. 본인은 끝까지 비밀로 했지만요.",
+      "지금도 가끔 \"내가 왜 이렇게 다 알지?\" 싶다면, 그건 그 시절의 능력이 살짝 남아서 그런 거예요."
+    ]
+  },
+  {
+    name: "장군의 군마",
+    story: [
+      "장군이 가장 아끼던 군마였어요. \"진군!\" 한 마디면 지구 끝까지도 갔습니다.",
+      "전쟁이 끝나도 그 명령이 귀에 남았어요.",
+      "지금도 마감을 칼같이 지키시는 건, 전생부터 명령에 충실하셨던 분이라 그래요. 가끔은 좀 쉬셔도 돼요."
+    ]
+  },
+  {
+    name: "마을 어귀의 비 오는 날 두꺼비",
+    story: [
+      "마을 어귀의 두꺼비였어요. 비 오는 날에만 모습을 드러냈습니다.",
+      "사람들은 당신을 보면 \"오늘 무슨 좋은 일이 있으려나\" 했어요.",
+      "지금도 흐린 날 기분이 묘하게 좋다면, 그게 그 시절의 습관이에요."
+    ]
+  },
+  {
+    name: "어둠 속에 등불 켠 심해 아귀",
+    story: [
+      "심해의 아귀였어요. 머리에 작은 등불 하나가 달려 있었습니다.",
+      "아무도 안 보이는 어둠 속에서, 그래도 당신은 빛을 켜고 있었어요.",
+      "그래서 지금도 누군가에게 빛이 되어주려고 하시는 거예요. 전생부터 그러셨어요."
+    ]
+  },
+  {
+    name: "90개 언어로 농담한 열대 앵무새",
+    story: [
+      "열대의 앵무새였어요. 90개 언어로 농담을 던졌습니다.",
+      "청중은 늘 본인 한 명이었지만, 매번 빵 터졌어요.",
+      "지금도 본인 농담에 본인이 웃으시잖아요. 그건 부끄러운 일이 아니라 전생부터의 자기충족적 행복이에요."
+    ]
+  },
+  {
+    name: "천 년을 산 늙은 학",
+    story: [
+      "천 년을 산 학이었어요. 너무 오래 살아서 무엇을 봤는지 다 잊었습니다.",
+      "기억은 못 해도 깃털엔 그 시간이 다 새겨져 있었어요.",
+      "지금도 가끔 \"왠지 이 장면 본 적 있는데\" 싶다면, 그게 그 학의 기억이에요."
+    ]
+  },
+];
+
 /* ─────────────── FLOWER SVG ─────────────── */
 function flowerSVG(color) {
   const petals = [];
@@ -1018,6 +1403,11 @@ function restart() {
   cur = 0;
   $("resultScreen").classList.add("hidden");
   $("introScreen").classList.remove("hidden");
+  $("plIntro").classList.remove("hidden");
+  $("plCard").classList.add("hidden");
+  $("plCard").style.opacity = "1";
+  _pastLife = null;
+  _lastIdx = -1;
   history.replaceState(null, "", " ");
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -1050,6 +1440,59 @@ function fallbackCopy(url) {
   try { document.execCommand("copy"); showToast("링크가 복사되었어요"); }
   catch { showToast("복사 실패 — URL을 직접 복사해 주세요"); }
   document.body.removeChild(ta);
+}
+
+/* ─────────────── PAST LIFE ─────────────── */
+let _pastLife = null;
+let _lastIdx = -1;
+
+function pickPastLife() {
+  if (PAST_LIVES.length <= 1) return PAST_LIVES[0];
+  let idx;
+  do { idx = Math.floor(Math.random() * PAST_LIVES.length); }
+  while (idx === _lastIdx);
+  _lastIdx = idx;
+  return PAST_LIVES[idx];
+}
+
+function renderPastLife(p) {
+  $("plName").innerHTML = `<span>${p.name}</span> 이었습니다`;
+  $("plStory").innerHTML = p.story.map((line, i) =>
+    `<p${i === p.story.length - 1 ? ' class="now"' : ''}>${line}</p>`
+  ).join("");
+}
+
+function revealPastLife() {
+  _pastLife = pickPastLife();
+  renderPastLife(_pastLife);
+  $("plIntro").classList.add("hidden");
+  $("plCard").classList.remove("hidden");
+  $("plCard").scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function rerollPastLife() {
+  const card = $("plCard");
+  card.style.opacity = "0";
+  setTimeout(() => {
+    _pastLife = pickPastLife();
+    renderPastLife(_pastLife);
+    card.style.opacity = "1";
+  }, 180);
+}
+
+function copyPastLife() {
+  if (!_pastLife) return;
+  const text =
+    `[스승의 날 보너스] 당신의 전생은… ${_pastLife.name}\n\n` +
+    _pastLife.story.join("\n") +
+    `\n\n${location.href}`;
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(text)
+      .then(() => showToast("전생 결과가 복사되었어요"))
+      .catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
 }
 </script>
 </body>
