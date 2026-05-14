@@ -144,6 +144,51 @@
       color: var(--ink);
     }
 
+    /* honored teachers framing */
+    .honored {
+      text-align: center;
+      padding: 22px 18px 20px;
+      margin: -10px -10px 22px;
+      border-radius: var(--r-md);
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245, 176, 60, 0.18) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(245, 176, 60, 0.10), rgba(196, 80, 74, 0.04));
+      border: 1px solid rgba(217, 154, 60, 0.28);
+      position: relative;
+      overflow: hidden;
+    }
+    .honored-eyebrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 0.24em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .honored-title {
+      font-family: "Gowun Batang", serif;
+      font-size: clamp(19px, 4.4vw, 22px);
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .honored-title b { color: var(--accent); }
+    .honored-sub {
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      word-break: keep-all;
+    }
+    .honored-deco {
+      width: 50px;
+      height: 1px;
+      background: var(--accent);
+      margin: 10px auto 12px;
+      opacity: 0.4;
+    }
+
     .search-row {
       position: relative;
       margin-bottom: 18px;
@@ -843,8 +888,8 @@
     <span class="hero-eyebrow">Event · G-Deal Lottery</span>
     <h1>둘둘 돌아가는 통닭과 함께,<br><em>당신의 등수</em>를 만나보세요</h1>
     <p class="hero-sub">
-      등수는 미리 정해져 있어요. 어느 폰에서 보셔도 같은 결과예요.<br>
-      명단에서 내 이름을 찾아 클릭만 해주세요.
+      둘둘 돌아가는 통닭이 한 바퀴 돌고,<br>
+      당신의 등수를 알려드립니다.
     </p>
     <div class="hero-stats">
       <span class="gold">1등 3명 · 황금 통닭</span>
@@ -856,7 +901,15 @@
 
   <!-- ───── LOOKUP ───── -->
   <section id="lookupScreen" class="card">
-    <div class="card-title">내 이름 찾기</div>
+    <div class="honored">
+      <div class="honored-eyebrow">Honored Teachers of Korea</div>
+      <div class="honored-title">대한민국의 <b>자랑스러운 스승</b> 명단</div>
+      <div class="honored-deco"></div>
+      <div class="honored-sub">
+        오늘 이 분들 모두가 주인공입니다.<br>
+        본인의 이름을 찾아 클릭하시면 통닭이 돌며 등수를 알려드려요.
+      </div>
+    </div>
     <div class="search-row">
       <span class="search-icon"></span>
       <input type="text" class="search-input" id="nameSearch"
@@ -960,7 +1013,6 @@
     © G-Deal Event Lottery &nbsp;·&nbsp;
     <a href="./teachers-day.html">꽃 선생님 MBTI</a>
     <a href="./index.html">에니어그램</a>
-    <a href="?admin=1" id="adminLink" style="opacity:0.4;">운영진 모드</a>
   </footer>
 </div>
 
@@ -969,23 +1021,122 @@
 <script>
 const $ = (id) => document.getElementById(id);
 
-/* ─────────────── 명단 (운영진이 미리 등록) ─────────────── */
-const RAW_NAMES = [
-  "이운희","최소은","이성근","강하영","최시경","이다은","남광희","박영은","윤태영","강재욱",
-  "신수현","백경태","이나영","최재우","남태열","황동성","박성일","박병준","최미진","박주연",
-  "이상우","김유미","윤희류","황준식","양인선","윤명희","박수영","박한울","정윤아","정동원",
-  "김호준","문지훈","홍진우","박수영","정진아","김지원","김민중","박미래","김동환","김재황",
-  "김제이","곽민진","김희은","김선형","전혜진","강화정","한솔","이승준","이대송","최광일",
-  "이상민","김소완","정한길","윤현삼","김권수","박상범","김민수","김준호","박성수","김동준",
-  "박서현","황병조","금호정","류시영","김병선","황아영","박미라","김동우","김연의","하지범",
-  "남가연","손혜림","나영선","박재현","김영미","강민정","이연주","우대윤","이동주","동혜림",
-  "최은숙","이예진","문종기","우하영","김소은","노서현","송선정","신화준","노상민","안형진",
-  "김태현","오준석","윤성민","조아람","강길태","김서호","이슬민","윤용현","이지희","신승혜",
-  "하미옥","김도원","김소연","진창환","정주연","서진영","손평화","정혜원"
+/* ─────────────── 명단 + 소속 (운영진이 등록) ─────────────── */
+const ROSTER = [
+  ["강길태","양산 황산초등학교"],
+  ["강민정","마산 합포여자중학교"],
+  ["강재욱","창원 용마초등학교"],
+  ["강하영","합천 가회중학교"],
+  ["강화정","경남 김해 대동초등학교"],
+  ["곽민진","통영 동원고등학교"],
+  ["금호정","진주혜광학교"],
+  ["김권수","마산 현동초등학교"],
+  ["김도원","함안 칠원중학교"],
+  ["김동우","창원 안남중학교"],
+  ["김동준","부산 부민초등학교"],
+  ["김동환","양산 금오초등학교"],
+  ["김민수","합천고등학교"],
+  ["김민중","진해 용원초등학교"],
+  ["김병선","진주 경상국립대학교"],
+  ["김서호","창원 마산고등학교"],
+  ["김선형","하동 고전초등학교"],
+  ["김소연","부산 좌동초등학교"],
+  ["김소완","경상대학교사범대학부설고등학교"],
+  ["김소은","고성 고성중앙고등학교"],
+  ["김연의","김해은혜학교"],
+  ["김영미","진주 진주고등학교"],
+  ["김유미","부산 부산국제외국인학교"],
+  ["김재황","통영 동원고등학교"],
+  ["김제이","부산배화학교"],
+  ["김준호","함양 안의초등학교"],
+  ["김지원","창원 웅천초등학교"],
+  ["김태현","양산 백동초등학교"],
+  ["김호준","진해 진해용원고등학교"],
+  ["김희은","울산 화암초등학교"],
+  ["나영선","대구 예아람학교"],
+  ["남가연","감계중학교"],
+  ["남광희","상주 화동초등학교"],
+  ["남태열","통영 용남초등학교"],
+  ["노상민","진주 이반성초등학교"],
+  ["노서현","의령은광학교"],
+  ["동혜림","김해 봉명초등학교"],
+  ["류시영","대구 프리랜서 강사"],
+  ["문종기","김해 김해동광초등학교"],
+  ["문지훈","창원 경상디지털교육자연합"],
+  ["박미라","양산 증산초등학교(26년도 황산초등학교)"],
+  ["박미래","거제 수월중학교"],
+  ["박병준","창원 창원여자고등학교"],
+  ["박상범","신주초등학교(2026.3월이후)"],
+  ["박서현","거제중학교"],
+  ["박성수","함양 서상초등학교"],
+  ["박성일","진주 가람초등학교"],
+  ["박수영(초)","마산 고운초등학교"],
+  ["박수영(고)","의령 의령고등학교"],
+  ["박영은","김해 율하중학교"],
+  ["박재현","진주 진주고등학교"],
+  ["박주연","사천 용산초등학교"],
+  ["박한울","통영 동원고등학교"],
+  ["백경태","마산제일여자중학교"],
+  ["서진영","함양 백전초등학교"],
+  ["손평화","거창고등학교"],
+  ["손혜림","창원 용호초등학교"],
+  ["송선정","마산대학교"],
+  ["신수현","창원 감계초등학교"],
+  ["신승혜","김해한일여자고등학교"],
+  ["신화준","창원 무학초등학교"],
+  ["안형진","경북 상주 낙운중학교"],
+  ["양인선","진해 장복초등학교"],
+  ["오준석","김해 월산중학교"],
+  ["우대윤","사천 용산초등학교"],
+  ["우하영","거제 거제옥포고등학교"],
+  ["윤명희","경남 에세이"],
+  ["윤성민","거제 양지초등학교"],
+  ["윤용현","사천 삼천포여자중학교"],
+  ["윤태영","양산 오봉초등학교"],
+  ["윤현삼","양산 서남초등학교"],
+  ["윤희류","양산 황산초등학교"],
+  ["이나영","양산 양주초등학교"],
+  ["이다은","양산 오봉초등학교"],
+  ["이대송","김해 김해은혜학교"],
+  ["이동주","진주 경상사대부고"],
+  ["이상민","합천 합천여자중학교"],
+  ["이상우","고성 철성중학교"],
+  ["이성근","경산 하주초등학교"],
+  ["이슬민","거제 거제양정초등학교"],
+  ["이승준","창녕 부곡초등학교"],
+  ["이연주","의령 의령고등학교"],
+  ["이예진","MSECM"],
+  ["이운희","창원 진해신항초등학교"],
+  ["이지희","진영금병초등학교"],
+  ["전혜진","김해 장유초등학교"],
+  ["정동원","부산 부민초등학교"],
+  ["정윤아","부산 동일중앙초등학교"],
+  ["정주연","양산 신명초등학교"],
+  ["정진아","부산 거학초등학교"],
+  ["정한길","김해 김해삼문고등학교"],
+  ["정혜원","하동 화개초등학교"],
+  ["조아람","양산 증산초등학교"],
+  ["진창환","함안 칠서초등학교"],
+  ["최광일","양산 양산중앙중학교"],
+  ["최미진","고성 고성유치원(청주 한국교원대학교)"],
+  ["최소은","부산 방곡초등학교"],
+  ["최시경","진주 경상사대부설고등학교"],
+  ["최은숙","창원 진해 안골포중학교"],
+  ["최재우","창원 마산제일여자중학교"],
+  ["하미옥","김해 김해한일여자고등학교"],
+  ["하지범","거제 양지초등학교"],
+  ["한솔","창원 진해냉천중학교"],
+  ["홍진우","대구 심인고등학교"],
+  ["황동성","창원 유목초등학교"],
+  ["황병조","화신중학교"],
+  ["황아영","창원 마산여자고등학교"],
+  ["황준식","경상국립대학교 기계공학부"],
 ];
+const RAW_NAMES = ROSTER.map(([n]) => n);
+const AFFILIATION = Object.fromEntries(ROSTER);
 
 /* 결과를 고정시키는 시드. 이 숫자가 같으면 모든 폰에서 동일한 결과. */
-const SEED = 5142026;
+const SEED = 20260515;
 
 /* 등수 분배 정의 */
 const TIERS = [
@@ -995,10 +1146,9 @@ const TIERS = [
 ];
 const LOWER_PRIZE_LABEL = "참가상 (감사 선물)";
 
-/* dedup + 가나다 정렬 */
-const NAMES = Array.from(new Set(RAW_NAMES.map(s => s.trim()).filter(Boolean)))
-                  .sort((a, b) => a.localeCompare(b, "ko"));
-const DUP_COUNT = RAW_NAMES.length - NAMES.length;
+const NAMES = RAW_NAMES.map(s => s.trim()).filter(Boolean)
+                       .sort((a, b) => a.localeCompare(b, "ko"));
+const DUP_COUNT = 0;
 
 /* ─────────────── 결정론적 셔플 (mulberry32) ─────────────── */
 function mulberry32(seed) {
@@ -1206,8 +1356,19 @@ function backToLookup() {
 }
 
 /* ─────────────── ADMIN ─────────────── */
+const ADMIN_PASSWORD = "gdeal1234!!";
 function isAdmin() {
-  return new URLSearchParams(location.search).get("admin") === "1";
+  if (new URLSearchParams(location.search).get("admin") !== "1") return false;
+  if (sessionStorage.getItem("gdealAdminAuth") === "1") return true;
+  const pw = prompt("운영진 비밀번호를 입력하세요");
+  if (pw === ADMIN_PASSWORD) {
+    sessionStorage.setItem("gdealAdminAuth", "1");
+    return true;
+  }
+  if (pw !== null) alert("비밀번호가 맞지 않습니다.");
+  /* 비밀번호 실패 시 URL의 ?admin=1 제거 → 회원 페이지로 자연스럽게 */
+  history.replaceState(null, "", location.pathname);
+  return false;
 }
 
 function renderAdmin() {
@@ -1235,7 +1396,10 @@ function renderAdmin() {
     div.className = "admin-tier" + (r <= 3 ? ` t${r}` : "");
     div.innerHTML = `
       <div class="admin-tier-head">${r}등 — ${escapeHTML(label)}<span class="count">${names.length}명</span></div>
-      <div class="admin-tier-names">${names.map(n => `<span>${escapeHTML(n)}</span>`).join(" · ")}</div>`;
+      <div class="admin-tier-names">${names.map(n => {
+        const aff = AFFILIATION[n];
+        return `<span><b>${escapeHTML(n)}</b>${aff ? ` <small style="color:var(--muted);font-weight:400;">${escapeHTML(aff)}</small>` : ""}</span>`;
+      }).join("<br>")}</div>`;
     tiersEl.appendChild(div);
   });
 }
@@ -1253,7 +1417,10 @@ function copyAllResults() {
     const tier = TIERS.find(t => t.rank === r);
     const label = tier ? tier.label : "참가상";
     lines.push(`■ ${r}등 — ${label} (${names.length}명)`);
-    lines.push("  " + names.join(", "));
+    names.forEach(n => {
+      const aff = AFFILIATION[n];
+      lines.push(aff ? `  ${n}  (${aff})` : `  ${n}`);
+    });
     lines.push("");
   });
   copyText(lines.join("\n"), "전체 결과가 복사됐어요");
@@ -1262,8 +1429,12 @@ function copyAllResults() {
 function copyAllResultsByName() {
   const rows = [...ASSIGNMENT.entries()]
     .sort((a, b) => a[0].localeCompare(b[0], "ko"))
-    .map(([name, info]) => `${name}\t${info.rank}등\t${info.prize}`);
-  copyText(`[G-Deal 추첨 결과 · 이름 가나다순]\n` + rows.join("\n"), "가나다순 결과가 복사됐어요");
+    .map(([name, info]) => {
+      const aff = AFFILIATION[name] || "";
+      return `${name}\t${info.rank}등\t${info.prize}\t${aff}`;
+    });
+  copyText(`[G-Deal 추첨 결과 · 이름 가나다순]\n이름\t등수\t선물\t소속\n` + rows.join("\n"),
+           "가나다순 결과가 복사됐어요");
 }
 
 function copyMyResult() {
@@ -1304,6 +1475,7 @@ function makeFireworks(canvas, opts = {}) {
   const duration = opts.duration ?? 5500;
   const auto = opts.auto !== false;
   let dpr = _resizeCanvas(canvas);
+  /* 모바일 URL바 등으로 인한 resize 시 캔버스만 다시 잡음 (입자는 유지) */
   const onResize = () => { dpr = _resizeCanvas(canvas); };
   window.addEventListener("resize", onResize);
 
@@ -1313,6 +1485,24 @@ function makeFireworks(canvas, opts = {}) {
     ["#a3e635","#dff5a8"], ["#fb923c","#ffd2a8"],
   ];
   const particles = [];
+  const W = () => canvas.clientWidth;
+  const H = () => canvas.clientHeight;
+  const start = Date.now();
+  let lastBurst = 0;
+  let stopFlag = false;
+  let raf = 0;
+  let running = false;
+
+  function startLoop() {
+    if (running) return;
+    running = true;
+    raf = requestAnimationFrame(loop);
+  }
+  function stopLoop() {
+    running = false;
+    cancelAnimationFrame(raf);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
 
   function burstAt(cx, cy, opts2 = {}) {
     const pair = opts2.colors || palette[Math.floor(Math.random() * palette.length)];
@@ -1332,20 +1522,17 @@ function makeFireworks(canvas, opts = {}) {
         trail: []
       });
     }
+    startLoop();
   }
-  const W = () => canvas.clientWidth;
-  const H = () => canvas.clientHeight;
-  const start = Date.now();
-  let lastBurst = 0;
-  let stopFlag = false;
-  let raf = 0;
 
   if (auto) {
     setTimeout(() => burstAt(W() * 0.25, H() * 0.32), 60);
     setTimeout(() => burstAt(W() * 0.72, H() * 0.28), 420);
     setTimeout(() => burstAt(W() * 0.5,  H() * 0.18), 840);
   }
+
   function loop() {
+    if (!running) return;
     raf = requestAnimationFrame(loop);
     const now = Date.now();
     if (auto && !stopFlag && now - start > duration) stopFlag = true;
@@ -1353,19 +1540,22 @@ function makeFireworks(canvas, opts = {}) {
       lastBurst = now;
       burstAt(W() * (0.15 + Math.random() * 0.7), H() * (0.12 + Math.random() * 0.42));
     }
-    ctx.fillStyle = opts.fade ?? "rgba(0,0,0,0.18)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    /* 매 프레임 완전 클리어 → 입자 trail 배열로 시각적 잔상 표현
+       (페이지가 점점 어두워지거나 깜박이는 현상 없음) */
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
       p.trail.push({ x: p.x, y: p.y });
-      if (p.trail.length > 6) p.trail.shift();
+      if (p.trail.length > 12) p.trail.shift();
       p.x += p.vx; p.y += p.vy;
       p.vy += 0.08 * dpr;
       p.vx *= 0.992; p.vy *= 0.992;
       p.life -= p.decay;
       if (p.life <= 0) { particles.splice(i, 1); continue; }
       p.trail.forEach((t, ti) => {
-        ctx.globalAlpha = (ti / p.trail.length) * p.life * 0.45;
+        ctx.globalAlpha = (ti / p.trail.length) * p.life * 0.55;
         ctx.fillStyle = p.color;
         ctx.beginPath(); ctx.arc(t.x, t.y, p.size * (ti / p.trail.length), 0, Math.PI * 2); ctx.fill();
       });
@@ -1374,12 +1564,12 @@ function makeFireworks(canvas, opts = {}) {
       ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
     }
     ctx.globalAlpha = 1;
-    if (stopFlag && particles.length === 0) {
-      cancelAnimationFrame(raf);
+
+    if (particles.length === 0 && (!auto || stopFlag)) {
+      stopLoop();
       window.removeEventListener("resize", onResize);
     }
   }
-  loop();
   return { burst: burstAt, stop: () => { stopFlag = true; } };
 }
 
