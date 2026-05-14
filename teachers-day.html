@@ -4,6 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>스승의 날 — 당신은 어떤 꽃 선생님인가요?</title>
+  <meta name="description" content="12문항 MBTI로 알아보는, 나를 닮은 한 송이 꽃 선생님. 따뜻한 꽃말과 위로의 한 줄, 그리고 보너스 전생 알아보기까지." />
+
+  <!-- Open Graph (Facebook, KakaoTalk, Discord, etc.) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="스승의 날 — 당신은 어떤 꽃 선생님인가요?" />
+  <meta property="og:description" content="12문항 MBTI · 16가지 꽃 결과 · 보너스 전생 알아보기. 그동안 고생 많으셨어요, 선생님." />
+  <meta property="og:image" content="og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:site_name" content="Teacher's Day Flower MBTI" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="스승의 날 — 당신은 어떤 꽃 선생님인가요?" />
+  <meta name="twitter:description" content="12문항 MBTI · 16가지 꽃 결과 · 보너스 전생 알아보기" />
+  <meta name="twitter:image" content="og.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
@@ -376,6 +394,234 @@
       margin-right: 8px;
     }
 
+    /* ───── ENCOURAGEMENT ───── */
+    .encourage {
+      max-width: 540px;
+      margin: 0 auto 26px;
+      padding: 18px 22px 14px;
+      border-radius: var(--r-md);
+      background: rgba(255, 248, 232, 0.85);
+      border: 1px solid rgba(232, 144, 160, 0.28);
+      position: relative;
+    }
+    .encourage::before,
+    .encourage::after {
+      content: "\201C";
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 56px;
+      line-height: 1;
+      color: rgba(232, 144, 160, 0.55);
+      position: absolute;
+      top: 4px;
+      left: 14px;
+    }
+    .encourage::after {
+      content: "\201D";
+      left: auto;
+      right: 14px;
+      top: auto;
+      bottom: -10px;
+    }
+    .encourage-eyebrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .encourage-text {
+      font-family: "Gowun Batang", serif;
+      font-size: 15.5px;
+      line-height: 1.85;
+      color: var(--ink);
+      text-align: center;
+      word-break: keep-all;
+      padding: 0 18px;
+    }
+    .encourage-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .encourage-mini {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 12px;
+      cursor: pointer;
+      transition: color .15s, border-color .15s;
+    }
+    .encourage-mini:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .encourage.is-custom {
+      background: rgba(255, 235, 240, 0.85);
+      border-color: rgba(232, 144, 160, 0.55);
+    }
+    .encourage.is-custom .encourage-eyebrow {
+      color: var(--accent);
+    }
+
+    .write-area {
+      display: none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(232, 144, 160, 0.4);
+    }
+    .write-area.open { display: block; animation: fadeIn .25s ease; }
+
+    .write-row {
+      display: grid;
+      gap: 10px;
+    }
+    .write-input,
+    .write-textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-sm);
+      background: #fff;
+      color: var(--ink);
+      font-family: "Gowun Batang", serif;
+      font-size: 14.5px;
+      line-height: 1.7;
+      resize: vertical;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .write-input:focus,
+    .write-textarea:focus {
+      outline: 0;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(232, 144, 160, 0.18);
+    }
+    .write-textarea { min-height: 80px; }
+
+    .write-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+    .write-counter {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 11px;
+      color: var(--faint);
+      letter-spacing: 0.05em;
+      align-self: center;
+      margin-right: auto;
+    }
+    .write-save {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 0;
+      background: var(--accent);
+      color: #fff;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity .15s, transform .15s;
+    }
+    .write-save:hover { transform: translateY(-1px); opacity: .9; }
+    .write-cancel {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .write-cancel:hover { color: var(--ink); border-color: var(--line-hi); }
+
+    /* ───── DELIVERED MESSAGE (recipient view) ───── */
+    .delivered {
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 30px 30px 28px;
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(232, 144, 160, 0.35);
+      animation: fadeIn .5s ease;
+    }
+    .delivered::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 100% 0%,  rgba(232, 144, 160, 0.13) 0%, transparent 50%),
+        radial-gradient(circle at 0% 100%,  rgba(146, 160, 121, 0.10) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .delivered > * { position: relative; }
+
+    .delivered-eyebrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 6px;
+      text-align: center;
+    }
+    .delivered-title {
+      font-family: "Gowun Batang", serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      text-align: center;
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+    }
+    .delivered-msg {
+      font-family: "Gowun Batang", serif;
+      font-size: 16px;
+      line-height: 2;
+      color: var(--ink);
+      padding: 22px 24px;
+      background: rgba(255, 248, 232, 0.9);
+      border-radius: var(--r-md);
+      border-left: 3px solid var(--accent);
+      word-break: keep-all;
+      white-space: pre-wrap;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .delivered-from {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--muted);
+      text-align: right;
+      letter-spacing: 0.04em;
+    }
+    .delivered-from b {
+      color: var(--accent);
+      font-weight: 600;
+      font-style: normal;
+      font-family: "Gowun Batang", serif;
+    }
+    .delivered-cta {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      padding-top: 16px;
+      border-top: 1px dashed var(--line);
+    }
+    .delivered-cta b { color: var(--ink); font-weight: 700; }
+
     .result-msg {
       font-family: "Gowun Batang", serif;
       font-size: 15.5px;
@@ -727,6 +973,18 @@
 
   <!-- ───── RESULT ───── -->
   <section id="resultScreen" class="hidden">
+
+    <!-- 친구가 보낸 응원 메시지 (URL 파라미터로 전달) -->
+    <div class="delivered hidden" id="deliveredCard">
+      <div class="delivered-eyebrow">Message Delivered</div>
+      <div class="delivered-title" id="deliveredTitle">선생님께 도착한 한 줄</div>
+      <div class="delivered-msg" id="deliveredMsg"></div>
+      <div class="delivered-from" id="deliveredFrom"></div>
+      <div class="delivered-cta">
+        나도 답장으로 <b>꽃 선생님 결과</b>를 보내드려요 — 아래 결과를 그대로 공유하셔도 좋아요.
+      </div>
+    </div>
+
     <div class="result" id="resultCard">
       <div class="result-eyebrow">Your Flower Teacher</div>
       <svg class="result-flower" id="resultFlower" viewBox="0 0 120 120" aria-hidden="true"></svg>
@@ -734,6 +992,30 @@
       <div class="result-name" id="resultName"></div>
       <div class="result-tagline" id="resultTagline"></div>
       <div class="result-meaning" id="resultMeaning"></div>
+
+      <div class="encourage" id="encourageBox">
+        <div class="encourage-eyebrow" id="encourageEyebrow">Today's Message</div>
+        <div class="encourage-text" id="encourageText"></div>
+        <div class="encourage-row">
+          <button class="encourage-mini" type="button" onclick="rerollEncourage()">다른 응원문구</button>
+          <button class="encourage-mini" type="button" onclick="toggleWrite()" id="writeToggle">직접 쓰기</button>
+        </div>
+
+        <div class="write-area" id="writeArea">
+          <div class="write-row">
+            <input type="text" class="write-input" id="writeFrom"
+                   maxlength="20" placeholder="보내는 사람 (선택 · 예: 이서연 선생님)" />
+            <textarea class="write-textarea" id="writeMsg"
+                      maxlength="140" placeholder="다른 선생님께 보낼 응원의 한 줄을 적어주세요. (140자 이내)"></textarea>
+            <div class="write-actions">
+              <span class="write-counter"><span id="writeCount">0</span> / 140</span>
+              <button class="write-cancel" type="button" onclick="cancelWrite()">취소</button>
+              <button class="write-save"   type="button" onclick="saveWrite()">이 메시지로 공유하기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="result-msg" id="resultMsg"></div>
       <dl class="result-strengths" id="resultStrengths"></dl>
       <div class="actions">
@@ -772,8 +1054,8 @@
   </section>
 
   <footer>
-    © Teacher's Day Flower MBTI · with care &nbsp;·&nbsp;
-    <a href="./index.html">에니어그램 진단표 →</a>
+    © Teacher's Day Flower MBTI · with care<br>
+    <a href="./index.html" style="display:inline-block; margin-top:10px; padding:8px 16px; border:1px solid var(--line-hi); border-radius:999px; color:var(--ink-soft); font-size:13px;">← 에니어그램 진단표로</a>
   </footer>
 </div>
 
@@ -1076,6 +1358,48 @@ const RESULTS = {
   },
 };
 
+/* ─────────────── ENCOURAGEMENT POOL ─────────────── */
+const ENCOURAGE = [
+  "오늘 하루는 누군가를 키운 선생님을 키우는 날이 되기를.",
+  "선생님이 계셔서, 학교가 따뜻한 곳이었어요.",
+  "매일 같은 자리에 계셨던 그 한결같음을, 오늘은 누가 좀 알아드렸으면 해요.",
+  "한 명을 끝까지 본다는 건 사실 한 우주를 본다는 일이에요. 고생하셨어요.",
+  "선생님의 이름을 평생 잊지 못할 사람이, 분명히 어딘가에 있습니다.",
+  "들리지 않아도, 보이지 않아도, 선생님이 한 일은 모두 누군가의 안에서 자라고 있어요.",
+  "가장 좋은 것을 가르치려고 가장 외로운 자리를 택한 모든 선생님께.",
+  "좋은 어른을 본 적 있는 사람만이 좋은 어른이 됩니다. 그 좋은 어른이 선생님이세요.",
+  "\"스승의 그림자도 밟지 않는다\"는 말, 사실 그 그림자가 가장 따뜻해서래요.",
+  "아이들이 다 자라 떠난 자리에도, 선생님의 한 마디는 남아 있습니다.",
+  "누군가의 사춘기를 끝까지 기다려본 사람만 알 수 있는 평화가 있어요.",
+  "교실의 형광등 아래서 보낸 그 모든 시간이, 어딘가에선 별이 되었습니다.",
+  "선생님, 오늘만큼은 채점 그만하시고 일찍 주무셔도 돼요.",
+  "학생부 안 쓰셔도 됩니다. 오늘은 선생님이 주인공이에요.",
+  "분필 가루 다 털고, 오늘은 좋은 거 드세요.",
+  "학부모 전화 안 와요. 안심하고 쉬세요.",
+  "잠깐 — 회식 약속도 미루세요. 오늘은 그냥 푹 쉬는 날이에요.",
+  "선생님, 가끔은 답안지 같은 인생 말고 백지 같은 하루도 좋아요.",
+  "그동안 정말 고생 많으셨어요. 마음 깊이 존경해요.",
+  "보이지 않는 곳에서 가장 단단했던 선생님께, 오늘은 가장 부드러운 하루를.",
+  "어떤 마음이든 다 받아내신 그 마음, 오늘은 누가 좀 받아드렸으면 해요.",
+  "한 명을 진짜로 듣는 일이 얼마나 어려운 일인지 우리는 압니다. 감사해요.",
+  "잘 가르치는 사람은 많아도, 끝까지 믿어주는 사람은 드물어요. 그 드문 사람이 선생님이세요.",
+  "가르치는 일은 사실 매일 자기를 다시 가르치는 일이라는 걸, 선생님은 아시죠.",
+  "가장 잘 가르친 한 마디는 사실 가장 짧은 한 마디였을 거예요.",
+  "한 학기 동안의 작은 변화가, 어쩌면 한 사람의 평생을 바꿉니다.",
+  "우리는 모두 누군가의 학생이었고, 그 누군가가 선생님이었어요.",
+  "카네이션 다 시들기 전에, 셀프로 한 번 더 안아주세요.",
+  "학생들이 보내지 않은 메시지도 마음으로 미리 받으세요. 다들 진심이에요.",
+  "오늘 저녁은 학원 끝나고 오는 학생 받지 마세요. 본인부터 받으세요.",
+  "학생 진로 상담 말고 본인 진로 상담 한 번 — \"잘하고 계세요\"가 결과입니다.",
+  "선생님은 누군가의 인생에서 처음 만난 어른이었을 거예요.",
+  "누군가가 학교에 가는 게 행복했다면, 그건 거의 다 선생님 덕분이에요.",
+  "한 줄의 칭찬을 누군가는 평생 마음에 품습니다. 선생님이 그 줄을 적어주셨어요.",
+  "잘하셨어요, 정말로. 한참을 잘하셨어요.",
+  "오늘 하루는 \"선생님\"이 아니라 그냥 당신으로 보내셔도 돼요.",
+  "어쩌면 가장 빛나는 가르침은, 묵묵히 곁에 있어준 그 시간일지 몰라요.",
+  "지친 날에도 누군가에게 웃어주셨던 그 마음, 오늘은 누가 알아드릴 차례예요.",
+];
+
 /* ─────────────── PAST LIFE POOL ─────────────── */
 const PAST_LIVES = [
   {
@@ -1371,11 +1695,12 @@ function calcType() {
   ].join("");
 }
 
-function showResult() {
-  const type = calcType();
-  const r = RESULTS[type];
+function showResult(typeOverride) {
+  const type = typeOverride || calcType();
+  const r = RESULTS[type] || RESULTS.ESFJ;
 
   $("quizScreen").classList.add("hidden");
+  $("introScreen").classList.add("hidden");
   $("resultScreen").classList.remove("hidden");
 
   const card = $("resultCard");
@@ -1394,8 +1719,78 @@ function showResult() {
     `<div class="strength-row"><dt>${dt}</dt><dd>${dd}</dd></div>`
   ).join("");
 
-  history.replaceState(null, "", `#${type}`);
+  pickEncourage();
+  _resultType = type;
+  if (!typeOverride) history.replaceState(null, "", `?type=${type}`);
   window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ─────────────── ENCOURAGEMENT ─────────────── */
+let _encourageIdx = -1;
+let _encourageText = "";
+let _isCustom = false;
+let _customFrom = "";
+let _resultType = "";
+
+function pickEncourage() {
+  if (_isCustom) return;
+  let idx;
+  do { idx = Math.floor(Math.random() * ENCOURAGE.length); }
+  while (idx === _encourageIdx && ENCOURAGE.length > 1);
+  _encourageIdx = idx;
+  _encourageText = ENCOURAGE[idx];
+  $("encourageText").textContent = _encourageText;
+  $("encourageBox").classList.remove("is-custom");
+  $("encourageEyebrow").textContent = "Today's Message";
+}
+
+function rerollEncourage() {
+  if (_isCustom) {
+    _isCustom = false;
+    _customFrom = "";
+  }
+  pickEncourage();
+}
+
+function toggleWrite() {
+  const area = $("writeArea");
+  if (area.classList.contains("open")) {
+    cancelWrite();
+  } else {
+    area.classList.add("open");
+    if (_isCustom) {
+      $("writeMsg").value = _encourageText;
+      $("writeFrom").value = _customFrom;
+    }
+    updateWriteCount();
+    $("writeMsg").focus();
+  }
+}
+
+function cancelWrite() {
+  $("writeArea").classList.remove("open");
+}
+
+function updateWriteCount() {
+  const v = $("writeMsg").value || "";
+  $("writeCount").textContent = v.length;
+}
+
+function saveWrite() {
+  const msg = ($("writeMsg").value || "").trim();
+  const from = ($("writeFrom").value || "").trim();
+  if (!msg) {
+    showToast("응원의 한 줄을 적어주세요");
+    return;
+  }
+  _isCustom = true;
+  _encourageText = msg;
+  _customFrom = from;
+  $("encourageText").textContent = msg + (from ? `\n— ${from}` : "");
+  $("encourageBox").classList.add("is-custom");
+  $("encourageEyebrow").textContent = "My Message · 직접 쓴 응원";
+  cancelWrite();
+  showToast("저장됐어요. \"결과 링크 복사\"로 보내주세요");
 }
 
 function restart() {
@@ -1406,9 +1801,14 @@ function restart() {
   $("plIntro").classList.remove("hidden");
   $("plCard").classList.add("hidden");
   $("plCard").style.opacity = "1";
+  $("deliveredCard").classList.add("hidden");
   _pastLife = null;
   _lastIdx = -1;
-  history.replaceState(null, "", " ");
+  _isCustom = false;
+  _customFrom = "";
+  _encourageIdx = -1;
+  _resultType = "";
+  history.replaceState(null, "", location.pathname);
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -1421,14 +1821,46 @@ function showToast(msg) {
   showToast._t = setTimeout(() => t.classList.remove("show"), 2400);
 }
 
+function buildShareURL() {
+  const u = new URL(location.href);
+  u.search = "";
+  u.hash = "";
+  if (_resultType) u.searchParams.set("type", _resultType);
+  if (_isCustom && _encourageText) {
+    u.searchParams.set("msg", _encourageText);
+    if (_customFrom) u.searchParams.set("from", _customFrom);
+  }
+  return u.toString();
+}
+
+function buildShareText() {
+  const r = _resultType ? RESULTS[_resultType] : null;
+  const lines = [];
+  if (r) {
+    lines.push(`[스승의 날 꽃 선생님 MBTI]`);
+    lines.push(`${r.name} (${_resultType})`);
+    lines.push(`꽃말 — ${r.meaning}`);
+    lines.push("");
+  }
+  if (_encourageText) {
+    lines.push(`"${_encourageText}"`);
+    if (_isCustom && _customFrom) lines.push(`— ${_customFrom}`);
+    lines.push("");
+  }
+  lines.push(buildShareURL());
+  return lines.join("\n");
+}
+
 function copyShare() {
-  const url = location.href;
+  const text = buildShareText();
   if (navigator.clipboard?.writeText) {
-    navigator.clipboard.writeText(url)
-      .then(() => showToast("링크가 복사되었어요. 동료 선생님께 보내보세요"))
-      .catch(() => fallbackCopy(url));
+    navigator.clipboard.writeText(text)
+      .then(() => showToast(_isCustom
+        ? "내가 쓴 응원과 결과가 복사됐어요"
+        : "응원문구와 결과 링크가 복사됐어요"))
+      .catch(() => fallbackCopy(text));
   } else {
-    fallbackCopy(url);
+    fallbackCopy(text);
   }
 }
 
@@ -1494,6 +1926,53 @@ function copyPastLife() {
     fallbackCopy(text);
   }
 }
+
+/* ─────────────── BOOTSTRAP / DEEP LINK ─────────────── */
+function showDelivered(msg, from) {
+  $("deliveredMsg").textContent = msg;
+  $("deliveredFrom").innerHTML = from
+    ? `from <b>${escapeHTML(from)}</b>`
+    : `from <b>한 선생님</b>`;
+  $("deliveredCard").classList.remove("hidden");
+}
+
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+
+function bootFromURL() {
+  const u = new URL(location.href);
+  const params = u.searchParams;
+
+  let type = params.get("type") || (location.hash || "").replace(/^#/, "");
+  type = type ? type.toUpperCase() : "";
+  const msg  = params.get("msg")  || "";
+  const from = params.get("from") || "";
+
+  const validType = type && RESULTS[type];
+
+  if (validType || msg) {
+    if (validType) {
+      showResult(type);
+    } else {
+      $("introScreen").classList.remove("hidden");
+    }
+    if (msg) {
+      showDelivered(msg, from);
+      if (validType) {
+        $("deliveredCard").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const ta = document.getElementById("writeMsg");
+  if (ta) ta.addEventListener("input", updateWriteCount);
+  bootFromURL();
+});
 </script>
 </body>
 </html>

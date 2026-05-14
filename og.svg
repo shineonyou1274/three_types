@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#fdf8ec"/>
+      <stop offset="100%" stop-color="#f6ead4"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.15" cy="0.1" r="0.55">
+      <stop offset="0%"  stop-color="#f4c0d2" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#f4c0d2" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.85" cy="0.95" r="0.6">
+      <stop offset="0%"  stop-color="#c1d3a1" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#c1d3a1" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="centerY" cx="0.3" cy="0.3" r="0.7">
+      <stop offset="0%"  stop-color="#f5d683"/>
+      <stop offset="100%" stop-color="#d99a3c"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow1)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+
+  <!-- soft border -->
+  <rect x="36" y="36" width="1128" height="558" rx="36" ry="36"
+        fill="none" stroke="#c1a37d" stroke-opacity="0.35" stroke-width="2"/>
+
+  <!-- decorative dotted line -->
+  <line x1="120" y1="120" x2="280" y2="120"
+        stroke="#c1a37d" stroke-opacity="0.5" stroke-width="2"
+        stroke-dasharray="2 8" stroke-linecap="round"/>
+  <line x1="920" y1="510" x2="1080" y2="510"
+        stroke="#c1a37d" stroke-opacity="0.5" stroke-width="2"
+        stroke-dasharray="2 8" stroke-linecap="round"/>
+
+  <!-- left flower (small) -->
+  <g transform="translate(160 470)" opacity="0.55">
+    <g fill="#a4c08b">
+      <ellipse cx="0" cy="-22" rx="9" ry="22"/>
+      <ellipse cx="0" cy="-22" rx="9" ry="22" transform="rotate(72)"/>
+      <ellipse cx="0" cy="-22" rx="9" ry="22" transform="rotate(144)"/>
+      <ellipse cx="0" cy="-22" rx="9" ry="22" transform="rotate(216)"/>
+      <ellipse cx="0" cy="-22" rx="9" ry="22" transform="rotate(288)"/>
+    </g>
+    <circle r="7" fill="#e6a942"/>
+  </g>
+
+  <!-- right flower (medium) -->
+  <g transform="translate(1020 180)" opacity="0.7">
+    <g fill="#e8a4c3">
+      <ellipse cx="0" cy="-30" rx="13" ry="30"/>
+      <ellipse cx="0" cy="-30" rx="13" ry="30" transform="rotate(60)"/>
+      <ellipse cx="0" cy="-30" rx="13" ry="30" transform="rotate(120)"/>
+      <ellipse cx="0" cy="-30" rx="13" ry="30" transform="rotate(180)"/>
+      <ellipse cx="0" cy="-30" rx="13" ry="30" transform="rotate(240)"/>
+      <ellipse cx="0" cy="-30" rx="13" ry="30" transform="rotate(300)"/>
+    </g>
+    <circle r="11" fill="url(#centerY)"/>
+  </g>
+
+  <!-- main hero flower -->
+  <g transform="translate(290 315)">
+    <g fill="#ec92ac" opacity="0.92">
+      <ellipse cx="0" cy="-78" rx="34" ry="78"/>
+      <ellipse cx="0" cy="-78" rx="34" ry="78" transform="rotate(45)"/>
+      <ellipse cx="0" cy="-78" rx="34" ry="78" transform="rotate(90)"/>
+      <ellipse cx="0" cy="-78" rx="34" ry="78" transform="rotate(135)"/>
+      <ellipse cx="0" cy="-78" rx="34" ry="78" transform="rotate(180)"/>
+      <ellipse cx="0" cy="-78" rx="34" ry="78" transform="rotate(225)"/>
+      <ellipse cx="0" cy="-78" rx="34" ry="78" transform="rotate(270)"/>
+      <ellipse cx="0" cy="-78" rx="34" ry="78" transform="rotate(315)"/>
+    </g>
+    <circle r="32" fill="url(#centerY)"/>
+    <circle r="10" fill="#fff" opacity="0.45" cx="-9" cy="-9"/>
+  </g>
+
+  <!-- text block -->
+  <g font-family="'Gowun Batang', 'Noto Sans KR', serif">
+    <text x="500" y="220"
+          font-family="'Cormorant Garamond', Georgia, serif"
+          font-style="italic"
+          font-size="28"
+          fill="#c8526a"
+          letter-spacing="6">TEACHER'S DAY · SPECIAL</text>
+
+    <text x="500" y="312"
+          font-size="68"
+          font-weight="700"
+          fill="#2c2620"
+          letter-spacing="-1">스승의 날,</text>
+
+    <text x="500" y="392"
+          font-size="68"
+          font-weight="700"
+          fill="#2c2620"
+          letter-spacing="-1">당신은 어떤 <tspan fill="#c8526a">꽃 선생님</tspan>인가요?</text>
+
+    <text x="500" y="450"
+          font-family="'Noto Sans KR', sans-serif"
+          font-size="26"
+          fill="#5b5045"
+          letter-spacing="0.5">12문항 MBTI · 16가지 꽃 결과 · 보너스 전생 알아보기</text>
+
+    <text x="500" y="540"
+          font-family="'Cormorant Garamond', Georgia, serif"
+          font-style="italic"
+          font-size="22"
+          fill="#8a7c6c"
+          letter-spacing="2">— 그동안 고생 많으셨어요, 선생님.</text>
+  </g>
+</svg>
