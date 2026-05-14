@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이벤트 추첨 — 통닭 뽑기</title>
+  <meta name="description" content="둘둘 돌아가는 통닭과 함께, 1등부터 10등까지 차례로 뽑는 이벤트 추첨" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="이벤트 추첨 — 통닭 뽑기" />
+  <meta property="og:description" content="둘둘 돌아가는 통닭과 함께, 1등부터 10등까지 차례로 뽑는 이벤트 추첨" />
+  <meta property="og:image" content="og.png" />
+  <meta property="og:locale" content="ko_KR" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:        #faf5e8;
+      --bg-2:      #f1e7cd;
+      --surface:   #ffffff;
+      --ink:       #2c2620;
+      --ink-soft:  #5b5045;
+      --muted:     #8a7c6c;
+      --faint:     #b6a892;
+      --line:      rgba(60, 45, 30, 0.10);
+      --line-hi:   rgba(60, 45, 30, 0.22);
+
+      --accent:    #c4504a;
+      --gold:      #d99a3c;
+      --gold-2:    #f5d683;
+      --chicken:   #d39549;
+      --chicken-2: #b87033;
+      --crisp:     #8e4d24;
+      --fire:      #ee7236;
+      --fire-2:    #f5b03c;
+
+      --r-lg: 28px;
+      --r-md: 18px;
+      --r-sm: 12px;
+      --shadow: 0 18px 50px rgba(120, 80, 50, 0.12);
+      --shadow-soft: 0 8px 24px rgba(120, 80, 50, 0.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Noto Sans KR", system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.7;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse 70% 50% at 20% 0%,  rgba(245, 176, 60, 0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 100%, rgba(196, 80, 74, 0.10) 0%, transparent 60%);
+    }
+
+    .wrap {
+      width: min(720px, 100% - 28px);
+      margin: 0 auto;
+      padding: 36px 0 72px;
+    }
+
+    /* ───── HERO ───── */
+    .hero {
+      position: relative;
+      padding: 36px 30px 30px;
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow);
+      text-align: center;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(245, 176, 60, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(196, 80, 74, 0.10) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero > * { position: relative; }
+
+    .hero-eyebrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 14px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .hero h1 {
+      font-family: "Gowun Batang", "Cormorant Garamond", serif;
+      font-weight: 700;
+      font-size: clamp(26px, 5vw, 34px);
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero-sub {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* ───── SETUP CARD ───── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow);
+      padding: 32px 28px;
+    }
+
+    .field {
+      display: block;
+      margin-bottom: 18px;
+    }
+    .field-label {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .field-label .lbl {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .field-label .hint {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .names-textarea {
+      width: 100%;
+      min-height: 180px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      background: #fffdf6;
+      color: var(--ink);
+      font-family: "Gowun Batang", serif;
+      font-size: 15px;
+      line-height: 1.85;
+      resize: vertical;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .names-textarea:focus {
+      outline: 0;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(196, 80, 74, 0.15);
+    }
+
+    .count-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .count-chip {
+      padding: 8px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fffdf6;
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .count-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .count-chip.on {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .start-btn {
+      display: block;
+      width: 100%;
+      margin-top: 18px;
+      padding: 16px 24px;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--fire));
+      color: #fff;
+      font-family: "Noto Sans KR", sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .2s, opacity .15s;
+      box-shadow: 0 12px 28px rgba(196, 80, 74, 0.3);
+    }
+    .start-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(196, 80, 74, 0.4);
+    }
+    .start-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .meta-line {
+      margin-top: 12px;
+      font-size: 12.5px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .meta-line b {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    /* ───── DRAW STAGE ───── */
+    .stage {
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow);
+      padding: 28px 24px 30px;
+      margin-bottom: 18px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(245, 176, 60, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 50% 100%, rgba(238, 114, 54, 0.10) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .stage > * { position: relative; }
+
+    /* rotisserie */
+    .rotisserie {
+      width: 240px;
+      height: 200px;
+      margin: 0 auto 18px;
+      position: relative;
+      perspective: 800px;
+    }
+    .rotisserie .spit {
+      position: absolute;
+      top: 50%;
+      left: -10px;
+      right: -10px;
+      height: 6px;
+      background: linear-gradient(90deg, #2a2620 0%, #5a4a3a 10%, #8a7060 50%, #5a4a3a 90%, #2a2620 100%);
+      border-radius: 3px;
+      transform: translateY(-50%);
+      z-index: 1;
+      box-shadow: 0 2px 4px rgba(0,0,0,.2);
+    }
+    .rotisserie .handle-l,
+    .rotisserie .handle-r {
+      position: absolute;
+      top: 50%;
+      width: 18px;
+      height: 18px;
+      background: radial-gradient(circle at 30% 30%, #c4504a, #7a2d28);
+      border-radius: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+    .rotisserie .handle-l { left: -22px; }
+    .rotisserie .handle-r { right: -22px; }
+
+    .chicken-3d {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 200px;
+      height: 140px;
+      transform: translate(-50%, -50%);
+      transform-style: preserve-3d;
+      animation: spin 1.4s linear infinite;
+      z-index: 2;
+    }
+    .chicken-3d.idle { animation-play-state: paused; }
+
+    @keyframes spin {
+      from { transform: translate(-50%, -50%) rotateY(0deg); }
+      to   { transform: translate(-50%, -50%) rotateY(360deg); }
+    }
+
+    .chicken-svg { width: 100%; height: 100%; }
+
+    .flames {
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      right: 0;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      z-index: 0;
+    }
+    .flame {
+      width: 16px;
+      height: 28px;
+      background: radial-gradient(ellipse at bottom, var(--fire-2), var(--fire) 70%, transparent 100%);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: flicker 1.1s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+    .flame:nth-child(2) { animation-delay: .15s; height: 32px; }
+    .flame:nth-child(3) { animation-delay: .3s;  height: 26px; }
+    .flame:nth-child(4) { animation-delay: .45s; height: 30px; }
+    .flame:nth-child(5) { animation-delay: .6s;  height: 22px; }
+
+    @keyframes flicker {
+      0%   { transform: scaleY(1)   scaleX(1)    rotate(-3deg); opacity: .8; }
+      50%  { transform: scaleY(1.2) scaleX(0.9)  rotate(0deg);  opacity: 1; }
+      100% { transform: scaleY(1)   scaleX(1.05) rotate(3deg);  opacity: .9; }
+    }
+
+    /* reveal */
+    .rank-label {
+      font-family: "Gowun Batang", serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+    .rank-label .rank-num {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 38px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--gold);
+      margin-right: 6px;
+      vertical-align: -6px;
+    }
+
+    .reveal-name {
+      font-family: "Gowun Batang", serif;
+      font-size: clamp(28px, 6.5vw, 40px);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      min-height: 1.4em;
+      padding: 16px 18px;
+      background: linear-gradient(135deg, rgba(245, 176, 60, 0.18), rgba(238, 114, 54, 0.12));
+      border-radius: var(--r-md);
+      border: 2px dashed rgba(196, 80, 74, 0.35);
+      margin: 0 auto 22px;
+      max-width: 460px;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+      word-break: keep-all;
+    }
+    .reveal-name.spinning {
+      color: var(--fire);
+      transform: scale(0.97);
+    }
+    .reveal-name.locked {
+      border-color: var(--gold);
+      border-style: solid;
+      background: linear-gradient(135deg, rgba(245, 176, 60, 0.32), rgba(238, 114, 54, 0.22));
+      transform: scale(1.04);
+      box-shadow: 0 14px 36px rgba(196, 80, 74, 0.22);
+      animation: pop .45s cubic-bezier(.2, .9, .3, 1.4);
+    }
+
+    @keyframes pop {
+      0%   { transform: scale(0.85); }
+      60%  { transform: scale(1.1);  }
+      100% { transform: scale(1.04); }
+    }
+
+    .next-btn {
+      padding: 12px 28px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--bg);
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform .15s, opacity .15s;
+      box-shadow: 0 8px 22px rgba(44, 38, 32, 0.25);
+    }
+    .next-btn:hover { transform: translateY(-2px); }
+    .next-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .auto-btn {
+      margin-left: 6px;
+      padding: 12px 20px;
+      border: 1px solid var(--line-hi);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink-soft);
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .auto-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ───── LEADERBOARD ───── */
+    .board {
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow);
+      padding: 28px 26px;
+    }
+    .board-title {
+      font-family: "Gowun Batang", serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .board-title small {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .rank-list {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+    .rank-item {
+      display: grid;
+      grid-template-columns: 56px 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-sm);
+      background: #fffdf6;
+      animation: slideIn .35s ease;
+      transition: background .25s, border-color .25s;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .rank-badge {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--muted);
+      line-height: 1;
+      text-align: center;
+    }
+    .rank-name {
+      font-family: "Gowun Batang", serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+      word-break: keep-all;
+    }
+    .rank-prize {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* podium colors */
+    .rank-item.g1 {
+      background: linear-gradient(135deg, #fff5da, #ffe6a8);
+      border-color: var(--gold);
+    }
+    .rank-item.g1 .rank-badge { color: #b58320; font-size: 30px; }
+    .rank-item.g2 {
+      background: linear-gradient(135deg, #f7f3ec, #ebe2cf);
+      border-color: #b2a48a;
+    }
+    .rank-item.g2 .rank-badge { color: #6c6356; font-size: 28px; }
+    .rank-item.g3 {
+      background: linear-gradient(135deg, #fbe6da, #f3c8a3);
+      border-color: #b97039;
+    }
+    .rank-item.g3 .rank-badge { color: #8e4d24; font-size: 28px; }
+
+    /* ───── ACTIONS ───── */
+    .actions-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform .15s, opacity .15s, background .15s;
+      border: 0;
+    }
+    .action-btn:hover { transform: translateY(-1px); opacity: .9; }
+    .action-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .action-ghost {
+      background: transparent;
+      border: 1px solid var(--line-hi);
+      color: var(--ink);
+    }
+
+    /* ───── TOAST ───── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      background: var(--ink);
+      color: var(--bg);
+      padding: 11px 22px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      box-shadow: 0 8px 28px rgba(0,0,0,.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s, transform .2s;
+      z-index: 999;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    footer {
+      text-align: center;
+      padding: 36px 0 0;
+      font-size: 12px;
+      color: var(--faint);
+      letter-spacing: 0.06em;
+    }
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--faint);
+      margin: 0 6px;
+    }
+    footer a:hover { color: var(--ink); }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 520px) {
+      .card { padding: 24px 20px; }
+      .stage { padding: 24px 18px 26px; }
+      .board { padding: 22px 18px; }
+      .rotisserie { width: 220px; height: 180px; }
+      .chicken-3d { width: 180px; height: 124px; }
+      .rank-item { grid-template-columns: 44px 1fr; }
+      .rank-prize { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="hero-eyebrow">Event · Lottery</span>
+    <h1>둘둘 돌아가는 통닭과 함께,<br><em>1등부터 10등까지</em> 뽑기</h1>
+    <p class="hero-sub">명단을 붙여넣고 시작 버튼을 누르세요. 통닭이 한 번 돌 때마다 당첨자가 나옵니다.</p>
+  </header>
+
+  <!-- ───── SETUP ───── -->
+  <section id="setupScreen" class="card">
+    <label class="field">
+      <div class="field-label">
+        <span class="lbl">참가자 명단</span>
+        <span class="hint">한 줄에 한 명씩 — <b id="nameCounter">0</b>명</span>
+      </div>
+      <textarea class="names-textarea" id="nameList"
+                placeholder="예시)&#10;김민지 선생님&#10;박지훈 선생님&#10;이서연 선생님&#10;..."></textarea>
+    </label>
+
+    <div class="field">
+      <div class="field-label">
+        <span class="lbl">몇 등까지 뽑을까요?</span>
+      </div>
+      <div class="count-row" id="countRow">
+        <!-- chips rendered by JS -->
+      </div>
+    </div>
+
+    <button class="start-btn" id="startBtn" type="button" onclick="startDraw()" disabled>
+      추첨 시작 →
+    </button>
+    <div class="meta-line">
+      * 명단은 페이지를 새로고침하면 사라져요. 미리 메모장에 보관해두세요.
+    </div>
+  </section>
+
+  <!-- ───── DRAW STAGE ───── -->
+  <section id="drawScreen" class="hidden">
+    <div class="stage">
+      <div class="rotisserie">
+        <span class="handle-l"></span>
+        <span class="handle-r"></span>
+        <span class="spit"></span>
+        <div class="chicken-3d idle" id="chicken">
+          <svg class="chicken-svg" viewBox="0 0 200 140" aria-hidden="true">
+            <defs>
+              <radialGradient id="cBody" cx="0.4" cy="0.35" r="0.7">
+                <stop offset="0%"  stop-color="#f5c87a"/>
+                <stop offset="55%" stop-color="#d39549"/>
+                <stop offset="100%" stop-color="#8e4d24"/>
+              </radialGradient>
+              <radialGradient id="cHighlight" cx="0.3" cy="0.3" r="0.4">
+                <stop offset="0%"  stop-color="#fff5d8" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#fff5d8" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <!-- body -->
+            <ellipse cx="100" cy="72" rx="78" ry="48" fill="url(#cBody)"/>
+            <!-- skin texture dots -->
+            <g fill="#7a3f1c" opacity="0.35">
+              <circle cx="70"  cy="58" r="1.6"/>
+              <circle cx="92"  cy="50" r="1.4"/>
+              <circle cx="118" cy="54" r="1.8"/>
+              <circle cx="135" cy="64" r="1.4"/>
+              <circle cx="75"  cy="78" r="1.6"/>
+              <circle cx="110" cy="82" r="1.8"/>
+              <circle cx="138" cy="80" r="1.4"/>
+              <circle cx="85"  cy="92" r="1.6"/>
+              <circle cx="118" cy="98" r="1.4"/>
+            </g>
+            <!-- highlight -->
+            <ellipse cx="78" cy="55" rx="32" ry="18" fill="url(#cHighlight)"/>
+            <!-- left drumstick -->
+            <ellipse cx="32" cy="72" rx="22" ry="14" fill="url(#cBody)"/>
+            <ellipse cx="22" cy="72" rx="8" ry="6" fill="#f0e0c2"/>
+            <!-- right drumstick -->
+            <ellipse cx="168" cy="72" rx="22" ry="14" fill="url(#cBody)"/>
+            <ellipse cx="178" cy="72" rx="8" ry="6" fill="#f0e0c2"/>
+            <!-- glaze shine -->
+            <path d="M 40 60 Q 100 40 160 60" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" opacity="0.45"/>
+          </svg>
+        </div>
+        <div class="flames">
+          <span class="flame"></span>
+          <span class="flame"></span>
+          <span class="flame"></span>
+          <span class="flame"></span>
+          <span class="flame"></span>
+        </div>
+      </div>
+
+      <div class="rank-label">
+        <span class="rank-num" id="rankNum">1</span>등 당첨자
+      </div>
+      <div class="reveal-name" id="revealName">준비 중…</div>
+
+      <div>
+        <button class="next-btn" id="nextBtn" type="button" onclick="drawNext()">시작 →</button>
+        <button class="auto-btn" id="autoBtn" type="button" onclick="autoDrawAll()">10명 한번에 뽑기</button>
+      </div>
+    </div>
+
+    <div class="board">
+      <div class="board-title">
+        지금까지 뽑힌 분 <small id="boardCount">0 / 10</small>
+      </div>
+      <ol class="rank-list" id="rankList"></ol>
+    </div>
+
+    <div class="actions-row" id="finalActions" style="display:none;">
+      <button class="action-btn action-primary" type="button" onclick="copyResult()">결과 복사하기</button>
+      <button class="action-btn action-ghost"   type="button" onclick="restart()">다시 추첨</button>
+    </div>
+  </section>
+
+  <footer>
+    © Event Lottery · 통닭 한 마리에 한 분씩 &nbsp;·&nbsp;
+    <a href="./teachers-day.html">꽃 선생님 MBTI</a>
+    <a href="./index.html">에니어그램</a>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const COUNT_OPTIONS = [1, 3, 5, 7, 10];
+
+let participants = [];
+let remaining = [];
+let pickCount = 10;
+let currentRank = 0;
+let winners = [];
+let _drawing = false;
+
+/* ─────────────── SETUP UI ─────────────── */
+function renderChips() {
+  const row = $("countRow");
+  row.innerHTML = "";
+  COUNT_OPTIONS.forEach(n => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "count-chip" + (n === pickCount ? " on" : "");
+    b.textContent = `${n}명`;
+    b.onclick = () => { pickCount = n; renderChips(); updateStartBtn(); };
+    row.appendChild(b);
+  });
+}
+
+function readNames() {
+  return ($("nameList").value || "")
+    .split(/\r?\n/)
+    .map(s => s.trim())
+    .filter(Boolean);
+}
+
+function updateStartBtn() {
+  const names = readNames();
+  $("nameCounter").textContent = names.length;
+  const ok = names.length >= pickCount && pickCount > 0;
+  $("startBtn").disabled = !ok;
+  $("startBtn").textContent = ok
+    ? `${pickCount}등까지 추첨 시작 →`
+    : (names.length < pickCount
+        ? `최소 ${pickCount}명이 필요해요`
+        : "추첨 시작 →");
+}
+
+/* ─────────────── DRAW ─────────────── */
+function startDraw() {
+  participants = readNames();
+  const uniq = Array.from(new Set(participants));
+  if (uniq.length !== participants.length) {
+    showToast(`중복 ${participants.length - uniq.length}건 제거됨`);
+  }
+  participants = uniq;
+  if (participants.length < pickCount) {
+    showToast("명단이 부족해요");
+    return;
+  }
+  remaining = [...participants];
+  winners = [];
+  currentRank = 0;
+  $("rankList").innerHTML = "";
+  $("setupScreen").classList.add("hidden");
+  $("drawScreen").classList.remove("hidden");
+  $("boardCount").textContent = `0 / ${pickCount}`;
+  $("rankNum").textContent = "1";
+  $("revealName").textContent = "통닭이 돌기 시작합니다…";
+  $("revealName").classList.remove("locked", "spinning");
+  $("nextBtn").textContent = "시작 →";
+  $("nextBtn").disabled = false;
+  $("autoBtn").style.display = "";
+  $("finalActions").style.display = "none";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function drawNext() {
+  if (_drawing) return;
+  if (currentRank >= pickCount) { finishDraw(); return; }
+  currentRank++;
+  $("rankNum").textContent = currentRank;
+  spinAndReveal(false);
+}
+
+function autoDrawAll() {
+  if (_drawing) return;
+  $("autoBtn").disabled = true;
+  $("nextBtn").disabled = true;
+  function loop() {
+    if (currentRank >= pickCount) {
+      $("nextBtn").disabled = false;
+      finishDraw();
+      return;
+    }
+    currentRank++;
+    $("rankNum").textContent = currentRank;
+    spinAndReveal(true, () => setTimeout(loop, 650));
+  }
+  loop();
+}
+
+function spinAndReveal(fast, onDone) {
+  _drawing = true;
+  const reveal = $("revealName");
+  reveal.classList.remove("locked");
+  reveal.classList.add("spinning");
+  $("chicken").classList.remove("idle");
+  $("nextBtn").disabled = true;
+
+  const total = fast ? 14 : 26;       // flicker steps
+  const baseDelay = 35;                // ms
+  let i = 0;
+
+  function tick() {
+    // flickering name
+    const sample = remaining[Math.floor(Math.random() * remaining.length)];
+    reveal.textContent = sample;
+    i++;
+    if (i >= total) {
+      // slowing tail
+      slowdown(0);
+    } else {
+      // progressive delay
+      const delay = baseDelay + Math.floor(i * (fast ? 4 : 6));
+      setTimeout(tick, delay);
+    }
+  }
+
+  function slowdown(step) {
+    const tailSteps = fast ? 3 : 5;
+    if (step >= tailSteps) {
+      lock();
+      return;
+    }
+    const sample = remaining[Math.floor(Math.random() * remaining.length)];
+    reveal.textContent = sample;
+    setTimeout(() => slowdown(step + 1), 140 + step * 100);
+  }
+
+  function lock() {
+    const idx = Math.floor(Math.random() * remaining.length);
+    const winner = remaining[idx];
+    remaining.splice(idx, 1);
+    winners.push({ rank: currentRank, name: winner });
+    reveal.textContent = winner;
+    reveal.classList.remove("spinning");
+    reveal.classList.add("locked");
+    $("chicken").classList.add("idle");
+    addToBoard(currentRank, winner);
+    $("boardCount").textContent = `${winners.length} / ${pickCount}`;
+    $("nextBtn").disabled = false;
+    $("nextBtn").textContent = currentRank < pickCount ? `다음 (${currentRank + 1}등) →` : "결과 보기 →";
+    _drawing = false;
+    if (currentRank >= pickCount) {
+      $("nextBtn").onclick = finishDraw;
+      $("autoBtn").style.display = "none";
+    }
+    if (onDone) onDone();
+  }
+
+  tick();
+}
+
+function addToBoard(rank, name) {
+  const li = document.createElement("li");
+  li.className = "rank-item" + (rank <= 3 ? ` g${rank}` : "");
+  const prize = rank === 1 ? "황금 통닭"
+              : rank === 2 ? "후라이드"
+              : rank === 3 ? "양념"
+              : `${rank}등`;
+  li.innerHTML = `
+    <div class="rank-badge">${rank}</div>
+    <div class="rank-name">${escapeHTML(name)}</div>
+    <div class="rank-prize">${prize}</div>
+  `;
+  $("rankList").appendChild(li);
+}
+
+function finishDraw() {
+  $("autoBtn").style.display = "none";
+  $("nextBtn").style.display = "none";
+  $("finalActions").style.display = "";
+  showToast("추첨 완료! 결과를 캡처해두세요");
+}
+
+function restart() {
+  $("drawScreen").classList.add("hidden");
+  $("setupScreen").classList.remove("hidden");
+  $("rankList").innerHTML = "";
+  winners = [];
+  remaining = [];
+  currentRank = 0;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ─────────────── SHARE / COPY ─────────────── */
+function copyResult() {
+  const text = `[이벤트 추첨 결과]\n` +
+    winners.map(w => {
+      const prize = w.rank === 1 ? " (황금 통닭)"
+                  : w.rank === 2 ? " (후라이드)"
+                  : w.rank === 3 ? " (양념)" : "";
+      return `${w.rank}등 — ${w.name}${prize}`;
+    }).join("\n");
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(text)
+      .then(() => showToast("결과가 복사됐어요"))
+      .catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); showToast("결과가 복사됐어요"); }
+  catch { showToast("복사 실패 — 직접 복사해 주세요"); }
+  document.body.removeChild(ta);
+}
+
+/* ─────────────── TOAST ─────────────── */
+let toastTimer;
+function showToast(msg) {
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2400);
+}
+
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+
+/* ─────────────── INIT ─────────────── */
+renderChips();
+$("nameList").addEventListener("input", updateStartBtn);
+updateStartBtn();
+</script>
+</body>
+</html>
