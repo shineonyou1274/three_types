@@ -511,10 +511,74 @@
       .section-card, .guide-card { box-shadow: none; border: 1px solid #ddd; background: white; }
       label.opt { background: #f8f8f8; border-color: #ddd; }
     }
+
+    /* ───── TEACHER'S DAY BANNER ───── */
+    .td-banner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 22px;
+      margin-bottom: 18px;
+      border: 1px solid rgba(232, 144, 160, 0.35);
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(232, 144, 160, 0.10), rgba(184, 169, 140, 0.08));
+      color: var(--text);
+      text-decoration: none;
+      transition: border-color .2s, transform .15s, background .2s;
+    }
+    .td-banner:hover {
+      border-color: rgba(232, 144, 160, 0.7);
+      transform: translateY(-1px);
+      background:
+        linear-gradient(135deg, rgba(232, 144, 160, 0.16), rgba(184, 169, 140, 0.12));
+    }
+    .td-banner svg { flex-shrink: 0; }
+    .td-banner-text { flex: 1; min-width: 0; line-height: 1.5; }
+    .td-banner-eyebrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      color: #e890a0;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .td-banner-title { font-size: 14px; font-weight: 700; letter-spacing: -0.01em; }
+    .td-banner-sub  { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+    .td-banner-arrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 22px;
+      color: #e890a0;
+      transition: transform .2s;
+    }
+    .td-banner:hover .td-banner-arrow { transform: translateX(4px); }
   </style>
 </head>
 <body>
 <div class="wrap">
+
+  <!-- TEACHER'S DAY EVENT BANNER -->
+  <a class="td-banner" href="./teachers-day.html">
+    <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">
+      <g transform="translate(22 22)">
+        <g fill="#e890a0" opacity="0.95">
+          <ellipse cx="0" cy="-10" rx="5" ry="10"/>
+          <ellipse cx="0" cy="-10" rx="5" ry="10" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-10" rx="5" ry="10" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-10" rx="5" ry="10" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-10" rx="5" ry="10" transform="rotate(288)"/>
+        </g>
+        <circle r="3.6" fill="#e9b86c"/>
+      </g>
+    </svg>
+    <div class="td-banner-text">
+      <span class="td-banner-eyebrow">Teacher's Day · 5.15</span>
+      <div class="td-banner-title">스승의 날 작은 선물 — 당신은 어떤 꽃 선생님인가요?</div>
+      <div class="td-banner-sub">12문항 MBTI · 당신을 닮은 한 송이 꽃과 따뜻한 꽃말을 보내드려요</div>
+    </div>
+    <span class="td-banner-arrow">→</span>
+  </a>
 
   <!-- HEADER -->
   <header>
