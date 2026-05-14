@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>스승의 날 — 당신은 어떤 꽃 선생님인가요?</title>
+  <meta name="description" content="12문항 MBTI로 알아보는, 나를 닮은 한 송이 꽃 선생님. 따뜻한 꽃말과 위로의 한 줄, 그리고 보너스 전생 알아보기까지." />
+
+  <!-- Open Graph (Facebook, KakaoTalk, Discord, etc.) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="스승의 날 — 당신은 어떤 꽃 선생님인가요?" />
+  <meta property="og:description" content="12문항 MBTI · 16가지 꽃 결과 · 보너스 전생 알아보기. 그동안 고생 많으셨어요, 선생님." />
+  <meta property="og:image" content="og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:site_name" content="Teacher's Day Flower MBTI" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="스승의 날 — 당신은 어떤 꽃 선생님인가요?" />
+  <meta name="twitter:description" content="12문항 MBTI · 16가지 꽃 결과 · 보너스 전생 알아보기" />
+  <meta name="twitter:image" content="og.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:        #faf6ee;
+      --bg-2:      #f4ecdc;
+      --surface:   #ffffff;
+      --ink:       #2c2620;
+      --ink-soft:  #5b5045;
+      --muted:     #8a7c6c;
+      --faint:     #b6a892;
+      --line:      rgba(60, 45, 30, 0.10);
+      --line-hi:   rgba(60, 45, 30, 0.22);
+
+      --accent:    #c8526a;
+      --accent-2:  #d68f8a;
+      --warm:      #e9b86c;
+      --leaf:      #92a079;
+      --sky:       #aebfd1;
+
+      --r-lg: 28px;
+      --r-md: 18px;
+      --r-sm: 12px;
+      --shadow-soft: 0 18px 50px rgba(120, 80, 50, 0.10);
+      --shadow-card: 0 8px 28px rgba(120, 80, 50, 0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Noto Sans KR", system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.7;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse 60% 40% at 15% 8%,  rgba(232, 164, 195, 0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 85% 12%, rgba(146, 160, 121, 0.14) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 50% 100%, rgba(233, 184, 108, 0.12) 0%, transparent 60%);
+    }
+
+    .wrap {
+      width: min(720px, 100% - 28px);
+      margin: 0 auto;
+      padding: 36px 0 72px;
+    }
+
+    /* ───── HERO ───── */
+    .hero {
+      position: relative;
+      padding: 48px 36px 44px;
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-soft);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 0%,  rgba(232, 164, 195, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 100% 100%, rgba(146, 160, 121, 0.14) 0%, transparent 45%);
+      pointer-events: none;
+    }
+
+    .hero > * { position: relative; }
+
+    .hero-eyebrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 16px;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .hero h1 {
+      font-family: "Gowun Batang", "Cormorant Garamond", serif;
+      font-weight: 700;
+      font-size: clamp(28px, 5.5vw, 40px);
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      color: var(--ink);
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--ink-soft);
+      max-width: 460px;
+      margin: 0 auto 28px;
+      line-height: 1.8;
+    }
+
+    .hero-flower {
+      width: 84px;
+      height: 84px;
+      margin: 0 auto 18px;
+      display: block;
+    }
+
+    .hero-meta {
+      display: inline-flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 12.5px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      padding-top: 18px;
+      border-top: 1px dashed var(--line);
+    }
+    .hero-meta span::before {
+      content: "·";
+      color: var(--faint);
+      margin-right: 6px;
+    }
+    .hero-meta span:first-child::before { content: ""; margin: 0; }
+
+    .start-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 30px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--bg);
+      font-family: "Noto Sans KR", sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .2s, background .2s;
+      box-shadow: 0 8px 22px rgba(44, 38, 32, 0.25);
+    }
+    .start-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(44, 38, 32, 0.32);
+    }
+
+    /* ───── PROGRESS ───── */
+    .progress {
+      margin: 28px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 6px;
+      background: rgba(60, 45, 30, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      border-radius: 999px;
+      transition: width .4s cubic-bezier(.4,0,.2,1);
+    }
+    .progress-text {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      font-weight: 600;
+    }
+    .progress-text strong {
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    /* ───── QUESTION CARD ───── */
+    .qcard {
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 40px 32px 32px;
+      animation: fadeIn .35s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .qnum {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .qtext {
+      font-family: "Gowun Batang", serif;
+      font-size: clamp(18px, 3.4vw, 22px);
+      font-weight: 700;
+      line-height: 1.55;
+      letter-spacing: -0.01em;
+      text-align: center;
+      margin-bottom: 32px;
+      color: var(--ink);
+      word-break: keep-all;
+    }
+
+    .opts {
+      display: grid;
+      gap: 12px;
+    }
+
+    .opt {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      background: #fffdf8;
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 15px;
+      line-height: 1.6;
+      cursor: pointer;
+      transition: transform .15s, border-color .15s, background .15s, box-shadow .2s;
+      word-break: keep-all;
+    }
+    .opt:hover {
+      border-color: var(--line-hi);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+    .opt:active { transform: translateY(0); }
+
+    .opt-mark {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--accent);
+      margin-right: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-row {
+      margin-top: 22px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .back-btn {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      transition: color .15s, border-color .15s;
+    }
+    .back-btn:hover {
+      color: var(--ink);
+      border-color: var(--line-hi);
+    }
+    .back-btn:disabled {
+      opacity: .3;
+      cursor: not-allowed;
+    }
+
+    /* ───── RESULT ───── */
+    .result {
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 48px 32px 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn .5s ease;
+    }
+
+    .result::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--type-tint, transparent);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .result > * { position: relative; }
+
+    .result-eyebrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 15px;
+      letter-spacing: 0.18em;
+      color: var(--type-color, var(--accent));
+      margin-bottom: 12px;
+    }
+
+    .result-flower {
+      width: 130px;
+      height: 130px;
+      margin: 0 auto 20px;
+      display: block;
+      filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.08));
+    }
+
+    .result-type {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.34em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .result-name {
+      font-family: "Gowun Batang", serif;
+      font-size: clamp(26px, 5.5vw, 34px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-bottom: 10px;
+      word-break: keep-all;
+    }
+
+    .result-tagline {
+      font-family: "Gowun Batang", serif;
+      font-size: 15px;
+      color: var(--type-color, var(--accent));
+      font-weight: 700;
+      margin-bottom: 22px;
+      word-break: keep-all;
+    }
+
+    .result-meaning {
+      display: inline-block;
+      padding: 10px 22px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid var(--type-color, var(--line-hi));
+      border-radius: 999px;
+      font-size: 13.5px;
+      color: var(--ink);
+      margin-bottom: 26px;
+      letter-spacing: 0.02em;
+    }
+    .result-meaning b {
+      color: var(--type-color, var(--accent));
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    /* ───── ENCOURAGEMENT ───── */
+    .encourage {
+      max-width: 540px;
+      margin: 0 auto 26px;
+      padding: 18px 22px 14px;
+      border-radius: var(--r-md);
+      background: rgba(255, 248, 232, 0.85);
+      border: 1px solid rgba(232, 144, 160, 0.28);
+      position: relative;
+    }
+    .encourage::before,
+    .encourage::after {
+      content: "\201C";
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 56px;
+      line-height: 1;
+      color: rgba(232, 144, 160, 0.55);
+      position: absolute;
+      top: 4px;
+      left: 14px;
+    }
+    .encourage::after {
+      content: "\201D";
+      left: auto;
+      right: 14px;
+      top: auto;
+      bottom: -10px;
+    }
+    .encourage-eyebrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .encourage-text {
+      font-family: "Gowun Batang", serif;
+      font-size: 15.5px;
+      line-height: 1.85;
+      color: var(--ink);
+      text-align: center;
+      word-break: keep-all;
+      padding: 0 18px;
+    }
+    .encourage-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .encourage-mini {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 12px;
+      cursor: pointer;
+      transition: color .15s, border-color .15s;
+    }
+    .encourage-mini:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .encourage.is-custom {
+      background: rgba(255, 235, 240, 0.85);
+      border-color: rgba(232, 144, 160, 0.55);
+    }
+    .encourage.is-custom .encourage-eyebrow {
+      color: var(--accent);
+    }
+
+    .write-area {
+      display: none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(232, 144, 160, 0.4);
+    }
+    .write-area.open { display: block; animation: fadeIn .25s ease; }
+
+    .write-row {
+      display: grid;
+      gap: 10px;
+    }
+    .write-input,
+    .write-textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-sm);
+      background: #fff;
+      color: var(--ink);
+      font-family: "Gowun Batang", serif;
+      font-size: 14.5px;
+      line-height: 1.7;
+      resize: vertical;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .write-input:focus,
+    .write-textarea:focus {
+      outline: 0;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(232, 144, 160, 0.18);
+    }
+    .write-textarea { min-height: 80px; }
+
+    .write-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+    .write-counter {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 11px;
+      color: var(--faint);
+      letter-spacing: 0.05em;
+      align-self: center;
+      margin-right: auto;
+    }
+    .write-save {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 0;
+      background: var(--accent);
+      color: #fff;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity .15s, transform .15s;
+    }
+    .write-save:hover { transform: translateY(-1px); opacity: .9; }
+    .write-cancel {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .write-cancel:hover { color: var(--ink); border-color: var(--line-hi); }
+
+    /* ───── DELIVERED MESSAGE (recipient view) ───── */
+    .delivered {
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 30px 30px 28px;
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(232, 144, 160, 0.35);
+      animation: fadeIn .5s ease;
+    }
+    .delivered::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 100% 0%,  rgba(232, 144, 160, 0.13) 0%, transparent 50%),
+        radial-gradient(circle at 0% 100%,  rgba(146, 160, 121, 0.10) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .delivered > * { position: relative; }
+
+    .delivered-eyebrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 6px;
+      text-align: center;
+    }
+    .delivered-title {
+      font-family: "Gowun Batang", serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      text-align: center;
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+    }
+    .delivered-msg {
+      font-family: "Gowun Batang", serif;
+      font-size: 16px;
+      line-height: 2;
+      color: var(--ink);
+      padding: 22px 24px;
+      background: rgba(255, 248, 232, 0.9);
+      border-radius: var(--r-md);
+      border-left: 3px solid var(--accent);
+      word-break: keep-all;
+      white-space: pre-wrap;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .delivered-from {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--muted);
+      text-align: right;
+      letter-spacing: 0.04em;
+    }
+    .delivered-from b {
+      color: var(--accent);
+      font-weight: 600;
+      font-style: normal;
+      font-family: "Gowun Batang", serif;
+    }
+    .delivered-cta {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      padding-top: 16px;
+      border-top: 1px dashed var(--line);
+    }
+    .delivered-cta b { color: var(--ink); font-weight: 700; }
+
+    .result-msg {
+      font-family: "Gowun Batang", serif;
+      font-size: 15.5px;
+      line-height: 2;
+      color: var(--ink-soft);
+      max-width: 520px;
+      margin: 0 auto 28px;
+      word-break: keep-all;
+      text-align: left;
+      padding: 24px 26px;
+      background: rgba(255, 253, 248, 0.7);
+      border-radius: var(--r-md);
+      border-left: 3px solid var(--type-color, var(--accent));
+    }
+
+    .result-strengths {
+      display: grid;
+      gap: 10px;
+      max-width: 520px;
+      margin: 0 auto 30px;
+      text-align: left;
+    }
+
+    .strength-row {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 14px;
+      padding: 12px 16px;
+      background: rgba(255, 253, 248, 0.55);
+      border: 1px solid var(--line);
+      border-radius: var(--r-sm);
+      font-size: 14px;
+      align-items: baseline;
+    }
+    .strength-row dt {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+    .strength-row dd {
+      color: var(--ink-soft);
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform .15s, opacity .15s, background .15s, color .15s;
+      border: 0;
+    }
+    .action-btn:hover { transform: translateY(-1px); opacity: .9; }
+
+    .action-primary {
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .action-ghost {
+      background: transparent;
+      border: 1px solid var(--line-hi);
+      color: var(--ink);
+    }
+
+    .closing {
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px dashed var(--line);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      line-height: 1.7;
+    }
+    .closing strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ───── PAST LIFE BONUS ───── */
+    .pastlife {
+      margin: 36px auto 8px;
+      max-width: 540px;
+      padding: 28px 26px;
+      border-radius: var(--r-md);
+      background:
+        linear-gradient(180deg, rgba(60, 50, 90, 0.06), rgba(60, 50, 90, 0.02)),
+        rgba(255, 253, 248, 0.6);
+      border: 1px dashed rgba(108, 90, 145, 0.35);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pastlife::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 0%,  rgba(156, 130, 200, 0.10) 0%, transparent 55%),
+        radial-gradient(circle at 80% 100%, rgba(216, 143, 138, 0.08) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .pastlife > * { position: relative; }
+
+    .pl-eyebrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      color: #8d6fb6;
+      margin-bottom: 4px;
+    }
+
+    .pl-title {
+      font-family: "Gowun Batang", serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+    .pl-title-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height: 1.7;
+    }
+
+    .pl-reveal-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 28px;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #6c5a91, #9c5a8a);
+      color: #fff;
+      font-family: "Noto Sans KR", sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .2s, opacity .15s;
+      box-shadow: 0 8px 22px rgba(108, 90, 145, 0.32);
+    }
+    .pl-reveal-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(108, 90, 145, 0.4);
+    }
+    .pl-reveal-btn .pl-spark {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      letter-spacing: 0.1em;
+    }
+
+    .pl-card {
+      animation: fadeIn .5s ease;
+    }
+
+    .pl-mark {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 36px;
+      font-weight: 600;
+      color: #9c82c8;
+      letter-spacing: 0.3em;
+      margin-bottom: 6px;
+      user-select: none;
+    }
+
+    .pl-name-wrap {
+      font-family: "Gowun Batang", serif;
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      letter-spacing: 0.02em;
+    }
+    .pl-name {
+      font-family: "Gowun Batang", serif;
+      font-size: clamp(24px, 5vw, 30px);
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+      word-break: keep-all;
+    }
+    .pl-name span {
+      color: #8d6fb6;
+    }
+
+    .pl-story {
+      font-family: "Gowun Batang", serif;
+      font-size: 15px;
+      line-height: 2;
+      color: var(--ink-soft);
+      max-width: 460px;
+      margin: 0 auto 22px;
+      text-align: left;
+      word-break: keep-all;
+      padding: 18px 22px;
+      background: rgba(255, 255, 255, 0.55);
+      border-radius: var(--r-sm);
+      border-left: 3px solid #9c82c8;
+    }
+    .pl-story p { margin-bottom: 10px; }
+    .pl-story p:last-child { margin-bottom: 0; }
+    .pl-story p.now {
+      color: #6e5a93;
+      font-weight: 700;
+    }
+
+    .pl-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .pl-mini-btn {
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid rgba(108, 90, 145, 0.4);
+      background: transparent;
+      color: #6e5a93;
+      transition: background .15s, color .15s, transform .15s;
+    }
+    .pl-mini-btn:hover {
+      background: #6e5a93;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 36px 0 0;
+      font-size: 12px;
+      color: var(--faint);
+      letter-spacing: 0.06em;
+    }
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--faint);
+    }
+    footer a:hover { color: var(--ink); }
+
+    /* ───── TOAST ───── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      background: var(--ink);
+      color: var(--bg);
+      padding: 11px 22px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      box-shadow: 0 8px 28px rgba(0,0,0,.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s, transform .2s;
+      z-index: 999;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 520px) {
+      .hero { padding: 40px 22px 36px; }
+      .qcard { padding: 32px 20px 24px; }
+      .result { padding: 40px 20px 30px; }
+      .result-msg { padding: 20px 18px; font-size: 15px; }
+      .strength-row { grid-template-columns: 1fr; gap: 4px; padding: 12px 14px; }
+      .strength-row dt { font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ───── INTRO ───── -->
+  <section id="introScreen" class="hero">
+    <svg class="hero-flower" viewBox="0 0 100 100" aria-hidden="true">
+      <g transform="translate(50 50)">
+        <g fill="#e8a4c3">
+          <ellipse cx="0" cy="-22" rx="11" ry="22"/>
+          <ellipse cx="0" cy="-22" rx="11" ry="22" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-22" rx="11" ry="22" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-22" rx="11" ry="22" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-22" rx="11" ry="22" transform="rotate(288)"/>
+        </g>
+        <circle r="8" fill="#e9b86c"/>
+        <circle r="3" fill="#fff" opacity=".55" cx="-2" cy="-2"/>
+      </g>
+    </svg>
+    <span class="hero-eyebrow">Teacher's Day · Special</span>
+    <h1>스승의 날, <em>당신은 어떤 꽃</em><br>선생님인가요?</h1>
+    <p class="hero-sub">
+      열두 개의 짧은 질문에 마음 가는 대로 답해보세요.<br>
+      당신을 닮은 한 송이 꽃과, 따뜻한 꽃말과, 그동안 고생한 당신을 위한 한 줄을 보내드립니다.
+    </p>
+    <button class="start-btn" type="button" onclick="startQuiz()">
+      테스트 시작하기 →
+    </button>
+    <div class="hero-meta">
+      <span>12문항</span>
+      <span>약 2분 소요</span>
+      <span>16가지 꽃 결과</span>
+    </div>
+  </section>
+
+  <!-- ───── QUESTION ───── -->
+  <section id="quizScreen" class="hidden">
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-text"><strong id="progressNow">1</strong> / 12</div>
+    </div>
+    <div class="qcard">
+      <div class="qnum" id="qLabel">Question 01</div>
+      <div class="qtext" id="qText">…</div>
+      <div class="opts" id="qOpts"></div>
+      <div class="nav-row">
+        <button class="back-btn" id="backBtn" type="button" onclick="goBack()">← 이전 문항</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── RESULT ───── -->
+  <section id="resultScreen" class="hidden">
+
+    <!-- 친구가 보낸 응원 메시지 (URL 파라미터로 전달) -->
+    <div class="delivered hidden" id="deliveredCard">
+      <div class="delivered-eyebrow">Message Delivered</div>
+      <div class="delivered-title" id="deliveredTitle">선생님께 도착한 한 줄</div>
+      <div class="delivered-msg" id="deliveredMsg"></div>
+      <div class="delivered-from" id="deliveredFrom"></div>
+      <div class="delivered-cta">
+        나도 답장으로 <b>꽃 선생님 결과</b>를 보내드려요 — 아래 결과를 그대로 공유하셔도 좋아요.
+      </div>
+    </div>
+
+    <div class="result" id="resultCard">
+      <div class="result-eyebrow">Your Flower Teacher</div>
+      <svg class="result-flower" id="resultFlower" viewBox="0 0 120 120" aria-hidden="true"></svg>
+      <div class="result-type" id="resultType">····</div>
+      <div class="result-name" id="resultName"></div>
+      <div class="result-tagline" id="resultTagline"></div>
+      <div class="result-meaning" id="resultMeaning"></div>
+
+      <div class="encourage" id="encourageBox">
+        <div class="encourage-eyebrow" id="encourageEyebrow">Today's Message</div>
+        <div class="encourage-text" id="encourageText"></div>
+        <div class="encourage-row">
+          <button class="encourage-mini" type="button" onclick="rerollEncourage()">다른 응원문구</button>
+          <button class="encourage-mini" type="button" onclick="toggleWrite()" id="writeToggle">직접 쓰기</button>
+        </div>
+
+        <div class="write-area" id="writeArea">
+          <div class="write-row">
+            <input type="text" class="write-input" id="writeFrom"
+                   maxlength="20" placeholder="보내는 사람 (선택 · 예: 이서연 선생님)" />
+            <textarea class="write-textarea" id="writeMsg"
+                      maxlength="140" placeholder="다른 선생님께 보낼 응원의 한 줄을 적어주세요. (140자 이내)"></textarea>
+            <div class="write-actions">
+              <span class="write-counter"><span id="writeCount">0</span> / 140</span>
+              <button class="write-cancel" type="button" onclick="cancelWrite()">취소</button>
+              <button class="write-save"   type="button" onclick="saveWrite()">이 메시지로 공유하기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-msg" id="resultMsg"></div>
+      <dl class="result-strengths" id="resultStrengths"></dl>
+      <div class="actions">
+        <button class="action-btn action-primary" type="button" onclick="copyShare()">결과 링크 복사</button>
+        <button class="action-btn action-ghost"   type="button" onclick="restart()">다시 해보기</button>
+      </div>
+
+      <!-- ───── PAST LIFE BONUS ───── -->
+      <div class="pastlife" id="pastlifeBox">
+        <div id="plIntro">
+          <div class="pl-eyebrow">Bonus · Past Life</div>
+          <div class="pl-title">한 가지 더 — 당신의 전생은?</div>
+          <div class="pl-title-sub">스승의 날 보너스. 가벼운 마음으로 한번 뽑아보세요.<br>(혹시 모를 진실이 숨어 있을지도 몰라요)</div>
+          <button class="pl-reveal-btn" type="button" onclick="revealPastLife()">
+            <span class="pl-spark">✦</span> 전생 알아보기
+          </button>
+        </div>
+
+        <div id="plCard" class="pl-card hidden">
+          <div class="pl-mark">✦</div>
+          <div class="pl-name-wrap">당신은 전생에…</div>
+          <div class="pl-name" id="plName"></div>
+          <div class="pl-story" id="plStory"></div>
+          <div class="pl-actions">
+            <button class="pl-mini-btn" type="button" onclick="rerollPastLife()">다시 뽑기</button>
+            <button class="pl-mini-btn" type="button" onclick="copyPastLife()">전생 결과 공유</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="closing">
+        <strong>오늘 하루는 누군가를 키운 당신을 키워주는 날이 되기를.</strong><br>
+        선생님, 그동안 고생 많으셨어요.
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © Teacher's Day Flower MBTI · with care<br>
+    <a href="./index.html" style="display:inline-block; margin-top:10px; padding:8px 16px; border:1px solid var(--line-hi); border-radius:999px; color:var(--ink-soft); font-size:13px;">← 에니어그램 진단표로</a>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ─────────────── QUESTIONS ─────────────── */
+const QUESTIONS = [
+  // E/I (3)
+  {
+    q: "새 학년 첫 수업, 교실 문 앞에서 나는",
+    a: { text: "활기차게 들어가 분위기부터 띄운다", dim: "EI", val: "E" },
+    b: { text: "한 걸음 천천히 들어가 아이들 표정부터 살핀다", dim: "EI", val: "I" },
+  },
+  {
+    q: "동료 선생님들과의 회식, 나의 패턴은",
+    a: { text: "자연스럽게 끝까지 함께하며 더 가까워진다", dim: "EI", val: "E" },
+    b: { text: "적당히 즐기고 일찍 들어와 혼자만의 시간을 갖는다", dim: "EI", val: "I" },
+  },
+  {
+    q: "수업 아이디어가 떠올랐을 때 나는 보통",
+    a: { text: "동료에게 바로 이야기하며 같이 다듬어 본다", dim: "EI", val: "E" },
+    b: { text: "혼자 노트에 적으며 충분히 정리한 뒤 꺼낸다", dim: "EI", val: "I" },
+  },
+  // S/N (3)
+  {
+    q: "수업 자료를 만들 때 더 끌리는 방식은",
+    a: { text: "검증된 자료, 실제 사례, 정확한 데이터로 구성", dim: "SN", val: "S" },
+    b: { text: "새로운 비유, 연결고리, 상상력으로 풀어내기", dim: "SN", val: "N" },
+  },
+  {
+    q: "학생의 변화에 가장 먼저 반응하는 신호는",
+    a: { text: "출결, 점수, 표정 같은 구체적인 단서", dim: "SN", val: "S" },
+    b: { text: "\"요즘 뭔가 다르다\"는 분위기와 직감", dim: "SN", val: "N" },
+  },
+  {
+    q: "나에게 좋은 수업이란",
+    a: { text: "정확하고 실용적인 내용이 잘 전달된 수업", dim: "SN", val: "S" },
+    b: { text: "학생의 시야를 넓히고 새로운 가능성을 열어준 수업", dim: "SN", val: "N" },
+  },
+  // T/F (3)
+  {
+    q: "학생이 잘못된 행동을 했을 때 먼저 하는 것은",
+    a: { text: "원칙과 기준을 차분히 짚어주는 일", dim: "TF", val: "T" },
+    b: { text: "그 아이의 마음과 사정을 먼저 묻는 일", dim: "TF", val: "F" },
+  },
+  {
+    q: "학부모 상담에서 더 자주 하는 말은",
+    a: { text: "\"이 부분은 이렇게 보완하면 좋겠어요\"", dim: "TF", val: "T" },
+    b: { text: "\"그런 마음이셨군요, 충분히 이해해요\"", dim: "TF", val: "F" },
+  },
+  {
+    q: "동료가 힘들어할 때 나는",
+    a: { text: "상황을 정리하고 해결 방법을 제안한다", dim: "TF", val: "T" },
+    b: { text: "곁에서 마음을 충분히 들어준다", dim: "TF", val: "F" },
+  },
+  // J/P (3)
+  {
+    q: "학기 초의 나는",
+    a: { text: "한 학기 계획표를 미리 그려두어야 안심된다", dim: "JP", val: "J" },
+    b: { text: "큰 방향만 잡고 흐름에 맞춰 조정해 간다", dim: "JP", val: "P" },
+  },
+  {
+    q: "갑작스러운 일정 변경이 생기면",
+    a: { text: "바뀐 계획을 다시 정리해야 마음이 편해진다", dim: "JP", val: "J" },
+    b: { text: "\"이것도 재밌네\" 하며 자연스럽게 적응한다", dim: "JP", val: "P" },
+  },
+  {
+    q: "수업 중 나는 더 자주",
+    a: { text: "정해놓은 흐름을 따라 차근차근 진행한다", dim: "JP", val: "J" },
+    b: { text: "학생 반응에 따라 즉흥적으로 변형한다", dim: "JP", val: "P" },
+  },
+];
+
+/* ─────────────── RESULTS (16) ─────────────── */
+const RESULTS = {
+  ISTJ: {
+    name: "한결같은 백합 선생님",
+    flower: "백합",
+    meaning: "순결한 사랑, 변함없는 마음",
+    color: "#c8b88a",
+    tint: "#f7f1de",
+    tagline: "묵묵히, 흔들리지 않고, 늘 그 자리에서.",
+    msg: "매일 같은 시간, 같은 자리에 앉아 묵묵히 채점하고 정리해 온 그 손을 압니다.\n화려하지 않아도, 학생들은 선생님이 늘 그 자리에 계셨다는 사실 하나로 자라났어요.\n오늘은 그 한결같음을 누가 좀 알아드렸으면 좋겠어요.",
+    strengths: [
+      ["#1 책임감", "맡은 일은 끝까지, 약속한 시간 안에 — 그래서 신뢰가 됩니다."],
+      ["#2 일관성", "어제와 오늘이 다르지 않은 기준이 학생들에게 안전감을 줍니다."],
+      ["#3 성실함", "보이지 않는 곳까지 챙기는 꼼꼼함이 교실의 기둥입니다."],
+    ],
+  },
+  ISFJ: {
+    name: "곁을 지키는 안개꽃 선생님",
+    flower: "안개꽃",
+    meaning: "맑은 마음, 영원한 사랑",
+    color: "#e6c1ce",
+    tint: "#fbeef3",
+    tagline: "누군가 빛나야 할 때, 한 발짝 뒤에서 받쳐주는 사람.",
+    msg: "주인공이 되기보다, 누군가가 빛나도록 옆에서 받쳐주는 일을 더 잘하셨죠.\n그 다정함은 절대 작지 않습니다 — 한 다발의 꽃을 더 환하게 하는 건 결국 안개꽃이니까요.\n오늘만큼은 선생님이 가운데 서 계셨으면 합니다.",
+    strengths: [
+      ["#1 섬세함", "말하지 않은 마음까지 알아채는 따뜻한 눈을 가졌어요."],
+      ["#2 헌신", "내색 없이 챙기는 작은 일들이 누군가의 하루를 바꿉니다."],
+      ["#3 안정감", "선생님이 계신 교실은 늘 안전한 자리였어요."],
+    ],
+  },
+  INFJ: {
+    name: "진심을 담는 수국 선생님",
+    flower: "수국",
+    meaning: "진심, 변함없는 사랑",
+    color: "#9eb8d6",
+    tint: "#e7eef8",
+    tagline: "한 사람의 우주를, 깊이 들여다보는 눈.",
+    msg: "한 아이의 표정 하나를 며칠씩 곱씹어 본 적이 있으시죠.\n그 깊은 마음 한 자락이 누군가의 인생을 살렸다는 걸, 부디 잊지 마세요.\n수국 한 송이가 사실은 작은 꽃 수십 송이로 이루어져 있듯, 선생님 안에는 수많은 진심이 있습니다.",
+    strengths: [
+      ["#1 통찰", "표면 너머의 마음을 보는 깊이가 학생을 변화시킵니다."],
+      ["#2 진심", "한 명 한 명을 진짜로 본다는 건 가장 귀한 재능이에요."],
+      ["#3 비전", "당장 보이지 않아도, 길게 그리는 그림이 결국 길이 됩니다."],
+    ],
+  },
+  INTJ: {
+    name: "고요한 위엄의 모란 선생님",
+    flower: "모란",
+    meaning: "부귀, 고귀한 마음",
+    color: "#b86987",
+    tint: "#f4e2ea",
+    tagline: "멀리 내다보고, 천천히 키워내는 큰 그림의 사람.",
+    msg: "선생님이 그리는 설계도는 시간이 한참 지나야 진가가 드러납니다.\n지금의 외로움도 사실 그 설계의 일부예요 — 모란은 천천히 피지만 가장 크고 우아하게 핍니다.\n오늘은 잠시, 그 묵직한 어깨를 내려놓으세요.",
+    strengths: [
+      ["#1 전략", "한두 수 앞을 보고 움직이는 머리가 학년의 길을 만들어요."],
+      ["#2 고집", "타협 없이 지키는 기준이 진짜 교육을 가능하게 합니다."],
+      ["#3 깊이", "겉멋이 아닌, 진짜를 가르치는 사람."],
+    ],
+  },
+  ISTP: {
+    name: "차분한 라벤더 선생님",
+    flower: "라벤더",
+    meaning: "정적의 아름다움, 침묵",
+    color: "#a293c4",
+    tint: "#ece6f5",
+    tagline: "조용한 한 마디로 온 교실을 정리하는 사람.",
+    msg: "말이 많지 않아도 선생님이 들어오면 교실의 공기가 달라집니다.\n그 차분함이 바로 선생님의 가르침이에요 — 가장 향기로운 라벤더가 가장 조용히 피어나듯.\n과묵함을 무관심으로 오해받은 적이 있다면, 오늘만큼은 알아드리고 싶어요.",
+    strengths: [
+      ["#1 차분함", "어떤 상황에서도 평정을 잃지 않는 단단함이 있어요."],
+      ["#2 실용", "쓸데없는 말 없이, 진짜 필요한 도움을 주는 사람."],
+      ["#3 관찰", "조용히 보지만 가장 정확하게 보는 눈을 가졌어요."],
+    ],
+  },
+  ISFP: {
+    name: "천진난만 프리지아 선생님",
+    flower: "프리지아",
+    meaning: "천진난만, 순결한 사랑",
+    color: "#f0d77a",
+    tint: "#fbf3d6",
+    tagline: "부드러운 색으로 마음을 물들이는 사람.",
+    msg: "거창한 말보다 작은 노트, 따뜻한 색깔, 부드러운 미소로 가르치는 분.\n그 섬세함이 누군가에겐 평생 잊지 못할 따뜻함이었습니다.\n선생님의 다정함은 결코 약함이 아니에요 — 가장 부드러운 색이 가장 오래 기억되니까요.",
+    strengths: [
+      ["#1 감수성", "아이의 결을 알아채고 그에 맞춰 다가가는 섬세함이 있어요."],
+      ["#2 다정함", "혼내는 순간에도 마음을 다치지 않게 하는 힘."],
+      ["#3 진정성", "꾸미지 않은 진짜 모습이 학생들에게 가장 큰 선물이었습니다."],
+    ],
+  },
+  INFP: {
+    name: "마음을 살피는 제비꽃 선생님",
+    flower: "제비꽃",
+    meaning: "겸손한 사랑, 진실한 사랑",
+    color: "#8b7bb0",
+    tint: "#ece6f3",
+    tagline: "가장 약한 한 사람을 위해, 마음을 굽히는 사람.",
+    msg: "잘 보이지 않는 자리에서, 가장 작은 아이를 가만히 바라보던 선생님.\n그 시선 하나가 지금도 누군가를 살게 하고 있습니다.\n제비꽃은 낮은 자리에 피지만, 가장 먼저 봄을 알리는 꽃이에요. 선생님도 그렇습니다.",
+    strengths: [
+      ["#1 공감", "아무도 알아채지 못한 아픔까지 함께 느끼는 마음."],
+      ["#2 신념", "조용해 보여도, 절대 양보하지 않는 가치가 있어요."],
+      ["#3 진심", "한 마디 한 마디에 마음을 담는 사람."],
+    ],
+  },
+  INTP: {
+    name: "지식을 가꾸는 에델바이스 선생님",
+    flower: "에델바이스",
+    meaning: "소중한 추억, 고귀한 추억",
+    color: "#cbd0c0",
+    tint: "#eef0e8",
+    tagline: "진실 하나를 위해 끝까지 파고드는 사람.",
+    msg: "정확하게 알고, 정확하게 가르치고 싶은 그 마음.\n학생들은 언젠가 반드시 알게 됩니다 — 선생님이 \"진짜\"를 가르쳐주신 분이라는 걸.\n에델바이스는 가장 높은 곳에 피는 꽃입니다. 그 외로움을 압니다.",
+    strengths: [
+      ["#1 호기심", "끝까지 묻고 파고드는 자세가 학생의 사고를 깨웁니다."],
+      ["#2 정직", "모르는 건 모른다고 말할 수 있는 용기가 진짜 권위예요."],
+      ["#3 명료함", "복잡한 것을 단순하게 풀어주는 머리를 가졌어요."],
+    ],
+  },
+  ESTP: {
+    name: "활력의 해바라기 선생님",
+    flower: "해바라기",
+    meaning: "당신만 바라봐요, 활기와 일편단심",
+    color: "#e6b042",
+    tint: "#fbeecf",
+    tagline: "교실에 빛을 들이는 사람.",
+    msg: "선생님의 큰 웃음소리에 따라 웃던 아이들이 있어요.\n에너지를 매일 내어준다는 게 얼마나 큰일인지, 잠시 잊지 말아주세요.\n해바라기처럼 늘 빛 쪽으로 고개를 돌려준 그 마음 덕분에, 누군가는 햇살을 향해 자라고 있어요.",
+    strengths: [
+      ["#1 활력", "들어오기만 해도 분위기가 환해지는 사람."],
+      ["#2 추진력", "주저하지 않고 바로 움직이는 힘이 일을 굴러가게 합니다."],
+      ["#3 현장감", "이론보다 살아있는 경험으로 가르치는 진짜 교사."],
+    ],
+  },
+  ESFP: {
+    name: "환한 거베라 선생님",
+    flower: "거베라",
+    meaning: "항상 전진, 신비로움",
+    color: "#ee7a6c",
+    tint: "#fde0db",
+    tagline: "어디서든 환하게 피어나는 사람.",
+    msg: "분위기를 데워주는 선생님 덕에 학교가 따뜻한 곳일 수 있었어요.\n선생님의 웃음 한 번이 누군가에게는 매일의 위로였습니다.\n거베라처럼 어떤 자리에서도 환하게 피어주셔서 정말 고맙습니다.",
+    strengths: [
+      ["#1 친화력", "낯선 학생도 단숨에 마음을 열게 하는 매력이 있어요."],
+      ["#2 즉흥성", "그 자리의 공기에 맞춰 가장 좋은 한 수를 던집니다."],
+      ["#3 따뜻함", "곁에 있는 것만으로 위로가 되는 존재."],
+    ],
+  },
+  ENFP: {
+    name: "영감의 코스모스 선생님",
+    flower: "코스모스",
+    meaning: "소녀의 순정, 조화",
+    color: "#e8a4c3",
+    tint: "#fbe6ee",
+    tagline: "아이들의 가능성을 한 송이씩 피워내는 사람.",
+    msg: "새로운 시도를 두려워하지 않은 선생님 덕분에,\n아이들은 \"다르게 생각해도 된다\"는 걸 배웠어요.\n선생님의 호기심과 다정함이, 누군가의 인생의 길이 됩니다. 코스모스가 들판을 다 채우듯이요.",
+    strengths: [
+      ["#1 영감", "한 마디로 학생의 눈빛을 바꾸는 힘을 가졌어요."],
+      ["#2 다정함", "한 명도 빠뜨리지 않고 이름을 정성껏 부르는 사람."],
+      ["#3 가능성", "아직 보이지 않는 잠재력을 먼저 알아보는 눈."],
+    ],
+  },
+  ENTP: {
+    name: "통찰의 자스민 선생님",
+    flower: "자스민",
+    meaning: "사랑스러움, 행복",
+    color: "#d6c69a",
+    tint: "#f5efdb",
+    tagline: "답이 아닌, 질문을 선물하는 사람.",
+    msg: "정해진 답 너머의 질문을 던지는 선생님.\n그 질문 하나가 한 아이의 세계관을 바꿉니다.\n자스민의 향기는 멀리까지 퍼져요 — 선생님의 한 마디도 시간이 지난 뒤 누군가의 머릿속에서 불쑥 피어납니다.",
+    strengths: [
+      ["#1 사고력", "익숙한 것을 다시 보게 만드는 질문을 던집니다."],
+      ["#2 위트", "긴장된 교실도 한 번에 풀어버리는 유머가 있어요."],
+      ["#3 자유", "정형화되지 않은 길을 보여주는 어른."],
+    ],
+  },
+  ESTJ: {
+    name: "든든한 동백꽃 선생님",
+    flower: "동백꽃",
+    meaning: "그대를 누구보다 사랑한다, 진실한 사랑",
+    color: "#c0464a",
+    tint: "#f5d8d9",
+    tagline: "단단한 기준으로 한 학년을 지켜내는 사람.",
+    msg: "흐트러진 것을 바로잡는 일은 가장 외로운 일입니다.\n그 책임감 위에서 누군가의 학교생활이 안전했다는 걸 잊지 마세요.\n동백꽃은 추운 겨울에도 가장 붉게 피는 꽃입니다 — 선생님이 정확히 그러십니다.",
+    strengths: [
+      ["#1 추진력", "결정한 일은 끝까지 밀고 가 결과를 만드는 사람."],
+      ["#2 책임감", "맡은 자리를 절대 비우지 않는 단단함."],
+      ["#3 정의감", "옳은 것은 옳다고 말할 수 있는 용기."],
+    ],
+  },
+  ESFJ: {
+    name: "사랑의 카네이션 선생님",
+    flower: "카네이션",
+    meaning: "모성애, 사랑, 존경",
+    color: "#e890a0",
+    tint: "#fbdbe2",
+    tagline: "가장 많은 마음을 안고 사는 사람.",
+    msg: "아이 하나하나의 이름을 정성껏 부르고, 마음을 살피던 선생님.\n스승의 날에 가장 많은 카네이션을 받는 일은 결코 우연이 아니에요.\n사랑을 매일 나눠주는 사람도, 누군가에겐 사랑받아야 할 한 사람입니다. 오늘 그 한 사람이 바로 선생님이세요.",
+    strengths: [
+      ["#1 사랑", "마음을 아끼지 않고 나누어주는 따뜻한 사람."],
+      ["#2 챙김", "잊지 않고 기억해주는 작은 일들이 큰 위로가 됩니다."],
+      ["#3 협력", "교실을 한 가족처럼 묶어내는 따뜻한 리더십."],
+    ],
+  },
+  ENFJ: {
+    name: "이끄는 장미 선생님",
+    flower: "장미",
+    meaning: "사랑, 열정",
+    color: "#c1496a",
+    tint: "#f4d9e1",
+    tagline: "한 사람의 가능성을 끝까지 믿어주는 사람.",
+    msg: "선생님이 한 명 한 명을 진심으로 믿어줬기에,\n아이들이 비로소 자기 자신을 믿을 수 있었어요.\n그 영향력은 평생 갑니다. 장미가 한 송이로도 방을 채우듯이, 선생님의 한 마디는 한 사람을 채웁니다.",
+    strengths: [
+      ["#1 비전", "각자의 가능성을 그려서 보여줄 수 있는 눈을 가졌어요."],
+      ["#2 카리스마", "이끌면 사람들이 따라오게 하는 진심의 힘."],
+      ["#3 헌신", "내 사람을 끝까지 챙기는 뜨거운 사랑."],
+    ],
+  },
+  ENTJ: {
+    name: "이끄는 글라디올러스 선생님",
+    flower: "글라디올러스",
+    meaning: "강한 정신, 견고한 사랑",
+    color: "#9c5a8a",
+    tint: "#ebd9e5",
+    tagline: "길을 만들고, 그 길을 함께 걷는 사람.",
+    msg: "큰 그림을 그리고 앞장서는 선생님 뒤에는, 늘 무거운 책임이 있었습니다.\n가장 강해 보이는 사람도 위로받을 자격이 충분합니다 — 강함을 무뎌짐과 혼동하지 마세요.\n글라디올러스는 곧게 서서 가장 화려하게 피는 꽃입니다. 오늘은 그 키 큰 어깨를 누가 좀 안아드렸으면 합니다.",
+    strengths: [
+      ["#1 리더십", "방향이 흐려질 때 가장 먼저 길을 정하는 사람."],
+      ["#2 추진력", "되게 만드는 힘 — 학교를 움직이는 엔진입니다."],
+      ["#3 비전", "장기적 안목으로 학년 전체를 설계하는 머리를 가졌어요."],
+    ],
+  },
+};
+
+/* ─────────────── ENCOURAGEMENT POOL ─────────────── */
+const ENCOURAGE = [
+  "오늘 하루는 누군가를 키운 선생님을 키우는 날이 되기를.",
+  "선생님이 계셔서, 학교가 따뜻한 곳이었어요.",
+  "매일 같은 자리에 계셨던 그 한결같음을, 오늘은 누가 좀 알아드렸으면 해요.",
+  "한 명을 끝까지 본다는 건 사실 한 우주를 본다는 일이에요. 고생하셨어요.",
+  "선생님의 이름을 평생 잊지 못할 사람이, 분명히 어딘가에 있습니다.",
+  "들리지 않아도, 보이지 않아도, 선생님이 한 일은 모두 누군가의 안에서 자라고 있어요.",
+  "가장 좋은 것을 가르치려고 가장 외로운 자리를 택한 모든 선생님께.",
+  "좋은 어른을 본 적 있는 사람만이 좋은 어른이 됩니다. 그 좋은 어른이 선생님이세요.",
+  "\"스승의 그림자도 밟지 않는다\"는 말, 사실 그 그림자가 가장 따뜻해서래요.",
+  "아이들이 다 자라 떠난 자리에도, 선생님의 한 마디는 남아 있습니다.",
+  "누군가의 사춘기를 끝까지 기다려본 사람만 알 수 있는 평화가 있어요.",
+  "교실의 형광등 아래서 보낸 그 모든 시간이, 어딘가에선 별이 되었습니다.",
+  "선생님, 오늘만큼은 채점 그만하시고 일찍 주무셔도 돼요.",
+  "학생부 안 쓰셔도 됩니다. 오늘은 선생님이 주인공이에요.",
+  "분필 가루 다 털고, 오늘은 좋은 거 드세요.",
+  "학부모 전화 안 와요. 안심하고 쉬세요.",
+  "잠깐 — 회식 약속도 미루세요. 오늘은 그냥 푹 쉬는 날이에요.",
+  "선생님, 가끔은 답안지 같은 인생 말고 백지 같은 하루도 좋아요.",
+  "그동안 정말 고생 많으셨어요. 마음 깊이 존경해요.",
+  "보이지 않는 곳에서 가장 단단했던 선생님께, 오늘은 가장 부드러운 하루를.",
+  "어떤 마음이든 다 받아내신 그 마음, 오늘은 누가 좀 받아드렸으면 해요.",
+  "한 명을 진짜로 듣는 일이 얼마나 어려운 일인지 우리는 압니다. 감사해요.",
+  "잘 가르치는 사람은 많아도, 끝까지 믿어주는 사람은 드물어요. 그 드문 사람이 선생님이세요.",
+  "가르치는 일은 사실 매일 자기를 다시 가르치는 일이라는 걸, 선생님은 아시죠.",
+  "가장 잘 가르친 한 마디는 사실 가장 짧은 한 마디였을 거예요.",
+  "한 학기 동안의 작은 변화가, 어쩌면 한 사람의 평생을 바꿉니다.",
+  "우리는 모두 누군가의 학생이었고, 그 누군가가 선생님이었어요.",
+  "카네이션 다 시들기 전에, 셀프로 한 번 더 안아주세요.",
+  "학생들이 보내지 않은 메시지도 마음으로 미리 받으세요. 다들 진심이에요.",
+  "오늘 저녁은 학원 끝나고 오는 학생 받지 마세요. 본인부터 받으세요.",
+  "학생 진로 상담 말고 본인 진로 상담 한 번 — \"잘하고 계세요\"가 결과입니다.",
+  "선생님은 누군가의 인생에서 처음 만난 어른이었을 거예요.",
+  "누군가가 학교에 가는 게 행복했다면, 그건 거의 다 선생님 덕분이에요.",
+  "한 줄의 칭찬을 누군가는 평생 마음에 품습니다. 선생님이 그 줄을 적어주셨어요.",
+  "잘하셨어요, 정말로. 한참을 잘하셨어요.",
+  "오늘 하루는 \"선생님\"이 아니라 그냥 당신으로 보내셔도 돼요.",
+  "어쩌면 가장 빛나는 가르침은, 묵묵히 곁에 있어준 그 시간일지 몰라요.",
+  "지친 날에도 누군가에게 웃어주셨던 그 마음, 오늘은 누가 알아드릴 차례예요.",
+];
+
+/* ─────────────── PAST LIFE POOL ─────────────── */
+const PAST_LIVES = [
+  {
+    name: "단세포 아메바",
+    story: [
+      "특별한 일도, 큰 고민도 없었어요. 그냥 흘러가는 대로 둥둥 살았습니다.",
+      "분열할 때 빼곤 외로움도 몰랐어요.",
+      "그래서 지금도 가끔 \"이게 다 무슨 의미인가\" 싶을 때가 있는 거예요. 괜찮아요, 그게 전생부터의 자연스러운 마음입니다."
+    ]
+  },
+  {
+    name: "마을의 행운 돼지",
+    story: [
+      "마을 사람들이 한 번씩 쓰다듬으면 운이 좋아진다고 믿었던 행운 돼지였어요.",
+      "잠만 잤는데도 모두가 고마워했습니다.",
+      "지금도 누군가 옆에 있으면 마음이 편해진다고 느낀다면, 그건 전생의 잔향이에요."
+    ]
+  },
+  {
+    name: "시계탑 옆 거북이",
+    story: [
+      "마을 시계탑 옆에서 100년을 산 거북이였어요.",
+      "지나가는 사람들이 다 늙어가는 동안 당신은 그대로였습니다.",
+      "지금도 시간 약속을 칼같이 지키시는 건, 시간이 친구였기 때문이에요."
+    ]
+  },
+  {
+    name: "도시 광장의 비둘기",
+    story: [
+      "사람들이 던져주는 빵 부스러기로 살았는데도 표정은 늘 당당했어요.",
+      "정장 입은 직장인이든, 길 잃은 아이든, 누가 던져주든 똑같이 받아먹었습니다.",
+      "그래서 지금도 누구한테나 평등하신 거예요. 사실 멋진 능력입니다."
+    ]
+  },
+  {
+    name: "심해의 시 쓰는 해마",
+    story: [
+      "바다 깊은 곳에서 시를 쓰는 해마였어요.",
+      "아무도 읽어주지 않았지만 매일 한 편씩, 조용히 썼습니다.",
+      "지금도 누가 알아주지 않는 일을 묵묵히 하시는 건, 전생부터의 습관이에요."
+    ]
+  },
+  {
+    name: "빵집 앞 강아지",
+    story: [
+      "동네 빵집 앞에 매일 앉아 있던 강아지였어요. 빵 냄새가 너무 좋았거든요.",
+      "단골손님들이 다 당신을 알았고, 가끔 빵 부스러기를 주고 갔습니다.",
+      "지금도 빵집 앞을 지날 때 발걸음이 느려진다면, 그게 이유예요."
+    ]
+  },
+  {
+    name: "산속 천 년 부엉이",
+    story: [
+      "천 년을 산 부엉이였어요. 사람들의 거짓말을 다 들었습니다.",
+      "그런데도 한 번도, 누구에게도 그걸 말한 적이 없어요.",
+      "지금도 입이 무거우신 건, 그때부터의 약속을 지키시는 거예요."
+    ]
+  },
+  {
+    name: "자판기 비밀번호 아는 너구리",
+    story: [
+      "도시 뒷골목의 너구리였어요. 자판기 비밀번호를 다 외웠습니다.",
+      "그런데 누구한테도 안 알려줬어요. 입이 무거웠거든요.",
+      "지금도 알면서 모르는 척하시는 일이 종종 있죠? 그게 전생의 미덕이에요."
+    ]
+  },
+  {
+    name: "8가지 가설을 잊은 문어",
+    story: [
+      "심해의 문어였어요. 8개의 다리로 8가지 가설을 동시에 검증했습니다.",
+      "그런데 결론을 내리려는 순간, 어느 다리의 결과였는지 잊어버렸어요.",
+      "지금도 머릿속이 복잡하시다면, 그건 머리가 나쁜 게 아니라 다리가 8개였던 시절의 잔재입니다."
+    ]
+  },
+  {
+    name: "묻은 도토리 다 까먹은 다람쥐",
+    story: [
+      "도토리 모으기 챔피언급 다람쥐였어요.",
+      "겨울이 되면 묻어둔 위치를 절대 못 찾았습니다. 그게 인생 최대 미스터리였어요.",
+      "지금도 어딘가 둔 물건을 못 찾으신다면, 그건 당신 잘못이 아니에요. 전생의 저주입니다."
+    ]
+  },
+  {
+    name: "1만 마리 이름을 외운 일꾼 꿀벌",
+    story: [
+      "벌집의 핵심 인사부 꿀벌이었어요. 1만 마리 동료의 이름을 다 외우셨습니다.",
+      "이름을 부르는 순간 다들 당신을 사랑하게 됐어요.",
+      "지금도 누군가의 이름을 정확히 기억해주는 일이 자연스러우시다면, 그게 전생부터의 재능이에요."
+    ]
+  },
+  {
+    name: "마지막까지 도망친 공룡",
+    story: [
+      "운석이 떨어진 그날, 가장 늦게 도망친 공룡이었어요.",
+      "왜냐하면 어린 공룡들을 먼저 보내야 했거든요.",
+      "그래서 지금도 누군가를 끝까지 챙기시는 거예요. 그 마음, 6500만 년이 지나도 안 변했습니다."
+    ]
+  },
+  {
+    name: "우물 안 행복한 개구리",
+    story: [
+      "우물 안 개구리였어요. 하늘이 동그란 줄 알았습니다.",
+      "그래도 그 동그란 하늘을 누구보다 사랑했어요.",
+      "지금도 작은 세계 안에서 큰 행복을 찾으시는 능력이 있잖아요. 그건 진짜 재능입니다."
+    ]
+  },
+  {
+    name: "겨울잠 4개월짜리 곰",
+    story: [
+      "깊은 산속의 곰이었어요. 겨울잠을 4개월씩 잤습니다.",
+      "그래서 지금도 주말이면 침대에서 못 일어나시는 거예요. 그게 본능이에요.",
+      "괜찮습니다. 전생의 곰도 그렇게 살았어요. 푹 주무세요."
+    ]
+  },
+  {
+    name: "옆으로만 걷는 해변의 게",
+    story: [
+      "해변의 게였어요. 옆으로만 걸었습니다.",
+      "다른 게들이 \"왜 똑바로 안 가?\" 물어도 당신은 \"이게 제 길이에요\" 했어요.",
+      "지금도 남들과 다른 방식으로 가시지만, 결국 늘 도착하시잖아요. 전생부터 그러셨어요."
+    ]
+  },
+  {
+    name: "노을 보는 언덕 위 양",
+    story: [
+      "언덕 위에 살던 양이었어요. 매일 같은 시간에 노을을 봤습니다.",
+      "다른 양들은 풀만 봤지만, 당신은 가끔 고개를 들었어요.",
+      "지금도 노을이 유난히 슬프게 느껴진다면, 그게 그 시절의 마음이에요."
+    ]
+  },
+  {
+    name: "단골 등불에 부딪히던 풍뎅이",
+    story: [
+      "누군가의 부엌에 살던 풍뎅이였어요. 매일 같은 등불에 부딪혔습니다.",
+      "왜 자꾸 부딪혔는지는 본인도 몰랐지만 그래도 매일 부딪혔어요.",
+      "지금도 같은 실수를 반복하신다면, 그건 학습 능력 문제가 아니라 풍뎅이 영혼이 남아 있어서 그래요. 너무 자책 마세요."
+    ]
+  },
+  {
+    name: "정원의 달팽이",
+    story: [
+      "누군가의 정원에 살던 달팽이였어요. 하루에 1미터 가는 게 인생 목표였습니다.",
+      "그래도 그 1미터는 매일 갔어요.",
+      "지금도 천천히 가지만 멈춘 적은 없으시잖아요. 그게 진짜 멋진 거예요."
+    ]
+  },
+  {
+    name: "왼쪽 오른쪽만 고민한 짚신벌레",
+    story: [
+      "짚신벌레였어요. 인생 최대 고민이 \"왼쪽으로 갈까, 오른쪽으로 갈까\"였습니다.",
+      "그 외엔 별 걱정이 없었어요.",
+      "지금도 사소한 결정에서 한참 멈추신다면, 그건 신중한 게 아니라 짚신벌레의 영혼이 남아 있는 거예요. 귀엽게 봐주세요."
+    ]
+  },
+  {
+    name: "마녀의 검은 고양이",
+    story: [
+      "마녀의 검은 고양이였어요. 사실 마녀의 모든 계획은 당신의 결재 사항이었습니다.",
+      "마녀가 사실 부하였어요. 본인은 끝까지 비밀로 했지만요.",
+      "지금도 가끔 \"내가 왜 이렇게 다 알지?\" 싶다면, 그건 그 시절의 능력이 살짝 남아서 그런 거예요."
+    ]
+  },
+  {
+    name: "장군의 군마",
+    story: [
+      "장군이 가장 아끼던 군마였어요. \"진군!\" 한 마디면 지구 끝까지도 갔습니다.",
+      "전쟁이 끝나도 그 명령이 귀에 남았어요.",
+      "지금도 마감을 칼같이 지키시는 건, 전생부터 명령에 충실하셨던 분이라 그래요. 가끔은 좀 쉬셔도 돼요."
+    ]
+  },
+  {
+    name: "마을 어귀의 비 오는 날 두꺼비",
+    story: [
+      "마을 어귀의 두꺼비였어요. 비 오는 날에만 모습을 드러냈습니다.",
+      "사람들은 당신을 보면 \"오늘 무슨 좋은 일이 있으려나\" 했어요.",
+      "지금도 흐린 날 기분이 묘하게 좋다면, 그게 그 시절의 습관이에요."
+    ]
+  },
+  {
+    name: "어둠 속에 등불 켠 심해 아귀",
+    story: [
+      "심해의 아귀였어요. 머리에 작은 등불 하나가 달려 있었습니다.",
+      "아무도 안 보이는 어둠 속에서, 그래도 당신은 빛을 켜고 있었어요.",
+      "그래서 지금도 누군가에게 빛이 되어주려고 하시는 거예요. 전생부터 그러셨어요."
+    ]
+  },
+  {
+    name: "90개 언어로 농담한 열대 앵무새",
+    story: [
+      "열대의 앵무새였어요. 90개 언어로 농담을 던졌습니다.",
+      "청중은 늘 본인 한 명이었지만, 매번 빵 터졌어요.",
+      "지금도 본인 농담에 본인이 웃으시잖아요. 그건 부끄러운 일이 아니라 전생부터의 자기충족적 행복이에요."
+    ]
+  },
+  {
+    name: "천 년을 산 늙은 학",
+    story: [
+      "천 년을 산 학이었어요. 너무 오래 살아서 무엇을 봤는지 다 잊었습니다.",
+      "기억은 못 해도 깃털엔 그 시간이 다 새겨져 있었어요.",
+      "지금도 가끔 \"왠지 이 장면 본 적 있는데\" 싶다면, 그게 그 학의 기억이에요."
+    ]
+  },
+];
+
+/* ─────────────── FLOWER SVG ─────────────── */
+function flowerSVG(color) {
+  const petals = [];
+  for (let i = 0; i < 8; i++) {
+    petals.push(
+      `<ellipse cx="0" cy="-30" rx="13" ry="28" fill="${color}" transform="rotate(${i * 45})" opacity="0.92"/>`
+    );
+  }
+  return `
+    <g transform="translate(60 60)">
+      ${petals.join("")}
+      <circle r="11" fill="#e9b86c"/>
+      <circle r="11" fill="url(#shine)" opacity="0.45"/>
+      <circle r="3" fill="#fff" opacity=".6" cx="-3" cy="-3"/>
+    </g>
+    <defs>
+      <radialGradient id="shine" cx="0.3" cy="0.3" r="0.7">
+        <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+  `;
+}
+
+/* ─────────────── STATE ─────────────── */
+let cur = 0;
+const answers = new Array(QUESTIONS.length).fill(null);
+
+const $ = (id) => document.getElementById(id);
+
+function startQuiz() {
+  $("introScreen").classList.add("hidden");
+  $("quizScreen").classList.remove("hidden");
+  cur = 0;
+  renderQuestion();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderQuestion() {
+  const item = QUESTIONS[cur];
+  $("qLabel").textContent = `Question ${String(cur + 1).padStart(2, "0")}`;
+  $("qText").textContent = item.q;
+  $("progressNow").textContent = cur + 1;
+  $("progressFill").style.width = `${((cur) / QUESTIONS.length) * 100}%`;
+  $("backBtn").disabled = cur === 0;
+
+  const opts = $("qOpts");
+  opts.innerHTML = "";
+
+  [["A", item.a], ["B", item.b]].forEach(([mark, opt]) => {
+    const btn = document.createElement("button");
+    btn.className = "opt";
+    btn.type = "button";
+    btn.innerHTML = `<span class="opt-mark">${mark}.</span>${opt.text}`;
+    btn.onclick = () => choose(opt);
+    opts.appendChild(btn);
+  });
+}
+
+function choose(opt) {
+  answers[cur] = opt;
+  if (cur < QUESTIONS.length - 1) {
+    cur++;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } else {
+    $("progressFill").style.width = "100%";
+    showResult();
+  }
+}
+
+function goBack() {
+  if (cur > 0) {
+    cur--;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
+/* ─────────────── RESULT ─────────────── */
+function calcType() {
+  const t = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+  answers.forEach((a) => { if (a) t[a.val]++; });
+  return [
+    t.E >= t.I ? "E" : "I",
+    t.S >= t.N ? "S" : "N",
+    t.T >= t.F ? "T" : "F",
+    t.J >= t.P ? "J" : "P",
+  ].join("");
+}
+
+function showResult(typeOverride) {
+  const type = typeOverride || calcType();
+  const r = RESULTS[type] || RESULTS.ESFJ;
+
+  $("quizScreen").classList.add("hidden");
+  $("introScreen").classList.add("hidden");
+  $("resultScreen").classList.remove("hidden");
+
+  const card = $("resultCard");
+  card.style.setProperty("--type-color", r.color);
+  card.style.setProperty("--type-tint", r.tint);
+
+  $("resultFlower").innerHTML = flowerSVG(r.color);
+  $("resultType").textContent = type.split("").join(" · ");
+  $("resultName").textContent = r.name;
+  $("resultTagline").textContent = `"${r.tagline}"`;
+  $("resultMeaning").innerHTML = `<b>꽃말</b>${r.meaning}`;
+  $("resultMsg").textContent = r.msg;
+
+  const sd = $("resultStrengths");
+  sd.innerHTML = r.strengths.map(([dt, dd]) =>
+    `<div class="strength-row"><dt>${dt}</dt><dd>${dd}</dd></div>`
+  ).join("");
+
+  pickEncourage();
+  _resultType = type;
+  if (!typeOverride) history.replaceState(null, "", `?type=${type}`);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ─────────────── ENCOURAGEMENT ─────────────── */
+let _encourageIdx = -1;
+let _encourageText = "";
+let _isCustom = false;
+let _customFrom = "";
+let _resultType = "";
+
+function pickEncourage() {
+  if (_isCustom) return;
+  let idx;
+  do { idx = Math.floor(Math.random() * ENCOURAGE.length); }
+  while (idx === _encourageIdx && ENCOURAGE.length > 1);
+  _encourageIdx = idx;
+  _encourageText = ENCOURAGE[idx];
+  $("encourageText").textContent = _encourageText;
+  $("encourageBox").classList.remove("is-custom");
+  $("encourageEyebrow").textContent = "Today's Message";
+}
+
+function rerollEncourage() {
+  if (_isCustom) {
+    _isCustom = false;
+    _customFrom = "";
+  }
+  pickEncourage();
+}
+
+function toggleWrite() {
+  const area = $("writeArea");
+  if (area.classList.contains("open")) {
+    cancelWrite();
+  } else {
+    area.classList.add("open");
+    if (_isCustom) {
+      $("writeMsg").value = _encourageText;
+      $("writeFrom").value = _customFrom;
+    }
+    updateWriteCount();
+    $("writeMsg").focus();
+  }
+}
+
+function cancelWrite() {
+  $("writeArea").classList.remove("open");
+}
+
+function updateWriteCount() {
+  const v = $("writeMsg").value || "";
+  $("writeCount").textContent = v.length;
+}
+
+function saveWrite() {
+  const msg = ($("writeMsg").value || "").trim();
+  const from = ($("writeFrom").value || "").trim();
+  if (!msg) {
+    showToast("응원의 한 줄을 적어주세요");
+    return;
+  }
+  _isCustom = true;
+  _encourageText = msg;
+  _customFrom = from;
+  $("encourageText").textContent = msg + (from ? `\n— ${from}` : "");
+  $("encourageBox").classList.add("is-custom");
+  $("encourageEyebrow").textContent = "My Message · 직접 쓴 응원";
+  cancelWrite();
+  showToast("저장됐어요. \"결과 링크 복사\"로 보내주세요");
+}
+
+function restart() {
+  answers.fill(null);
+  cur = 0;
+  $("resultScreen").classList.add("hidden");
+  $("introScreen").classList.remove("hidden");
+  $("plIntro").classList.remove("hidden");
+  $("plCard").classList.add("hidden");
+  $("plCard").style.opacity = "1";
+  $("deliveredCard").classList.add("hidden");
+  _pastLife = null;
+  _lastIdx = -1;
+  _isCustom = false;
+  _customFrom = "";
+  _encourageIdx = -1;
+  _resultType = "";
+  history.replaceState(null, "", location.pathname);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ─────────────── SHARE ─────────────── */
+function showToast(msg) {
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => t.classList.remove("show"), 2400);
+}
+
+function buildShareURL() {
+  const u = new URL(location.href);
+  u.search = "";
+  u.hash = "";
+  if (_resultType) u.searchParams.set("type", _resultType);
+  if (_isCustom && _encourageText) {
+    u.searchParams.set("msg", _encourageText);
+    if (_customFrom) u.searchParams.set("from", _customFrom);
+  }
+  return u.toString();
+}
+
+function buildShareText() {
+  const r = _resultType ? RESULTS[_resultType] : null;
+  const lines = [];
+  if (r) {
+    lines.push(`[스승의 날 꽃 선생님 MBTI]`);
+    lines.push(`${r.name} (${_resultType})`);
+    lines.push(`꽃말 — ${r.meaning}`);
+    lines.push("");
+  }
+  if (_encourageText) {
+    lines.push(`"${_encourageText}"`);
+    if (_isCustom && _customFrom) lines.push(`— ${_customFrom}`);
+    lines.push("");
+  }
+  lines.push(buildShareURL());
+  return lines.join("\n");
+}
+
+function copyShare() {
+  const text = buildShareText();
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(text)
+      .then(() => showToast(_isCustom
+        ? "내가 쓴 응원과 결과가 복사됐어요"
+        : "응원문구와 결과 링크가 복사됐어요"))
+      .catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(url) {
+  const ta = document.createElement("textarea");
+  ta.value = url;
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); showToast("링크가 복사되었어요"); }
+  catch { showToast("복사 실패 — URL을 직접 복사해 주세요"); }
+  document.body.removeChild(ta);
+}
+
+/* ─────────────── PAST LIFE ─────────────── */
+let _pastLife = null;
+let _lastIdx = -1;
+
+function pickPastLife() {
+  if (PAST_LIVES.length <= 1) return PAST_LIVES[0];
+  let idx;
+  do { idx = Math.floor(Math.random() * PAST_LIVES.length); }
+  while (idx === _lastIdx);
+  _lastIdx = idx;
+  return PAST_LIVES[idx];
+}
+
+function renderPastLife(p) {
+  $("plName").innerHTML = `<span>${p.name}</span> 이었습니다`;
+  $("plStory").innerHTML = p.story.map((line, i) =>
+    `<p${i === p.story.length - 1 ? ' class="now"' : ''}>${line}</p>`
+  ).join("");
+}
+
+function revealPastLife() {
+  _pastLife = pickPastLife();
+  renderPastLife(_pastLife);
+  $("plIntro").classList.add("hidden");
+  $("plCard").classList.remove("hidden");
+  $("plCard").scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function rerollPastLife() {
+  const card = $("plCard");
+  card.style.opacity = "0";
+  setTimeout(() => {
+    _pastLife = pickPastLife();
+    renderPastLife(_pastLife);
+    card.style.opacity = "1";
+  }, 180);
+}
+
+function copyPastLife() {
+  if (!_pastLife) return;
+  const text =
+    `[스승의 날 보너스] 당신의 전생은… ${_pastLife.name}\n\n` +
+    _pastLife.story.join("\n") +
+    `\n\n${location.href}`;
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(text)
+      .then(() => showToast("전생 결과가 복사되었어요"))
+      .catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+/* ─────────────── BOOTSTRAP / DEEP LINK ─────────────── */
+function showDelivered(msg, from) {
+  $("deliveredMsg").textContent = msg;
+  $("deliveredFrom").innerHTML = from
+    ? `from <b>${escapeHTML(from)}</b>`
+    : `from <b>한 선생님</b>`;
+  $("deliveredCard").classList.remove("hidden");
+}
+
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+
+function bootFromURL() {
+  const u = new URL(location.href);
+  const params = u.searchParams;
+
+  let type = params.get("type") || (location.hash || "").replace(/^#/, "");
+  type = type ? type.toUpperCase() : "";
+  const msg  = params.get("msg")  || "";
+  const from = params.get("from") || "";
+
+  const validType = type && RESULTS[type];
+
+  if (validType || msg) {
+    if (validType) {
+      showResult(type);
+    } else {
+      $("introScreen").classList.remove("hidden");
+    }
+    if (msg) {
+      showDelivered(msg, from);
+      if (validType) {
+        $("deliveredCard").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const ta = document.getElementById("writeMsg");
+  if (ta) ta.addEventListener("input", updateWriteCount);
+  bootFromURL();
+});
+</script>
+</body>
+</html>
