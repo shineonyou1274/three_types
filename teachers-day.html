@@ -1715,8 +1715,8 @@
       <div class="lt-eyebrow">Final · G-Deal Lottery</div>
       <div class="lt-title">마지막 — 통닭과 함께 등수 발표</div>
       <div class="lt-sub">
-        등수는 미리 정해져 있어요. 어느 폰에서 보셔도 같은 결과예요.<br>
-        명단에서 본인 이름을 찾아 클릭해주세요.
+        둘둘 돌아가는 통닭이 한 바퀴 돌고,<br>
+        당신의 등수를 알려드립니다.
       </div>
       <div class="lt-stats">
         <span class="gold">1등 3명 · 황금 통닭</span>
@@ -2802,8 +2802,10 @@ function makeFireworks(canvas, opts = {}) {
       burstAt(W() * (0.15 + Math.random() * 0.7), H() * (0.12 + Math.random() * 0.42));
     }
 
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.fillStyle = "rgba(0,0,0,0.18)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = "source-over";
 
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
@@ -3173,8 +3175,10 @@ function _makePageFW() {
   function loop() {
     if (!running) return;
     raf = requestAnimationFrame(loop);
-    ctx.fillStyle = "rgba(0,0,0,0.22)";
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.fillStyle = "rgba(0,0,0,0.18)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = "source-over";
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
       p.trail.push({ x: p.x, y: p.y });
