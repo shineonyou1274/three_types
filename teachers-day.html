@@ -910,6 +910,133 @@
 
     .hidden { display: none !important; }
 
+    /* ───── WELCOME MODAL ───── */
+    .welcome-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(18, 12, 8, 0.86);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .welcome-overlay.enter { animation: welcomeFadeIn .4s ease; }
+    .welcome-overlay.fade-out { animation: welcomeFadeOut .5s ease forwards; }
+    @keyframes welcomeFadeIn  { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes welcomeFadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+    .welcome-fireworks {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .welcome-card {
+      position: relative;
+      background: linear-gradient(180deg, #fffaee 0%, #fbe6c2 100%);
+      border-radius: 28px;
+      padding: 44px 32px 32px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.55);
+      border: 1px solid rgba(220, 165, 70, 0.35);
+      animation: welcomeRise .65s cubic-bezier(.2,.9,.3,1.2);
+      z-index: 2;
+    }
+    @keyframes welcomeRise {
+      from { opacity: 0; transform: translateY(40px) scale(0.92); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .welcome-card::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 1px dashed rgba(200, 82, 106, 0.32);
+      border-radius: 22px;
+      pointer-events: none;
+    }
+
+    .welcome-eyebrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 13.5px;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .welcome-title {
+      font-family: "Gowun Batang", serif;
+      font-size: clamp(20px, 4.8vw, 26px);
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .welcome-deco {
+      width: 60px;
+      height: 1px;
+      background: var(--accent);
+      margin: 14px auto 18px;
+      opacity: 0.5;
+    }
+    .welcome-msg {
+      font-family: "Gowun Batang", serif;
+      font-size: 15px;
+      line-height: 2;
+      color: var(--ink-soft);
+      margin-bottom: 26px;
+      word-break: keep-all;
+    }
+    .welcome-msg b { color: var(--accent); font-weight: 700; }
+    .welcome-msg .nyear {
+      display: inline-block;
+      padding: 0 4px;
+      background: rgba(217, 154, 60, 0.18);
+      border-radius: 4px;
+      color: #b87033;
+      font-weight: 700;
+    }
+    .welcome-sig {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .welcome-sig b {
+      font-style: normal;
+      color: var(--accent);
+      font-family: "Gowun Batang", serif;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .welcome-btn {
+      padding: 14px 30px;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #c8526a, #e9b86c);
+      color: #fff;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(200, 82, 106, 0.4);
+      transition: transform .15s, box-shadow .2s;
+    }
+    .welcome-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 38px rgba(200, 82, 106, 0.5);
+    }
+
     @media (max-width: 520px) {
       .hero { padding: 40px 22px 36px; }
       .qcard { padding: 32px 20px 24px; }
@@ -921,6 +1048,26 @@
   </style>
 </head>
 <body>
+
+<!-- ───── WELCOME NEWS MODAL ───── -->
+<div class="welcome-overlay hidden enter" id="welcomeOverlay">
+  <canvas class="welcome-fireworks" id="welcomeFireworks"></canvas>
+  <div class="welcome-card">
+    <span class="welcome-eyebrow">From G-Deal · 스승의 날 인사</span>
+    <h2 class="welcome-title">선생님, 오늘 하루는 받기만 하세요.</h2>
+    <div class="welcome-deco"></div>
+    <p class="welcome-msg">
+      <span class="nyear">N년째</span> 교직에서 말없이 묵묵히 인내하며,<br>
+      아이들의 미래를 위해 애써온 당신!<br><br>
+      오늘 하루는 행복하게, <b>아무 민원 없이</b><br>
+      행복하시길 진심으로 기원합니다.
+    </p>
+    <div class="welcome-sig">— <b>G-Deal 운영진</b>이 온 마음을 모아 —</div>
+    <button class="welcome-btn" type="button" onclick="closeWelcome()">
+      감사한 마음으로 시작하기
+    </button>
+  </div>
+</div>
 
 <div class="wrap">
 
@@ -1968,10 +2115,134 @@ function bootFromURL() {
   }
 }
 
+/* ─────────────── WELCOME FIREWORKS ─────────────── */
+function _resizeCanvas(canvas) {
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = canvas.clientWidth * dpr;
+  canvas.height = canvas.clientHeight * dpr;
+  return dpr;
+}
+
+function makeFireworks(canvas, opts = {}) {
+  const ctx = canvas.getContext('2d');
+  const duration = opts.duration ?? 5500;
+  let dpr = _resizeCanvas(canvas);
+  const onResize = () => { dpr = _resizeCanvas(canvas); };
+  window.addEventListener('resize', onResize);
+
+  const palette = [
+    ['#ff6b6b','#ffd0c8'], ['#feca57','#fff3a8'],
+    ['#48dbfb','#bce8fb'], ['#ff9ff3','#ffd6f6'],
+    ['#a3e635','#dff5a8'], ['#fb923c','#ffd2a8'],
+  ];
+  const particles = [];
+
+  function burstAt(cx, cy) {
+    const pair = palette[Math.floor(Math.random() * palette.length)];
+    const count = 44 + Math.floor(Math.random() * 28);
+    for (let i = 0; i < count; i++) {
+      const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.45;
+      const speed = (2.2 + Math.random() * 3.2) * dpr;
+      particles.push({
+        x: cx * dpr, y: cy * dpr,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 0.6 * dpr,
+        life: 1,
+        decay: 0.008 + Math.random() * 0.012,
+        color: Math.random() < 0.6 ? pair[0] : pair[1],
+        size: (1.6 + Math.random() * 1.8) * dpr,
+        trail: []
+      });
+    }
+  }
+
+  const W = () => canvas.clientWidth;
+  const H = () => canvas.clientHeight;
+  const start = Date.now();
+  let lastBurst = 0;
+  let stopFlag = false;
+  let raf = 0;
+
+  setTimeout(() => burstAt(W() * 0.25, H() * 0.32), 60);
+  setTimeout(() => burstAt(W() * 0.72, H() * 0.28), 420);
+  setTimeout(() => burstAt(W() * 0.5,  H() * 0.18), 840);
+
+  function loop() {
+    raf = requestAnimationFrame(loop);
+    const now = Date.now();
+    if (!stopFlag && now - start > duration) stopFlag = true;
+    if (!stopFlag && now - lastBurst > 650 + Math.random() * 500) {
+      lastBurst = now;
+      burstAt(W() * (0.15 + Math.random() * 0.7), H() * (0.12 + Math.random() * 0.42));
+    }
+
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.trail.push({ x: p.x, y: p.y });
+      if (p.trail.length > 6) p.trail.shift();
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.08 * dpr;
+      p.vx *= 0.992;
+      p.vy *= 0.992;
+      p.life -= p.decay;
+      if (p.life <= 0) { particles.splice(i, 1); continue; }
+
+      p.trail.forEach((t, ti) => {
+        ctx.globalAlpha = (ti / p.trail.length) * p.life * 0.45;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(t.x, t.y, p.size * (ti / p.trail.length), 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = p.life;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    if (stopFlag && particles.length === 0) {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', onResize);
+    }
+  }
+  loop();
+
+  return { stop: () => { stopFlag = true; } };
+}
+
+let _welcomeFW;
+function showWelcome() {
+  const overlay = $("welcomeOverlay");
+  overlay.classList.remove("hidden");
+  requestAnimationFrame(() => {
+    _welcomeFW = makeFireworks($("welcomeFireworks"), { duration: 6000 });
+  });
+}
+
+function closeWelcome() {
+  const overlay = $("welcomeOverlay");
+  if (!overlay || overlay.classList.contains("hidden")) return;
+  overlay.classList.add("fade-out");
+  if (_welcomeFW) _welcomeFW.stop();
+  setTimeout(() => overlay.classList.add("hidden"), 500);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const ta = document.getElementById("writeMsg");
   if (ta) ta.addEventListener("input", updateWriteCount);
   bootFromURL();
+  if (!sessionStorage.getItem("gdealWelcomed")) {
+    sessionStorage.setItem("gdealWelcomed", "1");
+    showWelcome();
+  } else {
+    $("welcomeOverlay").classList.add("hidden");
+  }
 });
 </script>
 </body>

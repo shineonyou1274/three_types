@@ -573,6 +573,246 @@
 
     .hidden { display: none !important; }
 
+    /* ───── WELCOME MODAL ───── */
+    .welcome-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(18, 12, 8, 0.86);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .welcome-overlay.enter { animation: fadeIn .4s ease; }
+    .welcome-overlay.fade-out { animation: fadeOut .5s ease forwards; }
+    @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+    .welcome-fireworks {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .welcome-card {
+      position: relative;
+      background: linear-gradient(180deg, #fffaee 0%, #fbe6c2 100%);
+      border-radius: 28px;
+      padding: 44px 32px 32px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.55);
+      border: 1px solid rgba(220, 165, 70, 0.35);
+      animation: rise .65s cubic-bezier(.2,.9,.3,1.2);
+      z-index: 2;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(40px) scale(0.92); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .welcome-card::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 1px dashed rgba(196, 80, 74, 0.32);
+      border-radius: 22px;
+      pointer-events: none;
+    }
+
+    .welcome-eyebrow {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 13.5px;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .welcome-title {
+      font-family: "Gowun Batang", serif;
+      font-size: clamp(20px, 4.8vw, 26px);
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .welcome-deco {
+      width: 60px;
+      height: 1px;
+      background: var(--accent);
+      margin: 14px auto 18px;
+      opacity: 0.5;
+    }
+    .welcome-msg {
+      font-family: "Gowun Batang", serif;
+      font-size: 15px;
+      line-height: 2;
+      color: var(--ink-soft);
+      margin-bottom: 26px;
+      word-break: keep-all;
+    }
+    .welcome-msg b {
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .welcome-msg .nyear {
+      display: inline-block;
+      padding: 0 4px;
+      background: rgba(217, 154, 60, 0.18);
+      border-radius: 4px;
+      color: var(--crisp);
+      font-weight: 700;
+    }
+    .welcome-sig {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .welcome-sig b {
+      font-style: normal;
+      color: var(--accent);
+      font-family: "Gowun Batang", serif;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .welcome-btn {
+      padding: 14px 30px;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--fire));
+      color: #fff;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(196, 80, 74, 0.4);
+      transition: transform .15s, box-shadow .2s;
+    }
+    .welcome-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 38px rgba(196, 80, 74, 0.5);
+    }
+
+    /* ───── CHICKEN ENHANCEMENTS ───── */
+    .smoke {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 70px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .puff {
+      position: absolute;
+      bottom: 0;
+      width: 14px;
+      height: 14px;
+      background: rgba(200, 190, 175, 0.55);
+      border-radius: 50%;
+      filter: blur(3px);
+      animation: puffRise 3.4s ease-out infinite;
+    }
+    .puff.p1 { left: 30%; animation-delay: 0s; }
+    .puff.p2 { left: 50%; animation-delay: 1.1s; width: 12px; height: 12px; }
+    .puff.p3 { left: 65%; animation-delay: 2.2s; width: 16px; height: 16px; }
+    @keyframes puffRise {
+      0%   { transform: translateY(0) scale(0.5); opacity: 0; }
+      30%  { opacity: 0.7; }
+      100% { transform: translateY(-70px) scale(1.7); opacity: 0; }
+    }
+
+    .charcoal {
+      position: absolute;
+      bottom: 0;
+      left: 14%;
+      right: 14%;
+      height: 16px;
+      background: linear-gradient(180deg, #3a2418 0%, #1a0e08 100%);
+      border-radius: 6px 6px 4px 4px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    }
+    .ember {
+      position: absolute;
+      bottom: 4px;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #ffaa44, #c14a18 70%, transparent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(255, 120, 40, 0.8);
+      animation: glow 1.4s ease-in-out infinite alternate;
+    }
+    .ember.e1 { left: 22%; animation-delay: 0s; }
+    .ember.e2 { left: 38%; animation-delay: .3s; width: 5px; height: 5px; }
+    .ember.e3 { left: 52%; animation-delay: .6s; }
+    .ember.e4 { left: 68%; animation-delay: .9s; width: 5px; height: 5px; }
+    .ember.e5 { left: 80%; animation-delay: 1.2s; }
+    @keyframes glow {
+      from { opacity: 0.5; transform: scale(0.85); }
+      to   { opacity: 1;   transform: scale(1.15); }
+    }
+
+    .chicken-3d {
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,.25));
+      transition: filter .3s;
+    }
+    .chicken-3d.spinning {
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,.25))
+              drop-shadow(0 0 14px rgba(255, 140, 50, 0.45));
+    }
+
+    /* spinning speed boost during draw */
+    .rotisserie.active .chicken-3d {
+      animation-duration: 0.55s;
+    }
+    .rotisserie.active .ember {
+      animation-duration: .7s;
+    }
+    .rotisserie.active .flame {
+      animation-duration: .55s;
+    }
+
+    /* ───── DRUMROLL ───── */
+    .drumroll {
+      font-family: "Gowun Batang", serif;
+      font-size: 14px;
+      color: var(--accent);
+      letter-spacing: 0.3em;
+      margin-bottom: 6px;
+      min-height: 22px;
+      visibility: hidden;
+    }
+    .drumroll.on {
+      visibility: visible;
+      animation: drumroll 0.4s steps(4, end) infinite;
+    }
+    @keyframes drumroll {
+      0%, 100% { opacity: 0.5; }
+      50%      { opacity: 1; }
+    }
+
+    /* ───── PERSISTENT FIREWORKS CANVAS (for win celebration) ───── */
+    .page-fireworks {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 50;
+    }
+
     @media (max-width: 520px) {
       .card { padding: 24px 20px; }
       .stage { padding: 24px 18px 26px; }
@@ -585,6 +825,28 @@
   </style>
 </head>
 <body>
+
+<!-- ───── WELCOME NEWS MODAL ───── -->
+<div class="welcome-overlay hidden enter" id="welcomeOverlay">
+  <canvas class="welcome-fireworks" id="welcomeFireworks"></canvas>
+  <div class="welcome-card">
+    <span class="welcome-eyebrow">From G-Deal · 스승의 날 인사</span>
+    <h2 class="welcome-title">선생님, 오늘 하루는 받기만 하세요.</h2>
+    <div class="welcome-deco"></div>
+    <p class="welcome-msg">
+      <span class="nyear">N년째</span> 교직에서 말없이 묵묵히 인내하며,<br>
+      아이들의 미래를 위해 애써온 당신!<br><br>
+      오늘 하루는 행복하게, <b>아무 민원 없이</b><br>
+      행복하시길 진심으로 기원합니다.
+    </p>
+    <div class="welcome-sig">— <b>G-Deal 운영진</b>이 온 마음을 모아 —</div>
+    <button class="welcome-btn" type="button" onclick="closeWelcome()">
+      감사한 마음으로 시작하기
+    </button>
+  </div>
+</div>
+
+<canvas class="page-fireworks" id="pageFireworks"></canvas>
 
 <div class="wrap">
 
@@ -625,7 +887,12 @@
   <!-- ───── DRAW STAGE ───── -->
   <section id="drawScreen" class="hidden">
     <div class="stage">
-      <div class="rotisserie">
+      <div class="rotisserie" id="rotisserie">
+        <div class="smoke">
+          <span class="puff p1"></span>
+          <span class="puff p2"></span>
+          <span class="puff p3"></span>
+        </div>
         <span class="handle-l"></span>
         <span class="handle-r"></span>
         <span class="spit"></span>
@@ -675,7 +942,16 @@
           <span class="flame"></span>
           <span class="flame"></span>
         </div>
+        <div class="charcoal">
+          <span class="ember e1"></span>
+          <span class="ember e2"></span>
+          <span class="ember e3"></span>
+          <span class="ember e4"></span>
+          <span class="ember e5"></span>
+        </div>
       </div>
+
+      <div class="drumroll" id="drumroll">두구두구두구 두구두구두구…</div>
 
       <div class="rank-label">
         <span class="rank-num" id="rankNum">1</span>등 당첨자
@@ -713,6 +989,21 @@
 <script>
 const $ = (id) => document.getElementById(id);
 const COUNT_OPTIONS = [1, 3, 5, 7, 10];
+
+/* 운영진이 등록한 기본 명단 (수정 가능) */
+const DEFAULT_NAMES = [
+  "이운희","최소은","이성근","강하영","최시경","이다은","남광희","박영은","윤태영","강재욱",
+  "신수현","백경태","이나영","최재우","남태열","황동성","박성일","박병준","최미진","박주연",
+  "이상우","김유미","윤희류","황준식","양인선","윤명희","박수영","박한울","정윤아","정동원",
+  "김호준","문지훈","홍진우","박수영","정진아","김지원","김민중","박미래","김동환","김재황",
+  "김제이","곽민진","김희은","김선형","전혜진","강화정","한솔","이승준","이대송","최광일",
+  "이상민","김소완","정한길","윤현삼","김권수","박상범","김민수","김준호","박성수","김동준",
+  "박서현","황병조","금호정","류시영","김병선","황아영","박미라","김동우","김연의","하지범",
+  "남가연","손혜림","나영선","박재현","김영미","강민정","이연주","우대윤","이동주","동혜림",
+  "최은숙","이예진","문종기","우하영","김소은","노서현","송선정","신화준","노상민","안형진",
+  "김태현","오준석","윤성민","조아람","강길태","김서호","이슬민","윤용현","이지희","신승혜",
+  "하미옥","김도원","김소연","진창환","정주연","서진영","손평화","정혜원"
+];
 
 let participants = [];
 let remaining = [];
@@ -814,6 +1105,9 @@ function spinAndReveal(fast, onDone) {
   reveal.classList.remove("locked");
   reveal.classList.add("spinning");
   $("chicken").classList.remove("idle");
+  $("chicken").classList.add("spinning");
+  $("rotisserie").classList.add("active");
+  $("drumroll").classList.add("on");
   $("nextBtn").disabled = true;
 
   const total = fast ? 14 : 26;       // flicker steps
@@ -855,6 +1149,10 @@ function spinAndReveal(fast, onDone) {
     reveal.classList.remove("spinning");
     reveal.classList.add("locked");
     $("chicken").classList.add("idle");
+    $("chicken").classList.remove("spinning");
+    $("rotisserie").classList.remove("active");
+    $("drumroll").classList.remove("on");
+    celebrateOnReveal();
     addToBoard(currentRank, winner);
     $("boardCount").textContent = `${winners.length} / ${pickCount}`;
     $("nextBtn").disabled = false;
@@ -946,10 +1244,168 @@ function escapeHTML(s) {
   }[c]));
 }
 
+/* ─────────────── FIREWORKS ─────────────── */
+function _resizeCanvas(canvas) {
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  return dpr;
+}
+
+function makeFireworks(canvas, opts = {}) {
+  const ctx = canvas.getContext('2d');
+  const duration = opts.duration ?? 5500;
+  const auto = opts.auto !== false;
+  let dpr = _resizeCanvas(canvas);
+  const onResize = () => { dpr = _resizeCanvas(canvas); };
+  window.addEventListener('resize', onResize);
+
+  const palette = [
+    ['#ff6b6b','#ffd0c8'], ['#feca57','#fff3a8'],
+    ['#48dbfb','#bce8fb'], ['#ff9ff3','#ffd6f6'],
+    ['#a3e635','#dff5a8'], ['#fb923c','#ffd2a8'],
+  ];
+  const particles = [];
+
+  function burstAt(cx, cy, opts2 = {}) {
+    const pair = opts2.colors || palette[Math.floor(Math.random() * palette.length)];
+    const count = opts2.count ?? (44 + Math.floor(Math.random() * 28));
+    const speedMul = opts2.speed ?? 1;
+    for (let i = 0; i < count; i++) {
+      const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.45;
+      const speed = (2.2 + Math.random() * 3.2) * speedMul * dpr;
+      particles.push({
+        x: cx * dpr, y: cy * dpr,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 0.6 * dpr,
+        life: 1,
+        decay: 0.008 + Math.random() * 0.012,
+        color: Math.random() < 0.6 ? pair[0] : pair[1],
+        size: (1.6 + Math.random() * 1.8) * dpr,
+        trail: []
+      });
+    }
+  }
+
+  const W = () => canvas.clientWidth;
+  const H = () => canvas.clientHeight;
+
+  const start = Date.now();
+  let lastBurst = 0;
+  let stopFlag = false;
+  let raf = 0;
+
+  if (auto) {
+    setTimeout(() => burstAt(W() * 0.25, H() * 0.32), 60);
+    setTimeout(() => burstAt(W() * 0.72, H() * 0.28), 420);
+    setTimeout(() => burstAt(W() * 0.5,  H() * 0.18), 840);
+  }
+
+  function loop() {
+    raf = requestAnimationFrame(loop);
+    const now = Date.now();
+    if (auto && !stopFlag && now - start > duration) stopFlag = true;
+    if (auto && !stopFlag && now - lastBurst > 650 + Math.random() * 500) {
+      lastBurst = now;
+      burstAt(W() * (0.15 + Math.random() * 0.7), H() * (0.12 + Math.random() * 0.42));
+    }
+
+    ctx.fillStyle = opts.fade ?? 'rgba(0, 0, 0, 0.18)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.trail.push({ x: p.x, y: p.y });
+      if (p.trail.length > 6) p.trail.shift();
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.08 * dpr;
+      p.vx *= 0.992;
+      p.vy *= 0.992;
+      p.life -= p.decay;
+      if (p.life <= 0) { particles.splice(i, 1); continue; }
+
+      p.trail.forEach((t, ti) => {
+        ctx.globalAlpha = (ti / p.trail.length) * p.life * 0.45;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(t.x, t.y, p.size * (ti / p.trail.length), 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = p.life;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    if (stopFlag && particles.length === 0) {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', onResize);
+    }
+  }
+  loop();
+
+  return {
+    burst: burstAt,
+    stop: () => { stopFlag = true; },
+  };
+}
+
+/* page-level fireworks (for winner celebration) */
+let _pageFW;
+function getPageFW() {
+  if (_pageFW) return _pageFW;
+  _pageFW = makeFireworks($("pageFireworks"), { auto: false, fade: 'rgba(0,0,0,0.22)' });
+  return _pageFW;
+}
+
+function celebrateAt(x, y) {
+  const fw = getPageFW();
+  fw.burst(x, y, { count: 60, speed: 1.15 });
+  setTimeout(() => fw.burst(x - 60, y + 20, { count: 36, speed: 0.95 }), 180);
+  setTimeout(() => fw.burst(x + 60, y + 20, { count: 36, speed: 0.95 }), 360);
+}
+
+function celebrateOnReveal() {
+  const box = $("revealName");
+  if (!box) return;
+  const rect = box.getBoundingClientRect();
+  celebrateAt(rect.left + rect.width / 2, rect.top + rect.height / 2);
+}
+
+/* ─────────────── WELCOME ─────────────── */
+let _welcomeFW;
+function showWelcome() {
+  const overlay = $("welcomeOverlay");
+  overlay.classList.remove("hidden");
+  requestAnimationFrame(() => {
+    _welcomeFW = makeFireworks($("welcomeFireworks"), { duration: 6000 });
+  });
+}
+
+function closeWelcome() {
+  const overlay = $("welcomeOverlay");
+  if (!overlay || overlay.classList.contains("hidden")) return;
+  overlay.classList.add("fade-out");
+  if (_welcomeFW) _welcomeFW.stop();
+  setTimeout(() => overlay.classList.add("hidden"), 500);
+}
+
 /* ─────────────── INIT ─────────────── */
 renderChips();
+$("nameList").value = DEFAULT_NAMES.join("\n");
 $("nameList").addEventListener("input", updateStartBtn);
 updateStartBtn();
+
+if (!sessionStorage.getItem("gdealWelcomed")) {
+  sessionStorage.setItem("gdealWelcomed", "1");
+  showWelcome();
+} else {
+  $("welcomeOverlay").classList.add("hidden");
+}
 </script>
 </body>
 </html>
