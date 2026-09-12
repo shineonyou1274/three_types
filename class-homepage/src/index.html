@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>우리 반 홈페이지</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<style>
+/* ═══════════════════════════════════════════════════════════
+   디자인 토큰 — 색 하나(--accent)만 바꿔도 전체 분위기가 바뀝니다.
+   (--accent 는 설정 시트의 '테마색' 값으로 자동 덮어써짐)
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --accent: #ff7a59;
+  --accent-ink: color-mix(in srgb, var(--accent) 70%, #000);
+  --accent-soft: color-mix(in srgb, var(--accent) 14%, #fff);
+  --accent-line: color-mix(in srgb, var(--accent) 35%, #fff);
+  --bg: #fff8f1;
+  --card: #ffffff;
+  --ink: #2b2420;
+  --muted: #8a7f78;
+  --faint: #efe6dd;
+  --line: #f0e4da;
+  --ok: #3aa57a;
+  --warn: #e8a33d;
+  --bad: #e5484d;
+  --r: 22px;
+  --shadow: 0 10px 30px rgba(120, 80, 50, .10), 0 1px 2px rgba(120, 80, 50, .06);
+  --font: "Noto Sans KR", system-ui, -apple-system, sans-serif;
+  --display: "Jua", "Noto Sans KR", sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font); color: var(--ink); background: var(--bg);
+  line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(ellipse 50% 35% at 10% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 70%),
+    radial-gradient(ellipse 45% 35% at 95% 10%, rgba(142, 202, 230, .35), transparent 70%);
+  background-attachment: fixed;
+}
+button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+input, select, textarea { font-family: inherit; font-size: 14px; color: inherit; }
+a { color: var(--accent-ink); }
+
+.wrap { width: min(1180px, 100% - 32px); margin: 0 auto; padding: 24px 0 90px; }
+
+/* ── 상단 ── */
+.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 12px 6px 22px; }
+.brand h1 { font-family: var(--display); font-size: clamp(30px, 5vw, 46px); font-weight: 400; letter-spacing: -.01em; line-height: 1.1; color: var(--ink); }
+.brand h1 em { font-style: normal; color: var(--accent); }
+.brand .sub { color: var(--muted); font-size: 14px; margin-top: 6px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.brand .sub .date { font-weight: 700; color: var(--ink); }
+.tools { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.chip-btn {
+  display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px; border-radius: 999px;
+  background: var(--card); border: 1px solid var(--line); font-size: 13px; font-weight: 700; color: var(--ink);
+  box-shadow: 0 1px 2px rgba(0,0,0,.04); transition: transform .12s, background .12s, border-color .12s;
+}
+.chip-btn:hover { transform: translateY(-1px); border-color: var(--accent-line); }
+.chip-btn.accent { background: var(--accent); color: #fff; border-color: transparent; }
+.chip-btn.on { background: var(--ink); color: #fff; border-color: transparent; }
+.chip-btn select { border: 0; background: transparent; font-weight: 700; font-size: 13px; outline: none; max-width: 120px; }
+
+.banner { display: none; margin: 0 0 16px; padding: 12px 16px; border-radius: 14px; background: #fff4d6; border: 1px solid #f5dc9a; color: #6b4d00; font-size: 13px; }
+.banner.show { display: block; }
+.banner b { font-weight: 900; }
+
+/* ── 벤토 그리드 ── */
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+.card { grid-column: span 12; position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: 20px 22px; display: flex; flex-direction: column; min-height: 220px; transition: box-shadow .2s, outline-color .2s; }
+@media (min-width: 720px) { .c6 { grid-column: span 6; } .c4 { grid-column: span 6; } }
+@media (min-width: 1000px) { .c4 { grid-column: span 4; } .c5 { grid-column: span 5; } .c7 { grid-column: span 7; } }
+.card-h { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 10px; margin-bottom: 14px; }
+.card-h h2 { font-family: var(--display); font-weight: 400; font-size: 21px; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.card-h h2 .ico { font-size: 22px; }
+.card-h .nav { display: flex; gap: 4px; align-items: center; }
+.nav button { width: 30px; height: 30px; border-radius: 10px; background: var(--faint); font-weight: 900; font-size: 14px; color: var(--ink); }
+.nav button.txt { width: auto; padding: 0 10px; font-size: 12px; white-space: nowrap; }
+.nav button:hover { background: var(--accent-soft); color: var(--accent-ink); }
+.nav .lbl { font-size: 13px; font-weight: 700; color: var(--muted); padding: 0 4px; min-width: 88px; text-align: center; white-space: nowrap; }
+.card-b { flex: 1; }
+.card-f { margin-top: 12px; font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.empty { color: var(--muted); font-size: 14px; padding: 18px 0; text-align: center; }
+.empty small { display: block; font-size: 12px; margin-top: 4px; }
+.skeleton { height: 14px; border-radius: 8px; background: linear-gradient(90deg, var(--faint), #fff, var(--faint)); background-size: 200% 100%; animation: sk 1.1s infinite; margin: 10px 0; }
+@keyframes sk { to { background-position: -200% 0; } }
+
+/* 급식 */
+.meal-type { display: inline-block; font-size: 11px; font-weight: 900; padding: 2px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); margin: 6px 0 8px; }
+.dishes { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.dishes li { display: flex; justify-content: space-between; gap: 8px; padding: 7px 10px; border-radius: 12px; background: #fdf7f2; font-size: 14px; }
+.dishes li small { color: var(--muted); font-size: 11px; white-space: nowrap; }
+
+/* 시간표 */
+.tt { list-style: none; display: grid; gap: 6px; }
+.tt li { display: grid; grid-template-columns: 34px 1fr; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 12px; background: #f6f8fb; font-size: 14px; }
+.tt li .p { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; background: #fff; font-family: var(--display); color: var(--accent); font-size: 16px; }
+.tt li.now { background: var(--accent-soft); outline: 2px solid var(--accent-line); }
+
+/* 학사일정 */
+.sched { list-style: none; display: flex; flex-direction: column; gap: 6px; max-height: 290px; overflow: auto; padding-right: 4px; }
+.sched li { display: grid; grid-template-columns: 62px 1fr; gap: 10px; align-items: start; padding: 7px 10px; border-radius: 12px; font-size: 14px; }
+.sched li .d { font-family: var(--display); color: var(--accent); font-size: 15px; line-height: 1.3; }
+.sched li .d small { display: block; font-family: var(--font); font-size: 10px; color: var(--muted); font-weight: 700; }
+.sched li.mine { background: var(--accent-soft); }
+.sched li.today { outline: 2px solid var(--accent-line); }
+.sched li .n small { display: block; color: var(--muted); font-size: 12px; }
+
+/* 1인 1역 */
+.roles { list-style: none; display: grid; gap: 6px; grid-template-columns: 1fr 1fr; }
+.roles li { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 12px; background: #fbf5ef; font-size: 13px; }
+.roles li .e { font-size: 18px; }
+.roles li .r { color: var(--muted); font-size: 12px; line-height: 1.2; }
+.roles li .nm { font-weight: 900; font-size: 14px; }
+.roles li.me { background: var(--accent); color: #fff; }
+.roles li.me .r { color: rgba(255,255,255,.8); }
+.rest { margin-top: 10px; font-size: 12px; color: var(--muted); }
+
+/* 감정 체크인 */
+.emo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 6px 0 12px; }
+.emo { padding: 10px 6px; border-radius: 16px; border: 2px solid transparent; background: #faf6f2; text-align: center; transition: transform .12s, border-color .12s; }
+.emo .x { font-size: 28px; line-height: 1; display: block; }
+.emo .k { font-size: 12px; font-weight: 700; margin-top: 4px; display: block; }
+.emo:hover { transform: translateY(-2px); }
+.emo.sel { border-color: var(--accent); background: var(--accent-soft); }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.inp { flex: 1; min-width: 140px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); background: #fff; outline: none; }
+.inp:focus { border-color: var(--accent-line); }
+.btn { padding: 10px 16px; border-radius: 12px; background: var(--accent); color: #fff; font-weight: 900; font-size: 14px; transition: transform .12s, opacity .12s; }
+.btn:hover { transform: translateY(-1px); }
+.btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+.btn.ghost { background: var(--faint); color: var(--ink); }
+.btn.sm { padding: 6px 10px; font-size: 12px; border-radius: 10px; }
+.mood { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.mood h3 { font-size: 13px; font-weight: 900; color: var(--muted); margin-bottom: 8px; display: flex; justify-content: space-between; }
+.bars { display: grid; gap: 5px; }
+.bar { display: grid; grid-template-columns: 26px 1fr 26px; align-items: center; gap: 8px; font-size: 12px; }
+.bar .t { height: 10px; border-radius: 999px; background: var(--faint); overflow: hidden; }
+.bar .t i { display: block; height: 100%; border-radius: 999px; transition: width .5s cubic-bezier(.2,.8,.2,1); }
+.bar .c { text-align: right; font-weight: 900; color: var(--muted); }
+.detail { margin-top: 10px; display: grid; gap: 4px; font-size: 13px; }
+.detail div { display: flex; gap: 8px; padding: 6px 8px; border-radius: 10px; background: #faf6f2; }
+.detail div small { color: var(--muted); margin-left: auto; }
+
+/* 뽑기 */
+.tabs { display: inline-flex; background: var(--faint); border-radius: 12px; padding: 3px; gap: 2px; }
+.tabs button { padding: 6px 12px; border-radius: 9px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.tabs button.on { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.stage { margin: 12px 0; min-height: 110px; border-radius: 18px; background: linear-gradient(135deg, var(--accent-soft), #fff); border: 1px dashed var(--accent-line); display: grid; place-items: center; text-align: center; padding: 16px; overflow: hidden; position: relative; }
+.stage .big { font-family: var(--display); font-size: clamp(30px, 5vw, 48px); color: var(--accent-ink); line-height: 1.1; }
+.stage .big.rolling { animation: roll .09s infinite; }
+@keyframes roll { 50% { transform: translateY(-3px) scale(1.03); opacity: .8; } }
+.stage .hint { color: var(--muted); font-size: 13px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.chipx { padding: 6px 12px; border-radius: 999px; background: #fff; border: 1px solid var(--accent-line); font-weight: 700; font-size: 14px; animation: pop .35s cubic-bezier(.2,1.4,.4,1) both; }
+@keyframes pop { from { transform: scale(.4); opacity: 0; } }
+.groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; width: 100%; }
+.group { background: #fff; border-radius: 14px; padding: 10px; text-align: left; border: 1px solid var(--line); animation: pop .35s both; }
+.group b { display: block; font-family: var(--display); color: var(--accent); font-weight: 400; margin-bottom: 4px; }
+.group span { display: block; font-size: 13px; }
+.opt { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.opt label { display: inline-flex; gap: 6px; align-items: center; }
+.opt input[type=number] { width: 58px; padding: 5px 8px; border-radius: 8px; border: 1px solid var(--line); }
+.confetti { position: absolute; inset: 0; pointer-events: none; }
+.confetti i { position: absolute; top: -10px; font-size: 16px; animation: fall 1.3s ease-in forwards; }
+@keyframes fall { to { transform: translateY(160px) rotate(300deg); opacity: 0; } }
+
+/* 과제 */
+.asg { list-style: none; display: grid; gap: 8px; }
+.asg li { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 14px; background: #f7f8fb; border: 1px solid transparent; }
+.asg li.urgent { background: #fff3ef; border-color: #ffd5c8; }
+.asg li.done { opacity: .55; }
+.asg .t { font-weight: 900; font-size: 14px; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.asg .subj { font-size: 11px; font-weight: 900; padding: 1px 8px; border-radius: 999px; background: #e9eef7; color: #3a5a99; }
+.asg .desc { font-size: 12px; color: var(--muted); }
+.asg .desc a { margin-left: 6px; }
+.dday { font-family: var(--display); font-size: 15px; color: var(--accent); white-space: nowrap; }
+.dday.late { color: var(--bad); }
+.dday.today { color: var(--bad); }
+.asg .act { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+.asg .cnt { font-size: 11px; color: var(--muted); }
+
+/* 공지 */
+.notices { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.notice { padding: 12px 14px; border-radius: 14px; background: #fbf5ef; }
+.notice.pin { background: var(--accent-soft); }
+.notice b { display: block; font-size: 14px; }
+.notice p { font-size: 13px; color: #5a4f48; margin-top: 2px; }
+.notice small { color: var(--muted); font-size: 11px; }
+
+/* ── 푸터 ── */
+footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: 13px; line-height: 1.8; }
+footer a, footer button { color: var(--accent-ink); font-weight: 700; text-decoration: underline; font-size: 13px; }
+
+/* ── 토스트 / 모달 ── */
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 14px; font-weight: 700; opacity: 0; pointer-events: none; transition: .25s; z-index: 60; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.modal { position: fixed; inset: 0; background: rgba(40, 25, 15, .45); display: none; place-items: center; z-index: 50; padding: 16px; }
+.modal.show { display: grid; }
+.modal .box { background: #fff; border-radius: 22px; padding: 22px; width: min(520px, 100%); max-height: 90vh; overflow: auto; box-shadow: 0 30px 80px rgba(0,0,0,.3); }
+.modal h3 { font-family: var(--display); font-weight: 400; font-size: 22px; margin-bottom: 8px; }
+.modal p { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+.status-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 6px; }
+.status-list span { padding: 6px 8px; border-radius: 10px; background: #f4f0ec; font-size: 13px; }
+.status-list span.done { background: #e2f5ec; color: #146c43; font-weight: 700; }
+.status-list span.seen { background: #fff4d6; }
+
+/* ═══════════════════════════════════════════════════════════
+   "만드는 법 보기" 모드 — body.howto 일 때만 켜집니다.
+   ═══════════════════════════════════════════════════════════ */
+body.howto .card[data-howto] { outline: 2px dashed var(--accent-line); outline-offset: 4px; cursor: help; }
+body.howto .card[data-howto]:hover { box-shadow: 0 0 0 6px var(--accent-soft), var(--shadow); }
+.how-badge { display: none; position: absolute; top: -12px; right: 14px; padding: 4px 10px; border-radius: 999px; background: var(--ink); color: #fff; font-size: 11px; font-weight: 900; z-index: 2; box-shadow: 0 4px 10px rgba(0,0,0,.2); }
+body.howto .how-badge { display: inline-flex; gap: 4px; align-items: center; }
+.howbar { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%) translateY(120%); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: center; padding: 10px 14px; border-radius: 999px; background: var(--ink); color: #fff; font-size: 13px; z-index: 40; box-shadow: 0 16px 40px rgba(0,0,0,.35); transition: transform .3s cubic-bezier(.2,.9,.3,1.2); max-width: calc(100% - 24px); }
+body.howto .howbar { transform: translateX(-50%) translateY(0); }
+.howbar b { font-weight: 900; }
+.howbar button { padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.14); color: #fff; font-weight: 700; font-size: 12px; }
+.howbar button.hl { background: var(--accent); }
+
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(520px, 100%); background: #fff; z-index: 55; transform: translateX(105%); transition: transform .3s cubic-bezier(.2,.9,.3,1); box-shadow: -20px 0 60px rgba(0,0,0,.25); display: flex; flex-direction: column; }
+.drawer.show { transform: none; }
+.drawer-h { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 12px; border-bottom: 1px solid var(--line); }
+.drawer-h h3 { font-family: var(--display); font-weight: 400; font-size: 22px; }
+.drawer-h button { width: 34px; height: 34px; border-radius: 10px; background: var(--faint); font-weight: 900; }
+.drawer-b { padding: 16px 20px 40px; overflow: auto; flex: 1; font-size: 14px; }
+.hsec { margin-bottom: 18px; }
+.hsec h4 { font-size: 12px; font-weight: 900; color: var(--accent-ink); letter-spacing: .04em; margin-bottom: 6px; display: flex; gap: 6px; align-items: center; }
+.hsec p, .hsec li { color: #4a413b; line-height: 1.65; }
+.hsec ul { padding-left: 18px; }
+.kv { display: grid; grid-template-columns: 90px 1fr; gap: 4px 10px; font-size: 13px; }
+.kv b { color: var(--muted); font-weight: 700; }
+.kv code, .hsec code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; background: #f4f0ec; padding: 1px 6px; border-radius: 6px; }
+.prompt { position: relative; background: #1f1a17; color: #f5eee6; border-radius: 14px; padding: 14px 14px 14px; font-size: 13px; line-height: 1.65; white-space: pre-wrap; word-break: break-word; }
+.prompt .cp { position: absolute; top: 8px; right: 8px; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.14); color: #fff; font-size: 11px; font-weight: 700; }
+.prompt .cp:hover { background: var(--accent); }
+.cmd { position: relative; background: #0f172a; color: #e2e8f0; border-radius: 12px; padding: 12px 70px 12px 14px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; line-height: 1.6; white-space: pre-wrap; word-break: break-all; margin: 6px 0 10px; }
+.cmd .cp { position: absolute; top: 8px; right: 8px; padding: 3px 9px; border-radius: 999px; background: rgba(255,255,255,.14); color: #fff; font-size: 11px; font-weight: 700; font-family: var(--font); }
+.step { display: grid; grid-template-columns: 34px 1fr; gap: 10px; margin-bottom: 18px; }
+.step .n { width: 30px; height: 30px; border-radius: 10px; background: var(--accent); color: #fff; font-family: var(--display); display: grid; place-items: center; font-size: 16px; }
+.step h5 { font-size: 15px; font-weight: 900; margin: 4px 0 4px; }
+.step p { font-size: 13px; color: #4a413b; }
+.step .note { font-size: 12px; color: var(--muted); background: #fbf5ef; padding: 8px 10px; border-radius: 10px; margin-top: 6px; }
+.tabs2 { display: flex; gap: 6px; margin-bottom: 14px; }
+.tabs2 button { padding: 6px 12px; border-radius: 999px; background: var(--faint); font-size: 12px; font-weight: 700; color: var(--muted); }
+.tabs2 button.on { background: var(--ink); color: #fff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ── 상단 ── -->
+  <header class="top">
+    <div class="brand">
+      <h1 id="title">우리 반 <em>홈페이지</em></h1>
+      <div class="sub"><span class="date" id="dateLabel"></span><span id="welcome"></span></div>
+    </div>
+    <div class="tools">
+      <label class="chip-btn" title="이름을 고르면 내 역할이 표시되고 체크인·과제에 쓰여요">👤
+        <select id="meSelect"><option value="">이름 선택</option></select>
+      </label>
+      <button class="chip-btn" id="teacherBtn">🧑‍🏫 선생님</button>
+      <button class="chip-btn accent" id="howtoBtn">🛠 이거 어떻게 만들었어요?</button>
+    </div>
+  </header>
+
+  <div class="banner" id="demoBanner"><b>샘플 데이터 데모</b>예요. 실제 홈페이지는 구글 시트에 연결되어 우리 반 급식·명단·체크인이 살아 움직여요. 오른쪽 위 <b>🛠 이거 어떻게 만들었어요?</b>를 눌러 카드마다 만든 방법을 확인해 보세요.</div>
+
+  <!-- ── 카드 그리드 ── -->
+  <main class="grid">
+
+    <section class="card c4" data-howto="meal">
+      <span class="how-badge">? 어떻게 만들었지</span>
+      <div class="card-h"><h2><span class="ico">🍱</span>오늘의 급식</h2>
+        <div class="nav"><button data-nav="meal:-1">‹</button><span class="lbl" id="mealDate"></span><button data-nav="meal:1">›</button><button class="txt" data-nav="meal:0">오늘</button></div></div>
+      <div class="card-b" id="mealBody"><div class="skeleton"></div><div class="skeleton" style="width:70%"></div><div class="skeleton" style="width:85%"></div></div>
+      <div class="card-f"><span>출처: 나이스 교육정보 개방포털</span><span id="mealCal"></span></div>
+    </section>
+
+    <section class="card c4" data-howto="timetable">
+      <span class="how-badge">? 어떻게 만들었지</span>
+      <div class="card-h"><h2><span class="ico">📅</span>시간표</h2>
+        <div class="nav"><button data-nav="tt:-1">‹</button><span class="lbl" id="ttDate"></span><button data-nav="tt:1">›</button><button class="txt" data-nav="tt:0">오늘</button></div></div>
+      <div class="card-b" id="ttBody"><div class="skeleton"></div><div class="skeleton" style="width:60%"></div><div class="skeleton" style="width:80%"></div></div>
+      <div class="card-f"><span id="ttMeta">우리 반 시간표</span></div>
+    </section>
+
+    <section class="card c4" data-howto="schedule">
+      <span class="how-badge">? 어떻게 만들었지</span>
+      <div class="card-h"><h2><span class="ico">🗓️</span>학사일정</h2>
+        <div class="nav"><button data-nav="sch:-1">‹</button><span class="lbl" id="schMonth"></span><button data-nav="sch:1">›</button></div></div>
+      <div class="card-b" id="schBody"><div class="skeleton"></div><div class="skeleton" style="width:75%"></div><div class="skeleton" style="width:55%"></div></div>
+      <div class="card-f"><span>진한 칸 = 우리 학년 행사</span></div>
+    </section>
+
+    <section class="card c5" data-howto="roles">
+      <span class="how-badge">? 어떻게 만들었지</span>
+      <div class="card-h"><h2><span class="ico">🧹</span>오늘의 1인 1역</h2><span class="lbl" id="roleMeta" style="font-size:12px;color:var(--muted)"></span></div>
+      <div class="card-b"><ul class="roles" id="roleList"></ul><div class="rest" id="roleRest"></div></div>
+    </section>
+
+    <section class="card c7" data-howto="emotion">
+      <span class="how-badge">? 어떻게 만들었지</span>
+      <div class="card-h"><h2><span class="ico">💗</span>감정 체크인</h2><span id="emoWho" style="font-size:12px;color:var(--muted)"></span></div>
+      <div class="card-b">
+        <div class="emo-grid" id="emoGrid"></div>
+        <div class="row">
+          <input class="inp" id="emoNote" maxlength="100" placeholder="한마디 (선택) — 선생님만 볼 수 있어요" />
+          <button class="btn" id="emoSubmit">체크인 ✔</button>
+        </div>
+        <div class="mood">
+          <h3><span>오늘 우리 반 기분</span><span id="moodTotal"></span></h3>
+          <div class="bars" id="moodBars"></div>
+          <div class="detail" id="moodDetail"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card c6" data-howto="picker">
+      <span class="how-badge">? 어떻게 만들었지</span>
+      <div class="card-h"><h2><span class="ico">🎲</span>랜덤 뽑기</h2>
+        <div class="tabs" id="pickTabs"><button data-mode="one" class="on">한 명</button><button data-mode="many">여러 명</button><button data-mode="group">모둠</button></div></div>
+      <div class="card-b">
+        <div class="stage" id="stage"><div><div class="big" id="stageBig">?</div><div class="hint" id="stageHint">버튼을 눌러 뽑아 보세요</div></div><div class="confetti" id="confetti"></div></div>
+        <div class="row" style="justify-content:space-between">
+          <div class="opt">
+            <label id="optCount" hidden>인원 <input type="number" id="pickCount" min="2" max="10" value="3" /></label>
+            <label id="optSize" hidden>모둠 인원 <input type="number" id="groupSize" min="2" max="8" value="4" /></label>
+            <label><input type="checkbox" id="noRepeat" checked /> 뽑힌 사람 제외</label>
+            <button class="btn ghost sm" id="pickReset">초기화</button>
+          </div>
+          <button class="btn" id="pickBtn">뽑기!</button>
+        </div>
+      </div>
+      <div class="card-f"><span id="pickMeta"></span></div>
+    </section>
+
+    <section class="card c6" data-howto="assign">
+      <span class="how-badge">? 어떻게 만들었지</span>
+      <div class="card-h"><h2><span class="ico">📝</span>과제 확인</h2><span id="asgWho" style="font-size:12px;color:var(--muted)"></span></div>
+      <div class="card-b"><ul class="asg" id="asgList"></ul></div>
+    </section>
+
+    <section class="card" data-howto="notice" style="min-height:auto">
+      <span class="how-badge">? 어떻게 만들었지</span>
+      <div class="card-h"><h2><span class="ico">📣</span>알림장</h2></div>
+      <div class="card-b"><div class="notices" id="noticeList"></div></div>
+    </section>
+  </main>
+
+  <footer>
+    이 홈페이지는 <b>구글 시트 1개 + Apps Script</b>로 만들어졌어요. 서버도, 비용도 없어요.<br />
+    <button id="guideBtn2">처음부터 만드는 순서 보기</button> · <a id="repoLink" href="https://github.com/shineonyou1274/three_types/tree/main/class-homepage" target="_blank" rel="noopener">코드 가져가기 (GitHub)</a>
+    <div id="verLabel" style="font-size:11px;margin-top:6px"></div>
+  </footer>
+</div>
+
+<!-- 만드는 법 모드 하단 바 -->
+<div class="howbar"><b>🛠 만드는 법 모드</b><span>카드를 눌러 보세요</span><button class="hl" id="guideBtn">처음부터 만드는 순서</button><button id="promptsBtn">요청 문장 모음</button><button id="howtoOff">끄기</button></div>
+
+<!-- 만드는 법 서랍 -->
+<aside class="drawer" id="drawer">
+  <div class="drawer-h"><h3 id="drawerTitle">만드는 법</h3><button id="drawerClose">✕</button></div>
+  <div class="drawer-b" id="drawerBody"></div>
+</aside>
+
+<!-- 모달 -->
+<div class="modal" id="modal"><div class="box" id="modalBox"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   0. 서버 호출 — Apps Script 안이면 google.script.run, 아니면 데모 데이터
+   ═══════════════════════════════════════════════════════════ */
+const IS_DEMO = !(window.google && google.script && google.script.run);
+
+function call(action, payload) {
+  if (IS_DEMO) return DEMO.handle(action, payload || {});
+  return new Promise((resolve, reject) => {
+    google.script.run
+      .withSuccessHandler(res => res && res.ok ? resolve(res.data) : reject(new Error(res && res.error || '알 수 없는 오류')))
+      .withFailureHandler(err => reject(err))
+      .api(action, payload || {});
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   1. 상태
+   ═══════════════════════════════════════════════════════════ */
+const state = {
+  today: fmt(new Date()), config: {}, students: [], emotions: [],
+  mealDate: null, ttDate: null, schMonth: null,
+  me: null, teacherPin: null, emotion: null,
+  pickMode: 'one', picked: new Set(), assignments: [], myDone: {},
+};
+const $ = s => document.querySelector(s);
+const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
+function fmt(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+function parse(s) { const m = s.split('-'); return new Date(+m[0], +m[1] - 1, +m[2]); }
+function addDays(s, n) { const d = parse(s); d.setDate(d.getDate() + n); return fmt(d); }
+function human(s) { const d = parse(s); return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + WEEK[d.getDay()] + ')'; }
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2200); }
+function store(k, v) { try { v === undefined ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+function load(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
+function copyText(text, btn) {
+  const done = () => { if (btn) { const o = btn.textContent; btn.textContent = '복사됨 ✓'; setTimeout(() => btn.textContent = o, 1500); } toast('복사했어요'); };
+  if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done).catch(() => fallback()); } else fallback();
+  function fallback() { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = 0; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) { toast('복사 실패 — 직접 드래그해 주세요'); } ta.remove(); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   2. 첫 로딩
+   ═══════════════════════════════════════════════════════════ */
+async function boot() {
+  if (IS_DEMO) $('#demoBanner').classList.add('show');
+  state.mealDate = state.ttDate = state.today;
+  state.schMonth = state.today.slice(0, 7);
+  $('#dateLabel').textContent = human(state.today);
+  try {
+    const b = await call('bootstrap');
+    state.today = b.today; state.config = b.config; state.students = b.students; state.emotions = b.emotions;
+    state.mealDate = state.ttDate = b.today; state.schMonth = b.today.slice(0, 7);
+    applyConfig(b.config);
+    renderMe();
+    renderRoles(b.roles);
+    renderEmotions();
+    renderMood(b.emotionSummary);
+    renderAssignments(b.assignments);
+    renderNotices(b.notices);
+    $('#verLabel').textContent = 'v' + b.version + (IS_DEMO ? ' · demo' : '');
+    if (b.neisReady || IS_DEMO) { loadMeal(); loadTimetable(); loadSchedule(); }
+    else { const msg = '<div class="empty">설정 시트에 학교코드가 없어요<small>시트 메뉴 &gt; 🏫 학급 홈피 &gt; NEIS 학교코드 찾기</small></div>'; $('#mealBody').innerHTML = msg; $('#ttBody').innerHTML = msg; $('#schBody').innerHTML = msg; }
+  } catch (e) { toast('불러오기 실패: ' + e.message); console.error(e); }
+}
+
+function applyConfig(c) {
+  if (c['테마색'] && /^#[0-9a-f]{6}$/i.test(c['테마색'])) document.documentElement.style.setProperty('--accent', c['테마색']);
+  const name = c['학급이름'] || '우리 반';
+  $('#title').innerHTML = esc(name) + ' <em>홈페이지</em>';
+  document.title = name + ' 홈페이지';
+  $('#welcome').textContent = c['환영문구'] || '';
+  $('#dateLabel').textContent = human(state.today);
+  $('#ttMeta').textContent = (c['학교이름'] ? c['학교이름'] + ' ' : '') + (c['학년'] || '') + '학년 ' + (c['반'] || '') + '반';
+}
+
+/* ── 내 이름 선택 (체크인·과제·역할 강조에 공통 사용) ── */
+function renderMe() {
+  const sel = $('#meSelect');
+  sel.innerHTML = '<option value="">이름 선택</option>' + state.students.map(s => `<option value="${esc(s.name)}">${s.number}. ${esc(s.name)}</option>`).join('');
+  const saved = load('me');
+  if (saved && state.students.some(s => s.name === saved)) sel.value = saved;
+  state.me = sel.value || null;
+  sel.onchange = () => { state.me = sel.value || null; store('me', state.me || undefined); state.myDone = load('done:' + state.me) || {}; updateMeLabels(); };
+  state.myDone = load('done:' + state.me) || {};
+  updateMeLabels();
+}
+function updateMeLabels() {
+  const t = state.me ? state.me + ' 님' : '👤 위에서 이름을 골라 주세요';
+  $('#emoWho').textContent = t; $('#asgWho').textContent = t;
+  document.querySelectorAll('#roleList li').forEach(li => li.classList.toggle('me', li.dataset.name === state.me));
+  renderAssignments(state.assignments);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   3. 나이스 카드 — 급식 / 시간표 / 학사일정
+   ═══════════════════════════════════════════════════════════ */
+async function loadMeal() {
+  $('#mealDate').textContent = human(state.mealDate); $('#mealCal').textContent = '';
+  const body = $('#mealBody'); body.innerHTML = '<div class="skeleton"></div><div class="skeleton" style="width:70%"></div>';
+  try {
+    const r = await call('meal', { date: state.mealDate });
+    if (!r.meals.length) { body.innerHTML = '<div class="empty">이 날은 급식이 없어요 🍃<small>주말·방학이거나 아직 식단이 안 올라왔어요</small></div>'; return; }
+    body.innerHTML = r.meals.map(m => `<span class="meal-type">${esc(m.type)}</span><ul class="dishes">${m.dishes.map((d, i) => `<li><span>${esc(d)}</span>${m.allergens[i] ? `<small title="알레르기 정보">${esc(m.allergens[i])}</small>` : ''}</li>`).join('')}</ul>`).join('');
+    $('#mealCal').textContent = r.meals[0].cal || '';
+  } catch (e) { body.innerHTML = `<div class="empty">급식을 못 불러왔어요<small>${esc(e.message)}</small></div>`; }
+}
+async function loadTimetable() {
+  $('#ttDate').textContent = human(state.ttDate);
+  const body = $('#ttBody'); body.innerHTML = '<div class="skeleton"></div><div class="skeleton" style="width:60%"></div>';
+  try {
+    const rows = await call('timetable', { date: state.ttDate });
+    if (!rows.length) { body.innerHTML = '<div class="empty">시간표가 없어요 🍃<small>주말이거나 나이스에 아직 등록 전이에요</small></div>'; return; }
+    const nowP = state.ttDate === state.today ? currentPeriod() : -1;
+    body.innerHTML = '<ul class="tt">' + rows.map(p => `<li class="${p.period === nowP ? 'now' : ''}"><span class="p">${p.period}</span><span>${esc(p.subject)}</span></li>`).join('') + '</ul>';
+  } catch (e) { body.innerHTML = `<div class="empty">시간표를 못 불러왔어요<small>${esc(e.message)}</small></div>`; }
+}
+function currentPeriod() { // 대략적인 초등 기준 교시 (9:00 시작 40분 수업 10분 쉬는 시간)
+  const m = new Date().getHours() * 60 + new Date().getMinutes();
+  const starts = [540, 590, 640, 700, 750, 840, 890];
+  for (let i = starts.length - 1; i >= 0; i--) if (m >= starts[i] && m < starts[i] + 45) return i + 1;
+  return -1;
+}
+async function loadSchedule() {
+  const [y, mo] = state.schMonth.split('-').map(Number);
+  $('#schMonth').textContent = y + '년 ' + mo + '월';
+  const from = state.schMonth + '-01', to = fmt(new Date(y, mo, 0));
+  const body = $('#schBody'); body.innerHTML = '<div class="skeleton"></div><div class="skeleton" style="width:75%"></div>';
+  try {
+    const rows = await call('schedule', { from, to });
+    if (!rows.length) { body.innerHTML = '<div class="empty">이 달 등록된 행사가 없어요</div>'; return; }
+    body.innerHTML = '<ul class="sched">' + rows.map(r => { const d = parse(r.date); return `<li class="${r.mine ? 'mine' : ''} ${r.date === state.today ? 'today' : ''}"><span class="d">${d.getDate()}일<small>${WEEK[d.getDay()]}요일</small></span><span class="n">${esc(r.name)}${r.content ? `<small>${esc(r.content)}</small>` : ''}</span></li>`; }).join('') + '</ul>';
+    const t = body.querySelector('.today'); if (t) t.scrollIntoView({ block: 'nearest' });
+  } catch (e) { body.innerHTML = `<div class="empty">학사일정을 못 불러왔어요<small>${esc(e.message)}</small></div>`; }
+}
+document.querySelectorAll('[data-nav]').forEach(b => b.addEventListener('click', () => {
+  const [k, n] = b.dataset.nav.split(':'); const step = Number(n);
+  if (k === 'meal') { state.mealDate = step ? addDays(state.mealDate, step) : state.today; loadMeal(); }
+  if (k === 'tt') { state.ttDate = step ? addDays(state.ttDate, step) : state.today; loadTimetable(); }
+  if (k === 'sch') { const [y, m] = state.schMonth.split('-').map(Number); const d = new Date(y, m - 1 + step, 1); state.schMonth = fmt(d).slice(0, 7); loadSchedule(); }
+}));
+
+/* ═══════════════════════════════════════════════════════════
+   4. 1인 1역
+   ═══════════════════════════════════════════════════════════ */
+function renderRoles(r) {
+  const ul = $('#roleList');
+  if (!r.items.length) { ul.innerHTML = '<li class="empty">역할 시트가 비어 있어요</li>'; return; }
+  ul.innerHTML = r.items.map(it => `<li data-name="${esc(it.name)}" class="${it.name === state.me ? 'me' : ''}"><span class="e">${it.emoji}</span><span><span class="nm">${esc(it.name)}</span><br /><span class="r">${esc(it.role)}${it.fixed ? ' · 고정' : ''}</span></span></li>`).join('');
+  $('#roleRest').textContent = r.rest.length ? '🌿 오늘 쉬는 친구: ' + r.rest.join(', ') : '';
+  $('#roleMeta').textContent = (r.cycle === '매주' ? '매주' : '매일') + ' 바뀜 · ' + (r.index + 1) + '번째 순환';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   5. 감정 체크인
+   ═══════════════════════════════════════════════════════════ */
+function renderEmotions() {
+  const g = $('#emoGrid');
+  g.innerHTML = state.emotions.map(e => `<button class="emo" data-k="${e.key}"><span class="x">${e.emoji}</span><span class="k">${e.key}</span></button>`).join('');
+  g.querySelectorAll('.emo').forEach(b => b.onclick = () => { state.emotion = b.dataset.k; g.querySelectorAll('.emo').forEach(x => x.classList.toggle('sel', x === b)); });
+}
+$('#emoSubmit').onclick = async () => {
+  if (!state.me) return toast('먼저 위에서 이름을 골라 주세요 👤');
+  if (!state.emotion) return toast('오늘 기분을 하나 골라 주세요');
+  const btn = $('#emoSubmit'); btn.disabled = true;
+  try {
+    const st = state.students.find(s => s.name === state.me) || {};
+    const sum = await call('submitEmotion', { name: state.me, number: st.number, emotion: state.emotion, note: $('#emoNote').value });
+    renderMood(sum); $('#emoNote').value = '';
+    toast('체크인 완료! ' + (state.emotions.find(e => e.key === state.emotion) || {}).emoji);
+    if (state.teacherPin) loadMoodDetail();
+  } catch (e) { toast(e.message); } finally { btn.disabled = false; }
+};
+function renderMood(sum) {
+  $('#moodTotal').textContent = sum.total + '명 체크인';
+  const max = Math.max(1, ...Object.values(sum.counts));
+  $('#moodBars').innerHTML = state.emotions.map(e => `<div class="bar"><span>${e.emoji}</span><span class="t"><i style="width:${(sum.counts[e.key] || 0) / max * 100}%;background:${e.color}"></i></span><span class="c">${sum.counts[e.key] || 0}</span></div>`).join('');
+}
+async function loadMoodDetail() {
+  if (!state.teacherPin) return;
+  try {
+    const rows = await call('emotionDetail', { pin: state.teacherPin, date: state.today });
+    const em = k => (state.emotions.find(e => e.key === k) || {}).emoji || '';
+    $('#moodDetail').innerHTML = '<h3 style="font-size:12px;color:var(--muted);margin:6px 0 4px">🧑‍🏫 선생님만 보는 상세</h3>' + (rows.length ? rows.map(r => `<div><span>${em(r.emotion)}</span><b>${esc(r.name)}</b><span>${esc(r.note)}</span><small>${esc(r.time)}</small></div>`).join('') : '<div>아직 체크인이 없어요</div>');
+  } catch (e) { toast(e.message); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   6. 과제 확인
+   ═══════════════════════════════════════════════════════════ */
+function renderAssignments(list) {
+  state.assignments = list || [];
+  const ul = $('#asgList');
+  if (!state.assignments.length) { ul.innerHTML = '<li class="empty">지금은 과제가 없어요 🎉</li>'; return; }
+  ul.innerHTML = state.assignments.map(a => {
+    const dd = a.dday == null ? '' : a.dday < 0 ? '지남' : a.dday === 0 ? 'D-Day' : 'D-' + a.dday;
+    const mine = state.myDone[a.title];
+    return `<li class="${a.dday != null && a.dday <= 1 && !mine ? 'urgent' : ''} ${mine ? 'done' : ''}">
+      <div><div class="t"><span class="subj">${esc(a.subject)}</span>${esc(a.title)}</div><div class="desc">${esc(a.desc)}${a.link ? `<a href="${esc(a.link)}" target="_blank" rel="noopener">링크 ↗</a>` : ''}${a.due ? ' · 마감 ' + esc(a.due) : ''}</div></div>
+      <div class="act"><span class="dday ${a.dday < 0 ? 'late' : a.dday === 0 ? 'today' : ''}">${dd}</span>
+        <button class="btn sm ${mine ? 'ghost' : ''}" data-done="${esc(a.title)}">${mine ? '완료 ✓' : '다 했어요'}</button>
+        <span class="cnt">${a.doneCount}명 완료</span>${state.teacherPin ? `<button class="btn ghost sm" data-status="${esc(a.title)}">현황</button>` : ''}</div></li>`;
+  }).join('');
+  ul.querySelectorAll('[data-done]').forEach(b => b.onclick = async () => {
+    if (!state.me) return toast('먼저 위에서 이름을 골라 주세요 👤');
+    const title = b.dataset.done; const st = state.students.find(s => s.name === state.me) || {};
+    b.disabled = true;
+    try {
+      await call('checkAssignment', { title, name: state.me, number: st.number, status: '완료' });
+      state.myDone[title] = true; store('done:' + state.me, state.myDone);
+      const a = state.assignments.find(x => x.title === title); if (a) a.doneCount++;
+      renderAssignments(state.assignments); toast('기록했어요 ✅');
+    } catch (e) { toast(e.message); b.disabled = false; }
+  });
+  ul.querySelectorAll('[data-status]').forEach(b => b.onclick = async () => {
+    const rows = await call('assignmentStatus', { pin: state.teacherPin, title: b.dataset.status });
+    openModal(`<h3>📝 ${esc(b.dataset.status)}</h3><p>${rows.filter(r => r.status === '완료').length} / ${rows.length} 명 완료</p><div class="status-list">${rows.map(r => `<span class="${r.status === '완료' ? 'done' : r.status ? 'seen' : ''}">${r.number}. ${esc(r.name)}</span>`).join('')}</div>`);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   7. 알림장
+   ═══════════════════════════════════════════════════════════ */
+function renderNotices(list) {
+  $('#noticeList').innerHTML = list.length ? list.map(n => `<div class="notice ${n.pinned ? 'pin' : ''}">${n.pinned ? '📌 ' : ''}<b style="display:inline">${esc(n.title)}</b><p>${esc(n.body)}</p><small>${esc(n.date)}</small></div>`).join('') : '<div class="empty">공지가 없어요</div>';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   8. 랜덤 뽑기 (전부 브라우저에서 계산, 결과만 시트에 기록)
+   ═══════════════════════════════════════════════════════════ */
+$('#pickTabs').querySelectorAll('button').forEach(b => b.onclick = () => {
+  state.pickMode = b.dataset.mode;
+  $('#pickTabs').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+  $('#optCount').hidden = state.pickMode !== 'many'; $('#optSize').hidden = state.pickMode !== 'group';
+  $('#stageBig').textContent = '?'; $('#stageHint').textContent = { one: '한 명을 뽑아요', many: '여러 명을 한 번에', group: '모둠을 무작위로 짜요' }[state.pickMode];
+});
+$('#pickReset').onclick = () => { state.picked.clear(); updatePickMeta(); toast('뽑힌 목록을 비웠어요'); };
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function pool() { const all = state.students.map(s => s.name); return $('#noRepeat').checked && state.pickMode !== 'group' ? all.filter(n => !state.picked.has(n)) : all; }
+function updatePickMeta() { $('#pickMeta').textContent = state.picked.size ? '지금까지 뽑힌 ' + state.picked.size + '명: ' + [...state.picked].join(', ') : ''; }
+function confetti() { const c = $('#confetti'); c.innerHTML = ''; const em = ['🎉', '✨', '⭐', '🎈', '💫']; for (let i = 0; i < 18; i++) { const s = el('i', '', em[i % em.length]); s.style.left = Math.random() * 100 + '%'; s.style.animationDelay = Math.random() * .4 + 's'; c.appendChild(s); } setTimeout(() => c.innerHTML = '', 1800); }
+$('#pickBtn').onclick = () => {
+  const names = pool(); const big = $('#stageBig'); const btn = $('#pickBtn');
+  if (!state.students.length) return toast('학생 명단이 비어 있어요');
+  if (!names.length) return toast('모두 뽑혔어요! 초기화를 눌러 주세요');
+  btn.disabled = true; big.className = 'big rolling'; big.textContent = '';
+  let ticks = 0; const all = state.students.map(s => s.name);
+  const spin = setInterval(() => { big.textContent = all[Math.floor(Math.random() * all.length)]; if (++ticks > 14) { clearInterval(spin); settle(); } }, 80);
+  function settle() {
+    big.className = 'big'; let result, type;
+    if (state.pickMode === 'one') { result = [shuffle(names)[0]]; type = '한 명'; big.textContent = result[0]; $('#stageHint').textContent = '🎉 당첨!'; }
+    else if (state.pickMode === 'many') { const n = Math.min(+$('#pickCount').value || 3, names.length); result = shuffle(names).slice(0, n); type = n + '명'; big.innerHTML = '<div class="chips">' + result.map((r, i) => `<span class="chipx" style="animation-delay:${i * .08}s">${esc(r)}</span>`).join('') + '</div>'; $('#stageHint').textContent = ''; }
+    else { const size = Math.max(2, +$('#groupSize').value || 4); const sh = shuffle(all); const g = Math.ceil(sh.length / size); const groups = Array.from({ length: g }, () => []); sh.forEach((n, i) => groups[i % g].push(n)); result = groups.map((x, i) => (i + 1) + '모둠: ' + x.join(' ')); type = '모둠'; big.innerHTML = '<div class="groups">' + groups.map((x, i) => `<div class="group" style="animation-delay:${i * .07}s"><b>${i + 1}모둠</b>${x.map(n => `<span>${esc(n)}</span>`).join('')}</div>`).join('') + '</div>'; $('#stageHint').textContent = ''; }
+    if (state.pickMode !== 'group') result.forEach(n => state.picked.add(n));
+    updatePickMeta(); confetti(); btn.disabled = false;
+    call('logPick', { type, result }).catch(() => {});
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   9. 선생님 모드 (PIN은 서버에서만 검사)
+   ═══════════════════════════════════════════════════════════ */
+$('#teacherBtn').onclick = () => {
+  if (state.teacherPin) { state.teacherPin = null; $('#teacherBtn').classList.remove('on'); $('#moodDetail').innerHTML = ''; renderAssignments(state.assignments); return toast('선생님 모드를 껐어요'); }
+  openModal(`<h3>🧑‍🏫 선생님 모드</h3><p>설정 시트의 <b>교사PIN</b>을 입력하세요. 감정 체크인 상세와 과제 제출 현황이 보여요.</p><div class="row"><input class="inp" id="pinInput" type="password" inputmode="numeric" placeholder="PIN" /><button class="btn" id="pinOk">확인</button></div>`);
+  const go = async () => { const pin = $('#pinInput').value; try { const r = await call('teacherLogin', { pin }); if (!r.ok) return toast('PIN이 달라요'); state.teacherPin = pin; $('#teacherBtn').classList.add('on'); closeModal(); toast('선생님 모드 ON'); loadMoodDetail(); renderAssignments(state.assignments); } catch (e) { toast(e.message); } };
+  $('#pinOk').onclick = go; $('#pinInput').onkeydown = e => { if (e.key === 'Enter') go(); }; $('#pinInput').focus();
+};
+function openModal(html) { $('#modalBox').innerHTML = html; $('#modal').classList.add('show'); }
+function closeModal() { $('#modal').classList.remove('show'); }
+$('#modal').addEventListener('click', e => { if (e.target === $('#modal')) closeModal(); });
+
+/* ═══════════════════════════════════════════════════════════
+   10. "만드는 법 보기" 모드 — 각 카드가 어떻게 만들어졌는지 + 요청 문장
+   ═══════════════════════════════════════════════════════════ */
+const REPO = 'https://github.com/shineonyou1274/three_types/tree/main/class-homepage';
+const HOWTO = {
+  meal: {
+    title: '🍱 오늘의 급식', sheet: '설정 (시도교육청코드, 학교코드, NEIS_KEY)',
+    code: 'Neis.gs → getMeal()', api: 'NEIS mealServiceDietInfo (MLSV_YMD=날짜)',
+    how: ['화면이 아니라 <b>Apps Script(서버)</b>가 나이스에 요청해요. 그래서 인증키가 학생 화면에 노출되지 않아요.', '응답의 <code>DDISH_NM</code>은 <code>&lt;br/&gt;</code>로 메뉴가 붙어 와요. 그걸 잘라서 목록으로, 괄호 속 숫자(알레르기)는 따로 떼어 작게 보여줘요.', '같은 날짜 요청은 6시간 캐시해서 나이스 호출량을 아껴요.'],
+    prompt: '나이스 오픈API의 mealServiceDietInfo로 오늘 급식을 가져오는 Apps Script 함수를 만들어줘. 인증키와 학교코드는 "설정" 시트에서 읽고, 서버(UrlFetchApp)에서 호출해서 CacheService로 6시간 캐시해. DDISH_NM의 <br/>를 잘라 메뉴 배열로 만들고, 괄호 속 알레르기 숫자는 allergens 배열로 분리해줘. 프론트에는 날짜 ‹ › 버튼으로 전날/다음날을 볼 수 있게 해줘.',
+    tip: '설정 시트의 NEIS_KEY를 비우면 하루 5건 샘플만 나와요. open.neis.go.kr에서 무료로 발급받아 넣으세요.',
+  },
+  timetable: {
+    title: '📅 시간표', sheet: '설정 (학교급, 학년, 반)',
+    code: 'Neis.gs → getTimetable()', api: 'elsTimetable(초) / misTimetable(중) / hisTimetable(고)',
+    how: ['학교급마다 API 이름이 달라요. 설정 시트의 <b>학교급</b> 값으로 셋 중 하나를 골라요.', '<code>ALL_TI_YMD</code>(날짜) + <code>GRADE</code> + <code>CLASS_NM</code>으로 우리 반만 받아요.', '오늘 날짜면 현재 교시를 강조해요(9시 시작·40분 수업 기준, 코드에서 바꿀 수 있어요).'],
+    prompt: '나이스 시간표 API로 우리 반 오늘 시간표를 보여주는 카드를 만들어줘. 설정 시트의 학교급(초/중/고)에 따라 elsTimetable/misTimetable/hisTimetable 중 하나를 쓰고, GRADE·CLASS_NM·ALL_TI_YMD 파라미터로 요청해. PERIO 순서로 정렬하고 중복 교시는 하나만 남겨. 오늘이면 현재 교시를 강조해줘.',
+    tip: '중·고등학교는 반 이름이 "1"이 아니라 "01"처럼 올 수 있어요. 안 나오면 설정 시트의 반 값을 바꿔 보세요.',
+  },
+  schedule: {
+    title: '🗓️ 학사일정', sheet: '설정 (학교코드, 학년)',
+    code: 'Neis.gs → getSchedule()', api: 'NEIS SchoolSchedule (AA_FROM_YMD ~ AA_TO_YMD)',
+    how: ['한 달치를 한 번에 받아요(그 달 1일 ~ 말일).', '응답에 <code>ONE_GRADE_EVENT_YN</code>… 같은 학년별 해당 여부가 있어서, 우리 학년 행사만 진하게 칠해요.', '"토요휴업일"은 매주 나와서 지웠어요. 필요하면 Neis.gs의 filter 한 줄만 지우면 돼요.'],
+    prompt: '나이스 SchoolSchedule API로 이번 달 학사일정 카드를 만들어줘. AA_FROM_YMD~AA_TO_YMD로 한 달 범위를 요청하고, 설정 시트의 학년에 해당하는 *_GRADE_EVENT_YN이 Y인 행사는 mine=true로 표시해서 진하게 보여줘. 토요휴업일은 빼고, 월 이동 ‹ › 버튼도 달아줘.',
+    tip: '학년 플래그가 없는 행사는 전체 행사로 취급돼요.',
+  },
+  roles: {
+    title: '🧹 오늘의 1인 1역', sheet: '학생명단 + 역할 (+ 설정의 역할순환주기/시작일)',
+    code: 'Features.gs → getTodayRoles(), rotationIndex()', api: '없음 (시트만)',
+    how: ['<b>저장하지 않고 계산</b>해요. "시작일부터 오늘까지 수업일이 며칠째인가"를 세서 그 숫자만큼 명단을 밀어요. 그래서 어느 날짜를 봐도 같은 답이 나오고, 시트에 매일 쓰지 않아도 돼요.', '역할 시트에 <b>고정담당</b>을 적으면 그 역할은 순환에서 빠져요.', '역할이 학생 수보다 적으면 남는 친구는 "쉬는 날"로 표시해요.'],
+    prompt: '"역할" 시트(역할, 설명, 고정담당, 이모지)와 "학생명단" 시트로 오늘의 1인 1역을 만들어줘. 시트에 배정을 저장하지 말고, 설정 시트의 역할순환시작일부터 오늘까지 주말 뺀 수업일 수를 세서 그만큼 명단을 회전시켜 배정해. 고정담당이 있는 역할은 항상 그 사람. 역할순환주기가 "매주"면 주 단위로 바뀌게. 내 이름을 고르면 내 역할이 강조되게 해줘.',
+    tip: '학생이 전학 가면 학생명단의 활성을 N으로만 바꾸면 돼요. 순환 순서가 다시 계산돼요.',
+  },
+  emotion: {
+    title: '💗 감정 체크인', sheet: '감정체크인 (시각, 날짜, 번호, 이름, 감정, 한마디)',
+    code: 'Features.gs → submitEmotion(), getEmotionSummary(), getEmotionDetail()', api: '없음 (시트만)',
+    how: ['학생이 누르면 시트에 한 줄 <b>appendRow</b>. 같은 날 다시 누르면 그 줄을 덮어써요(하루 1개).', '학생 화면에는 <b>이름 없는 집계</b>만 보여요. 누가 어떤 기분인지는 선생님 PIN을 넣어야 보이고, PIN 검사는 서버에서만 해요.', '감정 목록(EMOTIONS)은 Features.gs 배열 하나예요. 이모지·이름·색을 마음대로 바꾸세요.'],
+    prompt: '감정 체크인 카드를 만들어줘. 8가지 감정을 이모지 버튼으로 고르고 한마디(선택)를 적어 "감정체크인" 시트에 저장해. 같은 날 같은 학생이 다시 하면 기존 행을 업데이트해. 학생 화면에는 이름 없이 감정별 막대그래프 집계만 보여주고, 설정 시트의 교사PIN으로 선생님 모드에 들어가면 누가 어떤 기분인지와 한마디를 볼 수 있게 해줘. PIN 검사는 반드시 서버에서 해.',
+    tip: '한마디 칸에 "선생님만 볼 수 있어요"라고 써 둔 게 중요해요. 아이들이 솔직해져요.',
+  },
+  picker: {
+    title: '🎲 랜덤 뽑기', sheet: '학생명단 (읽기) → 뽑기기록 (쓰기, 선택)',
+    code: 'index.html 안에서 계산 → Features.gs → logPick()', api: '없음',
+    how: ['뽑기는 <b>전부 브라우저에서</b> 해요(Math.random + 셔플). 서버는 결과만 기록해요. 그래서 빠르고, 시트 저장을 끄면(설정 뽑기기록저장=N) 완전히 오프라인처럼 동작해요.', '"뽑힌 사람 제외"는 브라우저 메모리에만 있어요. 새로고침하면 초기화.', '슬롯머신 효과는 80ms마다 이름을 바꿔 보여주는 setInterval 15번이 전부예요.'],
+    prompt: '학생명단 시트로 랜덤 뽑기 카드를 만들어줘. 탭 세 개: 한 명 / 여러 명(인원 입력) / 모둠(모둠 인원 입력). 뽑기는 브라우저에서 셔플로 처리하고, 이름이 빠르게 바뀌는 슬롯머신 효과 후 결과를 크게 보여줘. "뽑힌 사람 제외" 체크박스와 초기화 버튼, 이모지 폭죽 효과도 넣어줘. 결과는 설정 시트의 뽑기기록저장이 Y일 때만 "뽑기기록" 시트에 기록해.',
+    tip: '자리 뽑기, 발표 순서 정하기 같은 변형은 "여러 명" 탭에 인원을 전체로 넣으면 돼요.',
+  },
+  assign: {
+    title: '📝 과제 확인', sheet: '과제 (읽기) → 과제확인 (쓰기)',
+    code: 'Features.gs → getAssignments(), checkAssignment(), getAssignmentStatus()', api: '없음',
+    how: ['선생님은 <b>과제 시트에 한 줄</b> 적으면 끝(공개=Y). 마감일로 D-day를 계산하고 하루 남으면 빨갛게.', '학생이 "다 했어요"를 누르면 과제확인 시트에 기록. 몇 명이 완료했는지는 모두에게, <b>누가</b> 했는지는 선생님 모드에서만.', '마감 일주일이 지난 과제는 자동으로 사라져요.'],
+    prompt: '"과제" 시트(과제, 과목, 마감일, 설명, 링크, 공개)로 과제 확인 카드를 만들어줘. 마감일까지 D-day를 계산해서 정렬하고 D-1 이하는 빨간 강조. 학생이 "다 했어요"를 누르면 "과제확인" 시트에 이름과 상태를 기록하고(같은 과제는 덮어쓰기), 완료 인원 수를 보여줘. 선생님 모드에서는 과제별로 학생 전체 완료/미완료 현황표를 팝업으로 보여줘.',
+    tip: '링크 칸에 구글 클래스룸·패들렛 주소를 넣으면 "링크 ↗"가 생겨요.',
+  },
+  notice: {
+    title: '📣 알림장', sheet: '공지 (날짜, 제목, 내용, 고정)',
+    code: 'Features.gs → getNotices()', api: '없음',
+    how: ['가장 단순한 카드예요: 시트 한 줄 = 카드 한 장. 고정=Y면 맨 앞에 📌.', '새 기능을 만들 때 이 카드를 복사해서 시작하면 제일 쉬워요.'],
+    prompt: '"공지" 시트(날짜, 제목, 내용, 고정)를 읽어 알림장 카드를 만들어줘. 고정=Y는 맨 앞에 📌 표시, 나머지는 날짜 내림차순, 최대 8개.',
+    tip: '내용에 줄바꿈이 필요하면 시트 셀에서 Ctrl+Enter.',
+  },
+};
+
+const STEPS = [
+  { t: '준비물 (10분)', p: '구글 계정, 터미널(맥은 기본 터미널, 윈도우는 PowerShell), Node.js, 그리고 클로드(Claude Code 또는 claude.ai). 코드는 한 줄도 직접 안 써도 돼요 — 클로드에게 시키고, 붙여넣는 건 명령어뿐이에요.', c: 'npm install -g @googleworkspace/cli\ngws auth setup        # 처음 한 번: 구글 프로젝트 만들고 로그인\ngws auth login        # 다음부터는 이걸로', n: 'gws = 구글 워크스페이스 공식 CLI. 시트·드라이브·Apps Script를 터미널에서 다뤄요. 로그인 창에서 Sheets와 Apps Script 권한을 체크하세요.' },
+  { t: '시트 만들기', p: '홈페이지의 "데이터베이스"가 될 구글 시트를 하나 만들어요. 응답에 나오는 spreadsheetId를 복사해 두세요.', c: 'gws sheets spreadsheets create --json \'{"properties":{"title":"3학년 2반 홈페이지"}}\'' },
+  { t: '시트에 붙은 스크립트 만들기', p: 'parentId에 시트 ID를 넣으면 "시트 바인딩" 스크립트가 돼요(시트를 열면 메뉴가 생기는 그 방식). 응답의 scriptId를 복사.', c: 'gws script projects create --json \'{"title":"학급 홈페이지","parentId":"<SPREADSHEET_ID>"}\'', n: '"Apps Script API가 꺼져 있다"는 오류가 나면 script.google.com/home/usersettings 에서 켜고 다시.' },
+  { t: '코드 올리기', p: '이 홈페이지의 코드(파일 5개)를 받아 스크립트에 밀어 넣어요. +push는 폴더의 .gs/.html/appsscript.json을 전부 올려요.', c: 'git clone https://github.com/shineonyou1274/three_types.git\ncd three_types\ngws script +push --script <SCRIPT_ID> --dir class-homepage/src', n: '코드를 고치고 싶으면 클로드에게 "class-homepage/src를 열어서 ~를 바꿔줘" 하고 다시 +push 하면 끝.' },
+  { t: '시트 초기화 + 권한 승인', p: '시트를 브라우저에서 열면(새로고침) 상단에 🏫 학급 홈피 메뉴가 생겨요. "1) 시트 초기화"를 누르면 설정·학생명단·역할·감정체크인·과제·공지 시트가 예시와 함께 생겨요. 처음 한 번 구글 권한 승인 창이 떠요.', c: '', n: '이제 학생명단·역할·설정 시트를 우리 반에 맞게 고치세요. 특히 교사PIN!' },
+  { t: '나이스 연결', p: 'open.neis.go.kr 에서 인증키 발급(무료, 즉시) → 설정 시트 NEIS_KEY에 붙여넣기 → 메뉴 "2) NEIS 학교코드 찾기"에 학교 이름 입력 → "3) 연결 테스트"에서 오늘 급식이 뜨면 성공.', c: '' },
+  { t: '웹앱으로 배포 (URL 만들기)', p: '가장 쉬운 방법: 시트 메뉴 확장 프로그램 > Apps Script > 배포 > 새 배포 > 유형 "웹 앱" / 실행 "나" / 액세스 "모든 사용자". 터미널로 하고 싶으면 아래 두 줄.', c: 'gws script projects versions create --params \'{"scriptId":"<SCRIPT_ID>"}\' --json \'{"description":"v1"}\'\ngws script projects deployments create --params \'{"scriptId":"<SCRIPT_ID>"}\' --json \'{"versionNumber":1,"manifestFileName":"appsscript","description":"학급 홈피 v1"}\'', n: '응답의 entryPoints[].webApp.url 이 홈페이지 주소예요. 코드를 고친 뒤엔 versions create → deployments update(또는 새 배포)로 새 버전을 올려요.' },
+  { t: '내 것으로 만들기', p: '설정 시트에서 학급이름·테마색·환영문구를 바꾸면 바로 반영돼요. 기능을 더하고 싶으면 이 화면의 카드마다 있는 "요청 문장"을 클로드에게 그대로 붙여 넣고, "우리 반은 ~니까 ~로 바꿔줘"만 덧붙이세요.', c: '' },
+];
+
+const EXTRA_PROMPTS = [
+  ['처음 통째로 만들기', '구글 시트 하나에 바인딩된 Apps Script 웹앱으로 학급 홈페이지를 만들어줘. 시트가 데이터베이스이고 코드는 시트를 읽고 쓰기만 해. 카드: 오늘의 급식·시간표·학사일정(나이스 오픈API, 서버에서 호출+캐시), 오늘의 1인 1역(저장 없이 날짜로 계산), 감정 체크인(집계는 공개, 상세는 교사PIN), 랜덤 뽑기(브라우저 계산), 과제 확인(D-day, 완료 기록), 알림장. 프론트는 index.html 한 파일, 서버는 api(action, payload) 단일 진입점. "시트 초기화" 커스텀 메뉴로 모든 시트를 예시 데이터와 함께 만들어줘. 디자인은 밝고 따뜻하게, 설정 시트의 테마색 하나로 전체 색이 바뀌게.'],
+  ['gws CLI로 시트·스크립트 만들기', 'gws CLI로 "3학년 2반 홈페이지" 구글 시트를 만들고, 그 시트에 바인딩된 Apps Script 프로젝트를 만들어서 class-homepage/src 폴더의 코드를 push 해줘. 각 단계의 명령어와 응답에서 어떤 ID를 복사해야 하는지 알려줘.'],
+  ['기능 추가 예시 — 생일', '"학생명단" 시트에 생일 열을 추가하고, 이번 주 생일인 친구를 🎂 카드로 보여주는 기능을 index.html과 Features.gs에 추가해줘. 기존 카드 구조(card-h / card-b)와 api() 디스패처 방식을 그대로 따라줘.'],
+  ['기능 추가 예시 — 칭찬 스티커', '"칭찬" 시트(날짜, 이름, 이유)에 선생님 모드에서만 스티커를 줄 수 있고, 학생 화면에는 이름별 스티커 개수만 보이는 카드를 추가해줘.'],
+  ['디자인 바꾸기', 'index.html의 디자인 토큰(:root 변수)만 바꿔서 파스텔 민트 톤의 차분한 느낌으로 바꿔줘. 구조와 기능은 건드리지 마.'],
+  ['문제 해결', '급식 카드에 "NEIS ERROR-290" 이라고 떠. Neis.gs를 보고 원인과 해결 방법을 알려줘. (힌트: 인증키 문제)'],
+];
+
+const drawer = $('#drawer');
+function setHowto(on) { document.body.classList.toggle('howto', on); $('#howtoBtn').classList.toggle('on', on); if (!on) closeDrawer(); store('howto', on || undefined); }
+$('#howtoBtn').onclick = () => setHowto(!document.body.classList.contains('howto'));
+$('#howtoOff').onclick = () => setHowto(false);
+$('#drawerClose').onclick = closeDrawer;
+function closeDrawer() { drawer.classList.remove('show'); }
+function openDrawer(title, html) { $('#drawerTitle').textContent = title; $('#drawerBody').innerHTML = html; drawer.classList.add('show'); bindCopy(); }
+function bindCopy() { $('#drawerBody').querySelectorAll('[data-copy]').forEach(b => b.onclick = e => { e.stopPropagation(); copyText(b.parentElement.querySelector('[data-text]').textContent, b); }); }
+
+document.querySelectorAll('.card[data-howto]').forEach(card => card.addEventListener('click', e => {
+  if (!document.body.classList.contains('howto')) return;
+  if (e.target.closest('button, a, input, select, textarea, label')) return;
+  showHowto(card.dataset.howto);
+}));
+document.querySelectorAll('.how-badge').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); showHowto(b.closest('.card').dataset.howto); }));
+
+function showHowto(key) {
+  const h = HOWTO[key]; if (!h) return;
+  openDrawer(h.title, `
+    <div class="hsec"><h4>🧩 무엇으로 만들어졌나</h4>
+      <div class="kv"><b>읽는 시트</b><span>${h.sheet}</span><b>움직이는 코드</b><span><code>${esc(h.code)}</code></span><b>외부 API</b><span>${esc(h.api)}</span></div></div>
+    <div class="hsec"><h4>💡 만든 사람의 생각</h4><ul>${h.how.map(x => `<li>${x}</li>`).join('')}</ul></div>
+    <div class="hsec"><h4>🗣️ 클로드에게 이렇게 요청했어요</h4><div class="prompt"><button class="cp" data-copy>복사</button><span data-text>${esc(h.prompt)}</span></div>
+      <p style="font-size:12px;color:var(--muted);margin-top:6px">그대로 붙여 넣고 끝에 "우리 반은 ○○니까 ○○로" 한 줄만 더하면 내 것이 돼요.</p></div>
+    <div class="hsec"><h4>🔧 내 학급에 맞게 바꾸려면</h4><p>${h.tip}</p></div>
+    <div class="hsec"><a href="${REPO}" target="_blank" rel="noopener">코드 전체 보기 ↗</a></div>`);
+}
+function showGuide() {
+  openDrawer('📖 처음부터 만드는 순서', `
+    <div class="tabs2"><button class="on" data-t="steps">8단계</button><button data-t="prompts">요청 문장 모음</button></div>
+    <div id="tabSteps">${STEPS.map((s, i) => `<div class="step"><span class="n">${i + 1}</span><div><h5>${esc(s.t)}</h5><p>${s.p}</p>${s.c ? `<div class="cmd"><button class="cp" data-copy>복사</button><span data-text>${esc(s.c)}</span></div>` : ''}${s.n ? `<div class="note">${s.n}</div>` : ''}</div></div>`).join('')}</div>
+    <div id="tabPrompts" hidden>${promptsHtml()}</div>`);
+  $('#drawerBody').querySelectorAll('.tabs2 button').forEach(b => b.onclick = () => { $('#drawerBody').querySelectorAll('.tabs2 button').forEach(x => x.classList.toggle('on', x === b)); $('#tabSteps').hidden = b.dataset.t !== 'steps'; $('#tabPrompts').hidden = b.dataset.t !== 'prompts'; });
+}
+function promptsHtml() {
+  return `<p style="font-size:13px;color:var(--muted);margin-bottom:12px">복사해서 클로드에게 붙여 넣으세요. 카드별 요청 문장은 각 카드를 눌러 보세요.</p>` +
+    EXTRA_PROMPTS.map(([t, p]) => `<div class="hsec"><h4>${esc(t)}</h4><div class="prompt"><button class="cp" data-copy>복사</button><span data-text>${esc(p)}</span></div></div>`).join('');
+}
+$('#guideBtn').onclick = showGuide;
+$('#guideBtn2').onclick = () => { setHowto(true); showGuide(); };
+$('#promptsBtn').onclick = () => { openDrawer('🗣️ 요청 문장 모음', promptsHtml()); };
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDrawer(); closeModal(); } });
+if (load('howto')) setHowto(true);
+
+/* ═══════════════════════════════════════════════════════════
+   11. 데모 데이터 — google.script.run 이 없을 때(깃허브 페이지 등)만 쓰여요
+   ═══════════════════════════════════════════════════════════ */
+const DEMO = (() => {
+  const names = ['강하늘', '김도윤', '김서아', '김시우', '박지호', '박하린', '서준우', '송예린', '오수아', '윤재민', '이도현', '이서윤', '임하준', '장유나', '정민재', '조아인', '최은우', '한지우', '허다은', '홍시온'];
+  const roles = [['칠판 지킴이', '🧽'], ['우유 배달', '🥛'], ['창문 요정', '🪟'], ['식물 돌보미', '🌱'], ['책 정리', '📚'], ['전기 절약', '💡'], ['급식 도우미', '🍚'], ['분리수거', '♻️'], ['알림 전달', '📣'], ['사물함 점검', '🔒'], ['오늘의 응원', '📢'], ['청소 반장', '🧹']];
+  const EMO = [{ key: '신나요', emoji: '🤩', color: '#ffb703' }, { key: '좋아요', emoji: '😊', color: '#ff8fab' }, { key: '편안해요', emoji: '😌', color: '#8ecae6' }, { key: '그저그래요', emoji: '😐', color: '#adb5bd' }, { key: '피곤해요', emoji: '😴', color: '#b8b8ff' }, { key: '걱정돼요', emoji: '😰', color: '#a2d2ff' }, { key: '슬퍼요', emoji: '😢', color: '#90a4ae' }, { key: '화나요', emoji: '😠', color: '#ff6b6b' }];
+  const today = fmt(new Date());
+  const emotionRows = [['강하늘', '신나요', ''], ['김서아', '좋아요', '오늘 체육!'], ['박지호', '좋아요', ''], ['송예린', '편안해요', ''], ['이도현', '피곤해요', '늦게 잤어요'], ['장유나', '좋아요', ''], ['최은우', '걱정돼요', '받아쓰기…'], ['홍시온', '신나요', '']].map(r => ({ name: r[0], emotion: r[1], note: r[2], time: '08:' + (30 + Math.floor(Math.random() * 25)) }));
+  const doneLog = { '수학 익힘책 42~43쪽': ['강하늘', '김도윤', '박하린', '오수아', '이서윤', '정민재', '허다은'], '독서록 1편': ['김서아', '송예린', '조아인'], '식물 관찰 일지': [] };
+  const menus = [['현미밥', '미역국', '제육볶음 (5.6.10)', '배추김치 (9)', '요구르트 (2)'], ['카레라이스 (1.2.5.6.10)', '유부장국 (5.6)', '치킨너겟 (1.2.5.6)', '깍두기 (9)', '방울토마토'], ['잡곡밥', '된장찌개 (5.6)', '고등어구이', '시금치나물', '사과'], ['김치볶음밥 (9.10)', '계란국 (1)', '떡갈비 (5.6.10)', '오이무침', '바나나우유 (2)'], ['보리밥', '순두부찌개 (5.6)', '닭갈비 (5.6.13)', '콩나물무침', '포도']];
+  const subjects = { 1: ['국어', '수학', '체육', '통합', '통합', '창체'], 2: ['수학', '국어', '영어', '과학', '음악', ''], 3: ['국어', '사회', '수학', '미술', '미술', '체육'], 4: ['영어', '수학', '국어', '과학', '체육', ''], 5: ['국어', '수학', '도덕', '음악', '창체', ''] };
+  const dayIdx = (s) => { const d = parse(s); const start = new Date(d.getFullYear(), 2, 2); let c = 0; const x = new Date(start); while (x < d) { x.setDate(x.getDate() + 1); if (x.getDay() % 6) c++; } return c; };
+  const rolesFor = (s) => { const idx = dayIdx(s); const items = roles.map((r, i) => ({ role: r[0], emoji: r[1], desc: '', name: names[(i + idx) % names.length], fixed: false })); const used = new Set(items.map(i => i.name)); return { date: s, items, rest: names.filter(n => !used.has(n)), index: idx, cycle: '매일' }; };
+  const summary = () => { const counts = {}; EMO.forEach(e => counts[e.key] = 0); emotionRows.forEach(r => counts[r.emotion]++); return { date: today, total: emotionRows.length, counts, checked: emotionRows.map(r => r.name) }; };
+  const assignments = () => [['수학 익힘책 42~43쪽', '수학', 2, '3단원 나눗셈 복습'], ['독서록 1편', '국어', 5, '이번 주 읽은 책 한 권'], ['식물 관찰 일지', '과학', 9, '강낭콩 사진 + 한 줄 기록']].map(a => ({ title: a[0], subject: a[1], due: addDays(today, a[2]), dday: a[2], desc: a[3], link: '', doneCount: doneLog[a[0]].length }));
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  return {
+    async handle(action, p) {
+      await sleep(250 + Math.random() * 300);
+      switch (action) {
+        case 'bootstrap': return { version: '1.0.0', today, config: { '학급이름': '3학년 2반 햇살반', '환영문구': '오늘도 반가워요! 🌞', '테마색': '#ff7a59', '학교이름': '햇살초등학교', '학년': '3', '반': '2' }, students: names.map((n, i) => ({ number: i + 1, name: n, group: Math.floor(i / 4) + 1 })), roles: rolesFor(today), notices: [{ date: today, title: '홈페이지가 열렸어요', body: '우리 반 홈페이지에 오신 것을 환영해요. 아침에 감정 체크인부터!', pinned: true }, { date: today, title: '체육복 챙기기', body: '이번 주 목요일은 체육 두 시간이에요.', pinned: false }, { date: addDays(today, -1), title: '우유 신청', body: '2학기 우유 신청서는 금요일까지.', pinned: false }], assignments: assignments(), emotionSummary: summary(), emotions: EMO, neisReady: true };
+        case 'meal': { const d = parse(p.date); if (d.getDay() % 6 === 0) return { date: p.date, meals: [] }; const items = menus[d.getDate() % menus.length]; return { date: p.date, meals: [{ type: '중식', dishes: items.map(s => s.replace(/\s*\([\d.]+\)/, '')), allergens: items.map(s => (s.match(/\(([\d.]+)\)/) || [, ''])[1]), cal: '612.4 Kcal' }] }; }
+        case 'timetable': { const w = parse(p.date).getDay(); if (w % 6 === 0) return []; return (subjects[w] || []).map((s, i) => ({ period: i + 1, subject: s })).filter(x => x.subject); }
+        case 'schedule': { const [y, m] = p.from.split('-').map(Number); const mk = (d, n, mine, c) => ({ date: fmt(new Date(y, m - 1, d)), name: n, mine, content: c || '' }); return [mk(3, '학부모 상담주간', true), mk(3, '전교 임원 선거', false), mk(10, '현장체험학습', true, '3학년 — 과학관'), mk(15, '학교 자율 휴업일', true), mk(18, '독서 골든벨', true), mk(24, '학예회 준비', false), mk(28, '3학년 받아쓰기 대회', true)].filter(e => parse(e.date).getMonth() === m - 1); }
+        case 'todayRoles': return rolesFor(p.date || today);
+        case 'submitEmotion': { const i = emotionRows.findIndex(r => r.name === p.name); const row = { name: p.name, emotion: p.emotion, note: p.note || '', time: new Date().toTimeString().slice(0, 5) }; if (i >= 0) emotionRows[i] = row; else emotionRows.push(row); return summary(); }
+        case 'emotionSummary': return summary();
+        case 'emotionDetail': if (p.pin !== '1234') throw new Error('선생님 PIN이 맞지 않아요.'); return emotionRows.slice();
+        case 'assignments': return assignments();
+        case 'checkAssignment': { const l = doneLog[p.title] || (doneLog[p.title] = []); if (!l.includes(p.name)) l.push(p.name); return { title: p.title, name: p.name, status: '완료' }; }
+        case 'assignmentStatus': if (p.pin !== '1234') throw new Error('선생님 PIN이 맞지 않아요.'); return names.map((n, i) => ({ number: i + 1, name: n, status: (doneLog[p.title] || []).includes(n) ? '완료' : '' }));
+        case 'logPick': return { saved: false };
+        case 'teacherLogin': return { ok: p.pin === '1234' };
+        default: throw new Error('데모에 없는 action: ' + action);
+      }
+    },
+  };
+})();
+
+boot();
+</script>
+</body>
+</html>
